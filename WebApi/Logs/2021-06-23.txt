@@ -1,0 +1,9 @@
+2021-06-23 10:22:26.8207 Error Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Object -> GrupoPermissao
+System.Object -> Domain.Identity.Entities.GrupoPermissao
+2021-06-23 10:26:40.8956 Error An error occurred while updating the entries. See the inner exception for details.
+2021-06-23 11:24:18.8333 Error The instance of entity type 'GrupoPermissao' cannot be tracked because another instance with the same key value for {'IdGrupoPermissao'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+2021-06-23 11:26:37.5440 Error The instance of entity type 'GrupoPermissao' cannot be tracked because another instance with the same key value for {'IdGrupoPermissao'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+2021-06-23 12:20:12.1561 Error An error occurred while updating the entries. See the inner exception for details.

@@ -1,0 +1,11 @@
+2021-09-21 16:10:12.7566 Error Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Object -> Equipment_Model
+System.Object -> Domain.Entities.Equipment_Model
+2021-09-21 16:11:46.0297 Error An error occurred while updating the entries. See the inner exception for details.
+2021-09-21 16:57:10.4319 Error Missing type map configuration or unsupported mapping.
+
+Mapping types:
+Object -> Equipment_State
+System.Object -> Domain.Entities.Equipment_State
