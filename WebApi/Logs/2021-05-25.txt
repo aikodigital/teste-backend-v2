@@ -1,0 +1,7 @@
+2021-05-25 15:46:33.6454 Error Error mapping types.
+
+Mapping types:
+Object -> List`1
+System.Object -> System.Collections.Generic.List`1[[Application.DTOs.Colaboradores.NotaUtilizadorDTO, Application, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null]]
+2021-05-25 15:52:44.1584 Error Object reference not set to an instance of an object.
+2021-05-25 15:53:07.0727 Error Object reference not set to an instance of an object.

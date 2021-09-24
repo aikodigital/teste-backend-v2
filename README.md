@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c4d15683e02a96fb50b4d47d1d65e215ddf57a67
 # Teste Backend V2
 
 ![Aiko](img/aiko.png)
@@ -139,3 +143,44 @@ Para realizar a entrega do teste você deve:
 * Faça um commit da sua branch com a implementação do teste.
   
 * Realize o pull request da sua branch nesse repositório.
+<<<<<<< HEAD
+=======
+# API Aiko Teste - ASP.NET Core com PostgreSQL e Docker, utilizando Arquitetura Onion
+
+Aplicativo projetado para mostrar como ASP.NET Core e PostgreSQL podem ser executados em contêineres do Docker. O aplicativo usa o Entity Framework para criar um banco de dados.
+### Executando a API com Docker Compose
+
+1. Instalar `Docker Desktop para Mac` ou `Docker Desktop para Windows`.
+
+1. Mover para a `ApiAiko` ino terminal do windows:
+
+    - Executar `docker-compose build -f WebApi/docker-compose`
+
+    - Executar `docker-compose up -f WebApi/docker-compose`
+
+1. Navigar para http://localhost:8000 no seu browser para ver a aplicação.
+
+### Funcionalidades feitas
+
+1. CRUD.
+    - Equipamento
+    - Estado de equipamento
+    - Modelo de Equipamento
+    - Ganhos por hora por estado
+    - Histórico de posições de um equipamento.
+    - Histórico de estados de um equipamento.
+
+1. Estado atual do equipamento
+2. Posição atual por equipamento
+3. Extras
+    - Swagger
+    - Conteinerização
+    - Percentual de Produtividade do equipamento
+    - Ganho por equipamento
+
+### Executando a API no ambiente local
+
+1. Alterar a string da conexão da Base de Dados no arquivo `Infrastructure.Persistence/ServiceRegistration.cs`
+>>>>>>> f80383f (first)
+=======
+>>>>>>> c4d15683e02a96fb50b4d47d1d65e215ddf57a67
