@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c4d15683e02a96fb50b4d47d1d65e215ddf57a67
 # Teste Backend V2
 
 ![Aiko](img/aiko.png)
@@ -140,6 +143,7 @@ Para realizar a entrega do teste você deve:
 * Faça um commit da sua branch com a implementação do teste.
   
 * Realize o pull request da sua branch nesse repositório.
+<<<<<<< HEAD
 =======
 # API Aiko Teste - ASP.NET Core com PostgreSQL e Docker, utilizando Arquitetura Onion
 
@@ -178,3 +182,5 @@ Aplicativo projetado para mostrar como ASP.NET Core e PostgreSQL podem ser execu
 
 1. Alterar a string da conexão da Base de Dados no arquivo `Infrastructure.Persistence/ServiceRegistration.cs`
 >>>>>>> f80383f (first)
+=======
+>>>>>>> c4d15683e02a96fb50b4d47d1d65e215ddf57a67
