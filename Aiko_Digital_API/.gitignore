@@ -1,0 +1,10 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+appsettings.Development.json
+/.idea/.idea.Aiko_Digital_API/.idea/.name
+
+/API/bin/
+/API/obj/
