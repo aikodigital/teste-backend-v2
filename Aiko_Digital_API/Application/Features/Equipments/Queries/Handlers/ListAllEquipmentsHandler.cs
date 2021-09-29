@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Features.Equipments.Queries.RequestModels;
 using Application.Interfaces;
+using Application.Specifications;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +21,9 @@ namespace Application.Features.Equipments.Queries.Handlers
         }
         public async Task<IReadOnlyList<Equipment>> Handle(ListAllEquipmentsQuery request, CancellationToken cancellationToken)
         {
-            // return await _context.Equipment.Include(x=>x.EquipmentModel).ToListAsync();
-            return await _genericRepository.GetAllAsync();
+            var spec = new EquipmentSpecification();
+            
+            return await _genericRepository.ListAllWithSpecAsync(spec);
         }
     }
 }
