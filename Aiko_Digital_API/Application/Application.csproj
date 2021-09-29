@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Features\EquipmentModels\Queries\Validators" />
       <Folder Include="Features\Equipments\Commands" />
     </ItemGroup>
 
