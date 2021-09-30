@@ -45,6 +45,9 @@ namespace AIKO_TestProject
                 .AddDbContext<EquipmentStateHistoryContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AIKODB")));
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<EquipmentPositionHistoryContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AIKODB")));
+            services.AddEntityFrameworkNpgsql()
+                    .AddDbContext<EquipmentModelStateHourlyEarningsContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AIKODB")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
