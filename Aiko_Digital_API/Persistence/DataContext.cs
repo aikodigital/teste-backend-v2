@@ -34,11 +34,11 @@ namespace Persistence
                     .IsRequired()
                     .HasColumnName("name");
 
-                entity.HasOne(d => d.EquipmentModel)
-                    .WithMany(p => p.Equipment)
-                    .HasForeignKey(d => d.EquipmentModelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_equipment_model");
+                // entity.HasOne(d => d.EquipmentModel)
+                //     .WithMany(p => p.Equipment)
+                //     .HasForeignKey(d => d.EquipmentModelId)
+                //     .OnDelete(DeleteBehavior.ClientSetNull)
+                //     .HasConstraintName("fk_equipment_model");
             });
 
             modelBuilder.Entity<EquipmentModel>(entity =>

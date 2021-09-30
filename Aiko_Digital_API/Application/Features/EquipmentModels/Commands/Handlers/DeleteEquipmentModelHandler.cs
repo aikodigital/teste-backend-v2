@@ -20,9 +20,8 @@ namespace Application.Features.EquipmentModels.Commands.Handlers
         
         public async Task<EquipmentModel> Handle(DeleteEquipmentModelCommand request, CancellationToken cancellationToken)
         {
-            var spec = new EquipmentModelSpecification(request.EquipmentModelId);
-            
-            var equipmentModel = await _unitOfWork.Repository<EquipmentModel>().GetEntityWithSpec(spec);
+            var equipmentModel = await _unitOfWork.Repository<EquipmentModel>()
+                .GetByIdAsync(request.EquipmentModelId);
             
             if (equipmentModel == null)
                 throw new WebException("Equipment Model not found!",
@@ -33,7 +32,7 @@ namespace Application.Features.EquipmentModels.Commands.Handlers
             var result = await _unitOfWork.Complete();
             
             if (result <= 0)
-                throw new WebException("Fail to delete a equipment model",
+                throw new WebException("Fail to delete a Equipment Model",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
             
             return equipmentModel;

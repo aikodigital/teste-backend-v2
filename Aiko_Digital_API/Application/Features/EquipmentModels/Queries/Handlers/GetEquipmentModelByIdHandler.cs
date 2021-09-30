@@ -20,15 +20,15 @@ namespace Application.Features.EquipmentModels.Queries.Handlers
         
         public async Task<EquipmentModel> Handle(GetEquipmentModelByIdQuery request, CancellationToken cancellationToken)
         {
-            var spec = new EquipmentModelSpecification(request.EquipmentModelId);
-            
-            var equipmentModel = await _unitOfWork.Repository<EquipmentModel>().GetEntityWithSpec(spec);
+
+            var equipmentModel = await _unitOfWork.Repository<EquipmentModel>()
+                .GetByIdAsync(request.EquipmentModelId);
             
             if (equipmentModel == null)
                 throw new WebException("Equipment Model not found!",
                     (WebExceptionStatus) HttpStatusCode.NotFound);
             
-            return await _unitOfWork.Repository<EquipmentModel>().GetEntityWithSpec(spec);
+            return equipmentModel;
         }
     }
 }

@@ -21,7 +21,8 @@ namespace Application.Features.EquipmentModels.Queries.Handlers
         public async Task<IReadOnlyList<EquipmentModel>> Handle(ListAllEquipmentModelsQuery request, CancellationToken cancellationToken)
         {
             var spec = new EquipmentModelSpecification();
-            return await _unitOfWork.Repository<EquipmentModel>().GetAllAsync();
+            
+            return await _unitOfWork.Repository<EquipmentModel>().ListAllWithSpecAsync(spec);
         }
     }
 }
