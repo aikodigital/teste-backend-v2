@@ -10,8 +10,7 @@ namespace AIKO_TestProject.Context
     {
         public DbSet<Models.EquipmentStateHistory> EquipmentStateHistories { get; set; }
 
-        public EquipmentStateHistoryContext(DbContextOptions<EquipmentStateHistoryContext> options) :
-            base(options)
+        public EquipmentStateHistoryContext(DbContextOptions<EquipmentStateHistoryContext> options) : base(options)
         {
 
         }
