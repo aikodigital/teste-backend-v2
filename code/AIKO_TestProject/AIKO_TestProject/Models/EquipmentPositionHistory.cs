@@ -10,8 +10,8 @@ namespace AIKO_TestProject.Models
     public class EquipmentPositionHistory
     {
         public Guid equipment_id { get; set; }
-        public int lat { get; set; }
-        public int lon { get; set; }
+        public Single lat { get; set; }
+        public Single lon { get; set; }
         public DateTime date { get; set; }
 
     }
