@@ -40,7 +40,7 @@ namespace Application.Features.Equipments.Commands.Handlers
                 .GetEntityWithSpec(specCheckName);
             
             if (equipmentCheckName != null)
-                throw new WebException("Fail to create Equipment " +
+                throw new WebException("Fail to update Equipment " +
                                        "because the equipment exists in database!",
                     (WebExceptionStatus) HttpStatusCode.Conflict);
             

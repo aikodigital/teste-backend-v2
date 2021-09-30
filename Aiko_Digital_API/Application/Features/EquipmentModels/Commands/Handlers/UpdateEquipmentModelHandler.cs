@@ -33,7 +33,7 @@ namespace Application.Features.EquipmentModels.Commands.Handlers
 
             if (equipmentModelCheckName != null)
                 throw new WebException("Fail to create Equipment Model " +
-                                       "because the equipment exists in database!",
+                                       "because the equipment model exists in database!",
                     (WebExceptionStatus) HttpStatusCode.Conflict);
             
             equipmentModel.Name = request.Name;

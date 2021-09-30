@@ -25,7 +25,7 @@ namespace Application.Specifications
         }
         
         public EquipmentSpecification(Guid id, string name) 
-            : base(x=>x.Id != id && x.Name == name)
+            : base(x=>x.Id != id && x.Name.ToUpper() == name.ToUpper())
         {
             AddInclude(x=>x.EquipmentModel);
         }

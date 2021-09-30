@@ -21,7 +21,8 @@ namespace Application.Features.Equipments.Commands.Handlers
         public async Task<Equipment> Handle(DeleteEquipmentCommand request, CancellationToken cancellationToken)
         {
             var spec = new EquipmentSpecification(request.EquipmentId);
-            var equipment = await _unitOfWork.Repository<Equipment>().GetEntityWithSpec(spec);
+            var equipment = await _unitOfWork.Repository<Equipment>()
+                .GetEntityWithSpec(spec);
             
             if (equipment == null)
                 throw new WebException("Equipment not found!",
