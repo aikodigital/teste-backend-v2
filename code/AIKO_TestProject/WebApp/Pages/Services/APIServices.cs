@@ -53,7 +53,7 @@ namespace WebApp.Services
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentModel>> EquipmentModelsAllAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentModel>> EquipmentModelsAllAsync()
         {
             return EquipmentModelsAllAsync(System.Threading.CancellationToken.None);
         }
@@ -61,7 +61,7 @@ namespace WebApp.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentModel>> EquipmentModelsAllAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentModel>> EquipmentModelsAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/EquipmentModels");
@@ -98,7 +98,7 @@ namespace WebApp.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<EquipmentModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IList<EquipmentModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -429,7 +429,7 @@ namespace WebApp.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentModelStateHourlyEarnings>> EquipmentModelStateHourlyEarningsAllAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentModelStateHourlyEarnings>> EquipmentModelStateHourlyEarningsAllAsync()
         {
             return EquipmentModelStateHourlyEarningsAllAsync(System.Threading.CancellationToken.None);
         }
@@ -437,7 +437,7 @@ namespace WebApp.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentModelStateHourlyEarnings>> EquipmentModelStateHourlyEarningsAllAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentModelStateHourlyEarnings>> EquipmentModelStateHourlyEarningsAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/EquipmentModelStateHourlyEarnings");
@@ -474,7 +474,7 @@ namespace WebApp.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<EquipmentModelStateHourlyEarnings>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IList<EquipmentModelStateHourlyEarnings>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -805,7 +805,7 @@ namespace WebApp.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentPositionHistory>> EquipmentPositionHistoriesAllAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentPositionHistory>> EquipmentPositionHistoriesAllAsync()
         {
             return EquipmentPositionHistoriesAllAsync(System.Threading.CancellationToken.None);
         }
@@ -813,7 +813,7 @@ namespace WebApp.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentPositionHistory>> EquipmentPositionHistoriesAllAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentPositionHistory>> EquipmentPositionHistoriesAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/EquipmentPositionHistories");
@@ -850,7 +850,7 @@ namespace WebApp.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<EquipmentPositionHistory>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IList<EquipmentPositionHistory>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1181,7 +1181,7 @@ namespace WebApp.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Equipment>> EquipmentsAllAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.IList<Equipment>> EquipmentsAllAsync()
         {
             return EquipmentsAllAsync(System.Threading.CancellationToken.None);
         }
@@ -1189,7 +1189,7 @@ namespace WebApp.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Equipment>> EquipmentsAllAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.IList<Equipment>> EquipmentsAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Equipments");
@@ -1226,7 +1226,7 @@ namespace WebApp.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Equipment>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IList<Equipment>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1557,7 +1557,7 @@ namespace WebApp.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentStateHistory>> EquipmentStateHistoriesAllAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentStateHistory>> EquipmentStateHistoriesAllAsync()
         {
             return EquipmentStateHistoriesAllAsync(System.Threading.CancellationToken.None);
         }
@@ -1565,7 +1565,7 @@ namespace WebApp.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentStateHistory>> EquipmentStateHistoriesAllAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentStateHistory>> EquipmentStateHistoriesAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/EquipmentStateHistories");
@@ -1602,7 +1602,7 @@ namespace WebApp.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<EquipmentStateHistory>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IList<EquipmentStateHistory>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1933,7 +1933,7 @@ namespace WebApp.Services
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentState>> EquipmentStatesAllAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentState>> EquipmentStatesAllAsync()
         {
             return EquipmentStatesAllAsync(System.Threading.CancellationToken.None);
         }
@@ -1941,7 +1941,7 @@ namespace WebApp.Services
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EquipmentState>> EquipmentStatesAllAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<System.Collections.Generic.IList<EquipmentState>> EquipmentStatesAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/EquipmentStates");
@@ -1978,7 +1978,7 @@ namespace WebApp.Services
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<EquipmentState>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IList<EquipmentState>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
