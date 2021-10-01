@@ -6,19 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.EquipmentModels
 {
     public class DeleteModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentModelContext _context;
-
-        public DeleteModel(AIKO_TestProject.Context.EquipmentModelContext context)
-        {
-            _context = context;
-        }
-
+        private static Guid LocalID { get; set; }
         [BindProperty]
         public EquipmentModel EquipmentModel { get; set; }
 
@@ -29,7 +24,10 @@ namespace WebApp.Pages.EquipmentModels
                 return NotFound();
             }
 
-            EquipmentModel = await _context.EquipmentModels.FirstOrDefaultAsync(m => m.id == id);
+            LocalID = (Guid)id;
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentModelsGETAsync((Guid)id);
+            EquipmentModel = result;
 
             if (EquipmentModel == null)
             {
@@ -45,12 +43,23 @@ namespace WebApp.Pages.EquipmentModels
                 return NotFound();
             }
 
-            EquipmentModel = await _context.EquipmentModels.FindAsync(id);
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentModelsGETAsync((Guid)id);
+            EquipmentModel = result;
 
             if (EquipmentModel != null)
             {
-                _context.EquipmentModels.Remove(EquipmentModel);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await client.EquipmentModelsDELETEAsync(LocalID);
+                }
+                catch (ApiException e)
+                {
+                    if (e.StatusCode == 500 && e.Message.Contains("violates foreign key constraint"))
+                    {
+                        return RedirectToPage("/Shared/ForeignKeyConstraintViolation");
+                    }
+                }
             }
 
             return RedirectToPage("./Index");
