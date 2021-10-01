@@ -1,0 +1,48 @@
+﻿@page
+@model WebApp.Pages.EquipmentModelStateHourly_Earnings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentModelStateHourlyEarnings[0].Equipment_model_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentModelStateHourlyEarnings[0].Equipment_state_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentModelStateHourlyEarnings[0].Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.EquipmentModelStateHourlyEarnings) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_model_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_state_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
