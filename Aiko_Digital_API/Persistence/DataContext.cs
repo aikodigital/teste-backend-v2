@@ -56,7 +56,8 @@ namespace Persistence
 
             modelBuilder.Entity<EquipmentModelStateHourlyEarning>(entity =>
             {
-                entity.HasNoKey();
+                // entity.HasNoKey();
+                entity.HasKey(c => new {c.EquipmentModelId, c.EquipmentStateId});
 
                 entity.ToTable("equipment_model_state_hourly_earnings", "operation");
 
@@ -81,8 +82,9 @@ namespace Persistence
 
             modelBuilder.Entity<EquipmentPositionHistory>(entity =>
             {
-                entity.HasNoKey();
-
+                //entity.HasNoKey();
+                entity.HasKey(e => e.EquipmentId);
+                
                 entity.ToTable("equipment_position_history", "operation");
 
                 entity.Property(e => e.Date).HasColumnName("date");
@@ -119,8 +121,9 @@ namespace Persistence
 
             modelBuilder.Entity<EquipmentStateHistory>(entity =>
             {
-                entity.HasNoKey();
-
+                //entity.HasNoKey();
+                entity.HasKey(e => new {e.EquipmentId, e.EquipmentStateId});
+                
                 entity.ToTable("equipment_state_history", "operation");
 
                 entity.Property(e => e.Date).HasColumnName("date");

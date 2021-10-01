@@ -39,13 +39,14 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
                     (WebExceptionStatus) HttpStatusCode.NotFound);
 
             var specCheck = new EquipmentModelStateHourlyEarningsSpecification(request.EquipmentModelId,
-                request.EquipmentStateId, request.Value);
+                request.EquipmentStateId);
 
             var equipmentModelStateHourlyEarningsCheck =
                 await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpec(specCheck);
 
             if (equipmentModelStateHourlyEarningsCheck != null)
-                throw new WebException("Equipment Model State hourly Earnings exists in database!",
+                throw new WebException("Equipment Model State hourly Earnings exists in database, " +
+                                       "for this Equipment Model and Equipment State! Try Update",
                     (WebExceptionStatus) HttpStatusCode.Conflict);
             
             var equipmentModelStateHourlyEarnings = new EquipmentModelStateHourlyEarning
