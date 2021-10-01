@@ -6,19 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.EquipmentStates
 {
     public class CreateModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentStateContext _context;
-
-        public CreateModel(AIKO_TestProject.Context.EquipmentStateContext context)
-        {
-            _context = context;
-        }
-
         public IActionResult OnGet()
         {
             return Page();
@@ -35,8 +29,8 @@ namespace WebApp.Pages.EquipmentStates
                 return Page();
             }
 
-            _context.EquipmentStates.Add(EquipmentState);
-            await _context.SaveChangesAsync();
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            await client.EquipmentStatesPOSTAsync(EquipmentState);
 
             return RedirectToPage("./Index");
         }

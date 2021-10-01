@@ -6,18 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.EquipmentStates
 {
     public class DetailsModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentStateContext _context;
-
-        public DetailsModel(AIKO_TestProject.Context.EquipmentStateContext context)
-        {
-            _context = context;
-        }
 
         public EquipmentState EquipmentState { get; set; }
 
@@ -27,8 +22,9 @@ namespace WebApp.Pages.EquipmentStates
             {
                 return NotFound();
             }
-
-            EquipmentState = await _context.EquipmentStates.FirstOrDefaultAsync(m => m.id == id);
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStatesGETAsync((Guid)id);
+            EquipmentState = result;
 
             if (EquipmentState == null)
             {
