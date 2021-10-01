@@ -7,19 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.EquipmentStates
 {
     public class EditModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentStateContext _context;
-
-        public EditModel(AIKO_TestProject.Context.EquipmentStateContext context)
-        {
-            _context = context;
-        }
-
+        private static Guid LocalID { get; set; }
         [BindProperty]
         public EquipmentState EquipmentState { get; set; }
 
@@ -29,8 +24,10 @@ namespace WebApp.Pages.EquipmentStates
             {
                 return NotFound();
             }
-
-            EquipmentState = await _context.EquipmentStates.FirstOrDefaultAsync(m => m.id == id);
+            LocalID = (Guid)id;
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStatesGETAsync((Guid)id);
+            EquipmentState = result;
 
             if (EquipmentState == null)
             {
@@ -48,15 +45,18 @@ namespace WebApp.Pages.EquipmentStates
                 return Page();
             }
 
-            _context.Attach(EquipmentState).State = EntityState.Modified;
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStatesGETAsync(LocalID);
+
+            //_context.Attach(EquipmentState).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await client.EquipmentStatesPUTAsync(LocalID, EquipmentState);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentStateExists(EquipmentState.id))
+                if (result == null)
                 {
                     return NotFound();
                 }
@@ -69,9 +69,5 @@ namespace WebApp.Pages.EquipmentStates
             return RedirectToPage("./Index");
         }
 
-        private bool EquipmentStateExists(Guid id)
-        {
-            return _context.EquipmentStates.Any(e => e.id == id);
-        }
     }
 }
