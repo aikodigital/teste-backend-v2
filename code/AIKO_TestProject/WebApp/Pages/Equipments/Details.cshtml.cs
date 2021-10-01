@@ -6,18 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
 
 namespace WebApp.Pages.Equipments
 {
     public class DetailsModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentContext _context;
-
-        public DetailsModel(AIKO_TestProject.Context.EquipmentContext context)
-        {
-            _context = context;
-        }
 
         public Equipment Equipment { get; set; }
 
@@ -27,8 +21,9 @@ namespace WebApp.Pages.Equipments
             {
                 return NotFound();
             }
-
-            Equipment = await _context.Equipments.FirstOrDefaultAsync(m => m.id == id);
+            var client = new Client("https://localhost:44355/", new System.Net.Http.HttpClient());
+            var result = await client.EquipmentsGETAsync((Guid)id);
+            Equipment = result;
 
             if (Equipment == null)
             {

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\AIKO_TestProject\AIKO_TestProject.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\EquipmentModel\" />
+  </ItemGroup>
+
 </Project>

@@ -13,12 +13,12 @@ namespace WebApp.Pages.Equipments
     public class IndexModel : PageModel
     {
 
-        public IList<EquipmentModel> Equipment { get;set; }
+        public IList<Equipment> Equipment { get;set; }
 
         public async Task OnGetAsync()
         {
             var client = new Client("https://localhost:44355/", new System.Net.Http.HttpClient());
-            var result = await client.EquipmentModelsAllAsync();
+            var result = await client.EquipmentsAllAsync();
             Equipment = result;
         }
     }

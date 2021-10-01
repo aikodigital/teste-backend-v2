@@ -29,6 +29,8 @@ namespace WebApp
             services.AddRazorPages();
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<EquipmentContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AIKODB")));
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<EquipmentModelContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AIKODB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
