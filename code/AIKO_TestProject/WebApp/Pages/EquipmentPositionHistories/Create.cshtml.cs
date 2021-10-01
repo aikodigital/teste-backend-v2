@@ -9,7 +9,7 @@ using AIKO_TestProject.Context;
 using WebApp.Services;
 using WebApp.Extras;
 
-namespace WebApp.Pages.EquipmentStateHistories
+namespace WebApp.Pages.EquipmentPositionHistories
 {
     public class CreateModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace WebApp.Pages.EquipmentStateHistories
         }
 
         [BindProperty]
-        public EquipmentStateHistory EquipmentStateHistory { get; set; }
+        public EquipmentPositionHistory EquipmentPositionHistory { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -30,9 +30,9 @@ namespace WebApp.Pages.EquipmentStateHistories
                 return Page();
             }
 
-            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
-            await client.EquipmentStateHistoriesPOSTAsync(EquipmentStateHistory);
 
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            await client.EquipmentPositionHistoriesPOSTAsync(EquipmentPositionHistory);
             return RedirectToPage("./Index");
         }
     }
