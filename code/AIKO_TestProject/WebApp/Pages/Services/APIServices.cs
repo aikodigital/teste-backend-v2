@@ -1301,7 +1301,7 @@ namespace WebApp.Services
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
+                        if (status_ == 201)
                         {
                             var objectResponse_ = await ReadObjectResponseAsync<Equipment>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
