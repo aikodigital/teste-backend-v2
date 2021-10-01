@@ -7,19 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.EquipmentModels
 {
     public class EditModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentModelContext _context;
-
-        public EditModel(AIKO_TestProject.Context.EquipmentModelContext context)
-        {
-            _context = context;
-        }
-
+        private static Guid LocalID { get; set; }
         [BindProperty]
         public EquipmentModel EquipmentModel { get; set; }
 
@@ -29,8 +24,10 @@ namespace WebApp.Pages.EquipmentModels
             {
                 return NotFound();
             }
-
-            EquipmentModel = await _context.EquipmentModels.FirstOrDefaultAsync(m => m.id == id);
+            LocalID = (Guid)id;
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentModelsGETAsync((Guid)id);
+            EquipmentModel = result;
 
             if (EquipmentModel == null)
             {
@@ -48,15 +45,19 @@ namespace WebApp.Pages.EquipmentModels
                 return Page();
             }
 
-            _context.Attach(EquipmentModel).State = EntityState.Modified;
+
+            //_context.Attach(EquipmentModel).State = EntityState.Modified;
+
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentModelsGETAsync(LocalID);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await client.EquipmentModelsPUTAsync(LocalID, EquipmentModel);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentModelExists(EquipmentModel.id))
+                if (result == null)
                 {
                     return NotFound();
                 }
@@ -69,9 +70,5 @@ namespace WebApp.Pages.EquipmentModels
             return RedirectToPage("./Index");
         }
 
-        private bool EquipmentModelExists(Guid id)
-        {
-            return _context.EquipmentModels.Any(e => e.id == id);
-        }
     }
 }

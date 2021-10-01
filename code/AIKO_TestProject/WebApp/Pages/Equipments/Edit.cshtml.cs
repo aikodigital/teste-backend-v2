@@ -49,8 +49,6 @@ namespace WebApp.Pages.Equipments
             var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
             var result = await client.EquipmentsGETAsync(LocalID);
 
-            //_context.Attach(Equipment).State = EntityState.Modified;
-
             try
             {
                 await client.EquipmentsPUTAsync(LocalID, Equipment);
