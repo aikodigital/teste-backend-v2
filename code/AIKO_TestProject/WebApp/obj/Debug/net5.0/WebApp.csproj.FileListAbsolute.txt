@@ -447,3 +447,8 @@ C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\D
 C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\Equipments\Edit.cshtml.g.cs
 C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\Equipments\Index.cshtml.g.cs
 C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\Shared\ForeignKeyConstraintViolation.cshtml.g.cs
+C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\EquipmentModels\Create.cshtml.g.cs
+C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\EquipmentModels\Delete.cshtml.g.cs
+C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\EquipmentModels\Details.cshtml.g.cs
+C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\EquipmentModels\Edit.cshtml.g.cs
+C:\Users\Luyeye Henri\Documents\LH\Teste\AIKO\code\AIKO_TestProject\WebApp\obj\Debug\net5.0\Razor\Pages\EquipmentModels\Index.cshtml.g.cs

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
 using AIKO_TestProject.Models;
 
-namespace WebApp.Pages.EquipmentModel
+namespace WebApp.Pages.EquipmentModels
 {
     public class IndexModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace WebApp.Pages.EquipmentModel
             _context = context;
         }
 
-        public IList<Models.EquipmentModel> EquipmentModel { get;set; }
+        public IList<EquipmentModel> EquipmentModel { get;set; }
 
         public async Task OnGetAsync()
         {

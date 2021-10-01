@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AIKO_TestProject.Context;
 using AIKO_TestProject.Models;
 
-namespace WebApp.Pages.EquipmentModel
+namespace WebApp.Pages.EquipmentModels
 {
     public class CreateModel : PageModel
     {
