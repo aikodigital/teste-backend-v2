@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Features\EquipmentModelStateHourlyEarnings\Queries\Validators" />
       <Folder Include="Features\EquipmentModels\Queries\Validators" />
       <Folder Include="Features\EquipmentStates\Queries\Validators" />
     </ItemGroup>

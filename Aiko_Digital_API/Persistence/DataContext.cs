@@ -25,7 +25,7 @@ namespace Persistence
                 entity.ToTable("equipment", "operation");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.EquipmentModelId).HasColumnName("equipment_model_id");
@@ -46,7 +46,7 @@ namespace Persistence
                 entity.ToTable("equipment_model", "operation");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Name)
@@ -105,7 +105,7 @@ namespace Persistence
                 entity.ToTable("equipment_state", "operation");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    // .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Color)
