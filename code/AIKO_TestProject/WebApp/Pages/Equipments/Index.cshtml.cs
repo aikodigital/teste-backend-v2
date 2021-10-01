@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
 using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.Equipments
 {
@@ -17,7 +18,7 @@ namespace WebApp.Pages.Equipments
 
         public async Task OnGetAsync()
         {
-            var client = new Client("https://localhost:44355/", new System.Net.Http.HttpClient());
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
             var result = await client.EquipmentsAllAsync();
             Equipment = result;
         }
