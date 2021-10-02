@@ -22,7 +22,7 @@ namespace Application.Features.Equipments.Commands.Handlers
             CancellationToken cancellationToken)
         {
             var spec = new EquipmentSpecification(request.EquipmentId);
-            var equipment = await _unitOfWork.Repository<Equipment>().GetEntityWithSpec(spec);
+            var equipment = await _unitOfWork.Repository<Equipment>().GetEntityWithSpecAsync(spec);
             
             if (equipment == null)
                 throw new WebException("Equipment not found!",
@@ -37,7 +37,7 @@ namespace Application.Features.Equipments.Commands.Handlers
             
             var specCheckName = new EquipmentSpecification(request.EquipmentId,request.Name);
             var equipmentCheckName = await _unitOfWork.Repository<Equipment>()
-                .GetEntityWithSpec(specCheckName);
+                .GetEntityWithSpecAsync(specCheckName);
             
             if (equipmentCheckName != null)
                 throw new WebException("Fail to update Equipment " +

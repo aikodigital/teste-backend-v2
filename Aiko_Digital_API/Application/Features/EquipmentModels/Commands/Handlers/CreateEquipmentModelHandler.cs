@@ -23,7 +23,7 @@ namespace Application.Features.EquipmentModels.Commands.Handlers
             var spec = new EquipmentModelSpecification(request.Name);
 
             var equipmentModel = await _unitOfWork.Repository<EquipmentModel>()
-                .GetEntityWithSpec(spec);
+                .GetEntityWithSpecAsync(spec);
 
             if (equipmentModel != null)
                 throw new WebException("Fail to create Equipment Model " +

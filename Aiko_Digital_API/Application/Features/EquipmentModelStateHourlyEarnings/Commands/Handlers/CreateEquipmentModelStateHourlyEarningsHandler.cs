@@ -42,7 +42,7 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
                 request.EquipmentStateId);
 
             var equipmentModelStateHourlyEarningsCheck =
-                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpec(specCheck);
+                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpecAsync(specCheck);
 
             if (equipmentModelStateHourlyEarningsCheck != null)
                 throw new WebException("Equipment Model State hourly Earnings exists in database, " +

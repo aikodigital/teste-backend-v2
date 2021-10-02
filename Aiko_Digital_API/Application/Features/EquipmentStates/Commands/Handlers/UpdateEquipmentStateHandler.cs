@@ -32,7 +32,7 @@ namespace Application.Features.EquipmentStates.Commands.Handlers
             var spec = new EquipmentStateSpecification(request.EquipmentStateId, request.Name, 
                 request.Color);
             var equipmentStateCheckNameColor = await _unitOfWork.Repository<EquipmentState>()
-                .GetEntityWithSpec(spec);
+                .GetEntityWithSpecAsync(spec);
             
             if (equipmentStateCheckNameColor != null)
                 throw new WebException("Fail to update Equipment State " +

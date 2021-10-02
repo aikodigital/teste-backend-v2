@@ -42,7 +42,7 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
                 request.EquipmentStateId);
             
             var equipmentModelStateHourlyEarnings =
-                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpec(spec);
+                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpecAsync(spec);
             
             if (equipmentModelStateHourlyEarnings == null)
                 throw new WebException("Equipment Model State hourly Earnings not found!",
@@ -52,7 +52,7 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
                 request.EquipmentStateId, request.Value);
 
             var equipmentModelStateHourlyEarningsCheck =
-                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpec(specCheck);
+                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpecAsync(specCheck);
 
             if (equipmentModelStateHourlyEarningsCheck != null)
                 throw new WebException("Equipment Model State hourly Earnings exists in database!",

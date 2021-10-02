@@ -24,7 +24,7 @@ namespace Application.Features.EquipmentStates.Commands.Handlers
         {
             var spec = new EquipmentStateSpecification(request.Name, request.Color);
             var equipmentState = await _unitOfWork.Repository<EquipmentState>()
-                .GetEntityWithSpec(spec);
+                .GetEntityWithSpecAsync(spec);
             
             if (equipmentState != null)
                 throw new WebException("Fail to create Equipment State " +

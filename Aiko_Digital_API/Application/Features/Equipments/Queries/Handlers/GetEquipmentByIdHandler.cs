@@ -22,7 +22,7 @@ namespace Application.Features.Equipments.Queries.Handlers
         {
             var spec = new EquipmentSpecification();
             var equipment = await _unitOfWork.Repository<Equipment>()
-                .GetEntityWithSpec(spec);
+                .GetEntityWithSpecAsync(spec);
             
             if (equipment == null)
                 throw new WebException("Equipment not found!",

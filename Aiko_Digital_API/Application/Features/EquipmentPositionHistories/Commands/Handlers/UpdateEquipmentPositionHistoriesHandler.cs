@@ -24,7 +24,7 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
         {
             var specEquipment = new EquipmentSpecification(request.EquipmentId);
             var equipment = await _unitOfWork.Repository<Equipment>()
-                .GetEntityWithSpec(specEquipment);
+                .GetEntityWithSpecAsync(specEquipment);
             
             if (equipment == null)
                 throw new WebException("Equipment not found!",
@@ -33,7 +33,7 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
             var spec = new EquipmentPositionHistorySpecification(request.EquipmentId, request.Date);
             
             var equipmentPositionHistory = await _unitOfWork.Repository<EquipmentPositionHistory>()
-                .GetEntityWithSpec(spec);
+                .GetEntityWithSpecAsync(spec);
             
             if (equipmentPositionHistory == null)
                 throw new WebException("Equipment Position History not found!",

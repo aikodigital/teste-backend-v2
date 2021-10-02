@@ -45,7 +45,7 @@ namespace Infrastructure.Data
             _table.Remove(obj);
         }
         
-        public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
+        public async Task<T> GetEntityWithSpecAsync(ISpecification<T> spec)
         {
             T data = await ApplySpecification(spec).FirstOrDefaultAsync();
             return data;
