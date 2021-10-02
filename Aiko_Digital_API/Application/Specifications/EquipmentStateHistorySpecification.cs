@@ -18,6 +18,7 @@ namespace Application.Specifications
         {
             AddInclude(x=>x.Equipment.EquipmentModel);
             AddInclude(x=>x.EquipmentState);
+            AddOrderBy(x=>x.Equipment.Name);
         }
         
         public EquipmentStateHistorySpecification(Guid equipmentId, DateTime date) :

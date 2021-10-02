@@ -12,6 +12,7 @@ namespace Application.Interfaces
         void Update(T obj);
         void Delete(T obj);
         Task<T> GetEntityWithSpecAsync(ISpecification<T> spec);
+        Task<T> GetLastEntityWithSpecAsync(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAllWithSpecAsync(ISpecification<T> spec);
     }
 }

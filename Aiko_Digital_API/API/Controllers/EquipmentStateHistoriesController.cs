@@ -23,6 +23,12 @@ namespace API.Controllers
             return await Mediator.Send(new ListAllEquipmentStateHistoriesQuery());
         }
 
+        [HttpGet("currentStatesOfEquipments")]
+        public async Task<IReadOnlyList<EquipmentStateHistory>> ListCurrentStatesOfEquipments()
+        {
+            return await Mediator.Send(new ListCurrentStatesOfEquipmentsQuery());
+        }
+
         [HttpGet("{equipmentId}")]
         public async Task<IReadOnlyList<EquipmentStateHistory>> 
             GetEquipmentStateHistoriesByEquipmentId(Guid equipmentId)

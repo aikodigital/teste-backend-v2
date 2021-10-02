@@ -51,6 +51,12 @@ namespace Infrastructure.Data
             return data;
         }
 
+        public async Task<T> GetLastEntityWithSpecAsync(ISpecification<T> spec)
+        {
+            T data = await ApplySpecification(spec).LastOrDefaultAsync();
+            return data;
+        }
+
         public async Task<IReadOnlyList<T>> ListAllWithSpecAsync(ISpecification<T> spec)
         {
             List<T> data = await ApplySpecification(spec).ToListAsync();
