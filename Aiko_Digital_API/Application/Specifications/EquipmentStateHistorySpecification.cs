@@ -12,13 +12,17 @@ namespace Application.Specifications
             AddInclude(x=>x.Equipment.EquipmentModel);
             AddInclude(x=>x.EquipmentState);
         }
-        
-        public EquipmentStateHistorySpecification(Guid equipmentId) :
+
+        public EquipmentStateHistorySpecification(Guid equipmentId, bool orderByDate) :
             base(x=>x.EquipmentId == equipmentId)
         {
             AddInclude(x=>x.Equipment.EquipmentModel);
             AddInclude(x=>x.EquipmentState);
-            AddOrderBy(x=>x.Equipment.Name);
+            
+            if (orderByDate)
+            {
+                AddOrderByDescending(x=>x.Date);
+            }
         }
         
         public EquipmentStateHistorySpecification(Guid equipmentId, DateTime date) :

@@ -38,7 +38,7 @@ namespace Application.Features.EquipmentStateHistories.Queries.Handlers
                 throw new WebException("Equipment not found!",
                     (WebExceptionStatus) HttpStatusCode.NotFound);
 
-            var specEquipmentStateHistory = new EquipmentStateHistorySpecification(request.EquipmentId);
+            var specEquipmentStateHistory = new EquipmentStateHistorySpecification(request.EquipmentId,false);
 
             var equipmentStatesHistories = await _unitOfWork.Repository<EquipmentStateHistory>()
                 .ListAllWithSpecAsync(specEquipmentStateHistory);

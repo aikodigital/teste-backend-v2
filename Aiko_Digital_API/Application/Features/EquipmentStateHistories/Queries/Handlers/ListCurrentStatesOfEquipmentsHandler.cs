@@ -36,7 +36,7 @@ namespace Application.Features.EquipmentStateHistories.Queries.Handlers
 
             foreach (var equipment in equipments)
             {
-                var specEquipmentStateHistory = new EquipmentStateHistorySpecification(equipment.Id);
+                var specEquipmentStateHistory = new EquipmentStateHistorySpecification(equipment.Id,true);
                 var currentStateEquipment = await _unitOfWork.Repository<EquipmentStateHistory>()
                     .GetLastEntityWithSpecAsync(specEquipmentStateHistory);
                 equipmentStateHistory.Add(currentStateEquipment);
