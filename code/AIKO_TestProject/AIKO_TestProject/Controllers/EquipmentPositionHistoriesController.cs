@@ -30,9 +30,9 @@ namespace AIKO_TestProject.Controllers
 
         // GET: api/EquipmentPositionHistories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EquipmentPositionHistory>> GetEquipmentPositionHistory(Guid id)
+        public async Task<ActionResult<EquipmentPositionHistory>> GetEquipmentPositionHistory(Guid id, DateTime date)
         {
-            var equipmentPositionHistory = await _context.EquipmentPositionHistories.FindAsync(id);
+            var equipmentPositionHistory = await _context.EquipmentPositionHistories.FindAsync(id, date);
 
             if (equipmentPositionHistory == null)
             {
@@ -45,7 +45,7 @@ namespace AIKO_TestProject.Controllers
         // PUT: api/EquipmentPositionHistories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEquipmentPositionHistory(Guid id, EquipmentPositionHistory equipmentPositionHistory)
+        public async Task<IActionResult> PutEquipmentPositionHistory(Guid id, DateTime date, EquipmentPositionHistory equipmentPositionHistory)
         {
             if (id != equipmentPositionHistory.equipment_id)
             {
@@ -60,7 +60,7 @@ namespace AIKO_TestProject.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentPositionHistoryExists(id))
+                if (!EquipmentPositionHistoryExists(id, date))
                 {
                     return NotFound();
                 }
@@ -85,7 +85,7 @@ namespace AIKO_TestProject.Controllers
             }
             catch (DbUpdateException)
             {
-                if (EquipmentPositionHistoryExists(equipmentPositionHistory.equipment_id))
+                if (EquipmentPositionHistoryExists(equipmentPositionHistory.equipment_id, equipmentPositionHistory.date))
                 {
                     return Conflict();
                 }
@@ -100,9 +100,9 @@ namespace AIKO_TestProject.Controllers
 
         // DELETE: api/EquipmentPositionHistories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEquipmentPositionHistory(Guid id)
+        public async Task<IActionResult> DeleteEquipmentPositionHistory(Guid id, DateTime date)
         {
-            var equipmentPositionHistory = await _context.EquipmentPositionHistories.FindAsync(id);
+            var equipmentPositionHistory = await _context.EquipmentPositionHistories.FindAsync(id, date);
             if (equipmentPositionHistory == null)
             {
                 return NotFound();
@@ -114,9 +114,9 @@ namespace AIKO_TestProject.Controllers
             return NoContent();
         }
 
-        private bool EquipmentPositionHistoryExists(Guid id)
+        private bool EquipmentPositionHistoryExists(Guid id, DateTime date)
         {
-            return _context.EquipmentPositionHistories.Any(e => e.equipment_id == id);
+            return _context.EquipmentPositionHistories.Any(e => e.equipment_id == id && e.date == date);
         }
     }
 }

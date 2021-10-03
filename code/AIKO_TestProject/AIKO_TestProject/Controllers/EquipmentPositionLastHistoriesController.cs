@@ -29,7 +29,7 @@ namespace AIKO_TestProject.Controllers
 
 
             _context.EquipmentPositionLastHistories.FromSqlRaw(@"SELECT EPH.date, EPH.lat as equipment_position_lat, EPH.lon as equipment_position_lon,
-                                                            E.id as equipment_id, E.name as equipment_name, EM.id equipment_model_id, EM.id equipment_model_name
+                                                            E.id as equipment_id, E.name as equipment_name, EM.id equipment_model_id, EM.name equipment_model_name
                                                             FROM operation.equipment_position_history AS EPH
                                                             FULL JOIN operation.equipment AS E ON E.id = EPH.equipment_id
                                                             FULL JOIN operation.equipment_model AS EM ON EM.id = E.equipment_model_id
@@ -39,7 +39,6 @@ namespace AIKO_TestProject.Controllers
                                                             WHERE equipment_id = {0})", id).ToListAsync()
 
             );
-            //var equipmentPositionLastHistory = await _context.EquipmentPositionLastHistories.FindAsync(id);
 
             if (equipmentPositionLastHistory == null)
             {
