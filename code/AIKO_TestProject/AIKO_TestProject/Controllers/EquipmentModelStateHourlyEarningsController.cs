@@ -30,9 +30,9 @@ namespace AIKO_TestProject.Controllers
 
         // GET: api/EquipmentModelStateHourlyEarnings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EquipmentModelStateHourlyEarnings>> GetEquipmentModelStateHourlyEarnings(Guid id)
+        public async Task<ActionResult<EquipmentModelStateHourlyEarnings>> GetEquipmentModelStateHourlyEarnings(Guid id, Single value)
         {
-            var equipmentModelStateHourlyEarnings = await _context.EquipmentModelStateHourlyEarnings.FindAsync(id);
+            var equipmentModelStateHourlyEarnings = await _context.EquipmentModelStateHourlyEarnings.FindAsync(id, value);
 
             if (equipmentModelStateHourlyEarnings == null)
             {
@@ -45,7 +45,7 @@ namespace AIKO_TestProject.Controllers
         // PUT: api/EquipmentModelStateHourlyEarnings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEquipmentModelStateHourlyEarnings(Guid id, EquipmentModelStateHourlyEarnings equipmentModelStateHourlyEarnings)
+        public async Task<IActionResult> PutEquipmentModelStateHourlyEarnings(Guid id, Single value, EquipmentModelStateHourlyEarnings equipmentModelStateHourlyEarnings)
         {
             if (id != equipmentModelStateHourlyEarnings.equipment_model_id)
             {
@@ -60,7 +60,7 @@ namespace AIKO_TestProject.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentModelStateHourlyEarningsExists(id))
+                if (!EquipmentModelStateHourlyEarningsExists(id, value))
                 {
                     return NotFound();
                 }
@@ -85,7 +85,7 @@ namespace AIKO_TestProject.Controllers
             }
             catch (DbUpdateException)
             {
-                if (EquipmentModelStateHourlyEarningsExists(equipmentModelStateHourlyEarnings.equipment_model_id))
+                if (EquipmentModelStateHourlyEarningsExists(equipmentModelStateHourlyEarnings.equipment_model_id, equipmentModelStateHourlyEarnings.value))
                 {
                     return Conflict();
                 }
@@ -100,9 +100,9 @@ namespace AIKO_TestProject.Controllers
 
         // DELETE: api/EquipmentModelStateHourlyEarnings/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEquipmentModelStateHourlyEarnings(Guid id)
+        public async Task<IActionResult> DeleteEquipmentModelStateHourlyEarnings(Guid id, Single value)
         {
-            var equipmentModelStateHourlyEarnings = await _context.EquipmentModelStateHourlyEarnings.FindAsync(id);
+            var equipmentModelStateHourlyEarnings = await _context.EquipmentModelStateHourlyEarnings.FindAsync(id, value);
             if (equipmentModelStateHourlyEarnings == null)
             {
                 return NotFound();
@@ -114,9 +114,9 @@ namespace AIKO_TestProject.Controllers
             return NoContent();
         }
 
-        private bool EquipmentModelStateHourlyEarningsExists(Guid id)
+        private bool EquipmentModelStateHourlyEarningsExists(Guid id, Single value)
         {
-            return _context.EquipmentModelStateHourlyEarnings.Any(e => e.equipment_model_id == id);
+            return _context.EquipmentModelStateHourlyEarnings.Any(e => e.equipment_model_id == id && e.value == value);
         }
     }
 }

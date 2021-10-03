@@ -18,7 +18,7 @@ namespace AIKO_TestProject.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Models.EquipmentModelStateHourlyEarnings>()
-                .HasKey(nameof(Models.EquipmentModelStateHourlyEarnings.equipment_model_id), nameof(Models.EquipmentModelStateHourlyEarnings.equipment_state_id), nameof(Models.EquipmentModelStateHourlyEarnings.value));
+                .HasKey(nameof(Models.EquipmentModelStateHourlyEarnings.equipment_model_id), nameof(Models.EquipmentModelStateHourlyEarnings.value));
         }
     }
 }
