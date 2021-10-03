@@ -11,7 +11,7 @@ namespace API.Controllers
     public class EquipmentModelsController : BaseController
     {
         [HttpPost]
-        public async Task<EquipmentModel> CreateEquipmentModel(CreateEquipmentModelCommand command)
+        public async Task<ActionResult<EquipmentModel>> CreateEquipmentModel(CreateEquipmentModelCommand command)
         {
             return await Mediator.Send(command);
         }
@@ -29,14 +29,14 @@ namespace API.Controllers
         }
         
         [HttpPut("{equipmentModelId}")]
-        public async Task<EquipmentModel> UpdateEquipmentModel(Guid equipmentModelId, UpdateEquipmentModelCommand command)
+        public async Task<ActionResult<EquipmentModel>> UpdateEquipmentModel(Guid equipmentModelId, UpdateEquipmentModelCommand command)
         {
             command.EquipmentModelId = equipmentModelId;
             return await Mediator.Send(command);
         }
         
         [HttpDelete("{equipmentModelId}")]
-        public async Task<EquipmentModel> DeleteEquipmentModel(Guid equipmentModelId)
+        public async Task<ActionResult<EquipmentModel>> DeleteEquipmentModel(Guid equipmentModelId)
         {
             return await Mediator.Send(new DeleteEquipmentModelCommand {EquipmentModelId = equipmentModelId});
         }

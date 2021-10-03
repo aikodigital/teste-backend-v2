@@ -1,24 +1,28 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.Equipments.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
 namespace Application.Features.Equipments.Commands.Handlers
 {
-    public class CreateEquipmentHandler : IRequestHandler<CreateEquipmentCommand, Equipment>
+    public class CreateEquipmentHandler : IRequestHandler<CreateEquipmentCommand, EquipmentDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CreateEquipmentHandler(IUnitOfWork unitOfWork)
+        public CreateEquipmentHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<Equipment> Handle(CreateEquipmentCommand request, CancellationToken cancellationToken)
+        public async Task<EquipmentDto> Handle(CreateEquipmentCommand request, CancellationToken cancellationToken)
         {
             var equipmentModel = await _unitOfWork.Repository<EquipmentModel>()
                 .GetByIdAsync(request.EquipmentModelId);
@@ -50,7 +54,7 @@ namespace Application.Features.Equipments.Commands.Handlers
                 throw new WebException("Fail to create Equipment",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipment;
+            return _mapper.Map<Equipment,EquipmentDto>(equipment);
         }
     }
 }

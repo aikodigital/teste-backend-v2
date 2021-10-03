@@ -1,24 +1,28 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.Equipments.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
 namespace Application.Features.Equipments.Commands.Handlers
 {
-    public class UpdateEquipmentHandler : IRequestHandler<UpdateEquipmentCommand, Equipment>
+    public class UpdateEquipmentHandler : IRequestHandler<UpdateEquipmentCommand, EquipmentDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UpdateEquipmentHandler(IUnitOfWork unitOfWork)
+        public UpdateEquipmentHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<Equipment> Handle(UpdateEquipmentCommand request, 
+        public async Task<EquipmentDto> Handle(UpdateEquipmentCommand request, 
             CancellationToken cancellationToken)
         {
             var spec = new EquipmentSpecification(request.EquipmentId);
@@ -54,7 +58,7 @@ namespace Application.Features.Equipments.Commands.Handlers
                 throw new WebException("Fail in update Equipment",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
             
-            return equipment;
+            return _mapper.Map<Equipment,EquipmentDto>(equipment);
         }
     }
 }

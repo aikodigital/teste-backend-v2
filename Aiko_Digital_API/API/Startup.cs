@@ -1,6 +1,7 @@
 using API.Extensions;
 using API.Middleware;
 using Application.Features.Equipments.Queries.RequestModels;
+using Application.Helpers;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -57,6 +58,7 @@ namespace API
                     f.RegisterValidatorsFromAssemblyContaining<ListAllEquipmentsQuery>();
                     f.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 });
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddApplicationServices();
             services.AddMediatR(typeof(ListAllEquipmentsQuery).Assembly);
