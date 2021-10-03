@@ -14,7 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.EquipmentStateHistory[0].equipment_state_id)
+                @Html.DisplayNameFor(model => model.EquipmentStateHistory[0].Equipment_state_id)
             </th>
             <th></th>
         </tr>
@@ -23,12 +23,12 @@
 @foreach (var item in Model.EquipmentStateHistory) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.equipment_state_id)
+                @Html.DisplayFor(modelItem => item.Equipment_state_id)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.equipment_id" asp-route-date="@item.date.ToString("yyyy-MM-dd h:mm tt")">Edit</a>
-                <a asp-page="./Details" asp-route-id="@item.equipment_id" asp-route-date="@item.date.ToString("yyyy-MM-dd h:mm tt")">Details</a>
-                <a asp-page="./Delete" asp-route-id="@item.equipment_id" asp-route-date="@item.date.ToString("yyyy-MM-dd h:mm tt")">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Equipment_id" asp-route-date="@item.Date.ToString("yyyy-MM-dd h:mm tt")">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.Equipment_id" asp-route-date="@item.Date.ToString("yyyy-MM-dd h:mm tt")">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.Equipment_id" asp-route-date="@item.Date.ToString("yyyy-MM-dd h:mm tt")">Delete</a>
             </td>
         </tr>
 }
