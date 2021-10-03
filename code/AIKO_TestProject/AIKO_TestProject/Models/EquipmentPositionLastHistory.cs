@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace AIKO_TestProject.Models
 {
+    [Table("equipment_position_history", Schema = "operation")]
     public class EquipmentPositionLastHistory
     {
-        public DateTime equipment_position_date { get; set; }
+        public DateTime date { get; set; }
         public Single equipment_position_lat { get; set; }
         public Single equipment_position_lon { get; set; }
         public Guid equipment_id { get; set; }
