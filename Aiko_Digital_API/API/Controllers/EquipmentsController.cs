@@ -37,6 +37,14 @@ namespace API.Controllers
             return await Mediator.Send(new GetEquipmentProductivityPercentageQuery
                 {EquipmentId = equipmentId, Date = date});
         }
+        
+        [HttpGet("equipmentGain/{equipmentId}/{date}")]
+        public async Task<ActionResult<float>> GetEquipmentGain(Guid equipmentId, 
+            DateTime date)
+        {
+            return await Mediator.Send(new GetEquipmentGainQuery
+                {EquipmentId = equipmentId, Date = date});
+        }
 
         [HttpPut("{equipmentId}")]
         public async Task<ActionResult<EquipmentDto>> UpdateNameOfEquipment(Guid equipmentId, 
