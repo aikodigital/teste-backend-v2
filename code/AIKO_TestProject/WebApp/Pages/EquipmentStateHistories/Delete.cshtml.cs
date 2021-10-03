@@ -6,30 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.EquipmentStateHistories
 {
     public class DeleteModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentStateHistoryContext _context;
-
-        public DeleteModel(AIKO_TestProject.Context.EquipmentStateHistoryContext context)
-        {
-            _context = context;
-        }
-
+        private static Guid LocalID { get; set; }
+        private static string LocalDate { get; set; }
         [BindProperty]
         public EquipmentStateHistory EquipmentStateHistory { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid? id, string date)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            EquipmentStateHistory = await _context.EquipmentStateHistories.FirstOrDefaultAsync(m => m.equipment_id == id);
+            LocalID = (Guid)id;
+            LocalDate = date;
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStateHistoriesGETAsync((Guid)id, DateTimeOffset.Parse(date));
+            EquipmentStateHistory = result;
 
             if (EquipmentStateHistory == null)
             {
@@ -45,12 +44,23 @@ namespace WebApp.Pages.EquipmentStateHistories
                 return NotFound();
             }
 
-            EquipmentStateHistory = await _context.EquipmentStateHistories.FindAsync(id);
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStateHistoriesGETAsync(LocalID, DateTimeOffset.Parse(LocalDate));
+            EquipmentStateHistory = result;
 
             if (EquipmentStateHistory != null)
-            {
-                _context.EquipmentStateHistories.Remove(EquipmentStateHistory);
-                await _context.SaveChangesAsync();
+            {  
+                try
+                {
+                    await client.EquipmentStateHistoriesDELETEAsync(LocalID, DateTimeOffset.Parse(LocalDate));
+                }
+                catch (ApiException e)
+                {
+                    if (e.StatusCode == 500 && e.Message.Contains("violates foreign key constraint"))
+                    {
+                        return RedirectToPage("/Shared/ForeignKeyConstraintViolation");
+                    }
+                }
             }
 
             return RedirectToPage("./Index");

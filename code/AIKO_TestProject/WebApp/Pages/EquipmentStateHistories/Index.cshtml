@@ -26,12 +26,12 @@
                 @Html.DisplayFor(modelItem => item.equipment_state_id)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.equipment_id/@item.date">Edit</a>
-                @Html.ActionLink("Edit", "Edit", new { id = item.equipment_id }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-page="./Edit" asp-route-id="@item.equipment_id" asp-route-date="@item.date.ToString("yyyy-MM-dd h:mm tt")">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.equipment_id" asp-route-date="@item.date.ToString("yyyy-MM-dd h:mm tt")">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.equipment_id" asp-route-date="@item.date.ToString("yyyy-MM-dd h:mm tt")">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+-

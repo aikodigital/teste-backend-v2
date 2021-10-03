@@ -7,30 +7,30 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Extras;
+using WebApp.Services;
 
 namespace WebApp.Pages.EquipmentStateHistories
 {
     public class EditModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentStateHistoryContext _context;
-
-        public EditModel(AIKO_TestProject.Context.EquipmentStateHistoryContext context)
-        {
-            _context = context;
-        }
+        private static Guid LocalID { get; set; }
+        private static string LocalDate { get; set; }
 
         [BindProperty]
         public EquipmentStateHistory EquipmentStateHistory { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid? id, string date)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            EquipmentStateHistory = await _context.EquipmentStateHistories.FirstOrDefaultAsync(m => m.equipment_id == id);
+            LocalID = (Guid)id;
+            LocalDate = date;
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStateHistoriesGETAsync((Guid)id, DateTimeOffset.Parse(date));
+            EquipmentStateHistory = result;
 
             if (EquipmentStateHistory == null)
             {
@@ -48,15 +48,16 @@ namespace WebApp.Pages.EquipmentStateHistories
                 return Page();
             }
 
-            _context.Attach(EquipmentStateHistory).State = EntityState.Modified;
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStateHistoriesGETAsync(LocalID, DateTimeOffset.Parse(LocalDate));
 
             try
             {
-                await _context.SaveChangesAsync();
+                await client.EquipmentStateHistoriesPUTAsync(LocalID, DateTimeOffset.Parse(LocalDate), EquipmentStateHistory);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentStateHistoryExists(EquipmentStateHistory.equipment_id))
+                if (result == null)
                 {
                     return NotFound();
                 }
@@ -67,11 +68,6 @@ namespace WebApp.Pages.EquipmentStateHistories
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool EquipmentStateHistoryExists(Guid id)
-        {
-            return _context.EquipmentStateHistories.Any(e => e.equipment_id == id);
         }
     }
 }

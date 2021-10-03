@@ -6,29 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using AIKO_TestProject.Models;
+using WebApp.Services;
+using WebApp.Extras;
 
 namespace WebApp.Pages.EquipmentStateHistories
 {
     public class DetailsModel : PageModel
     {
-        private readonly AIKO_TestProject.Context.EquipmentStateHistoryContext _context;
-
-        public DetailsModel(AIKO_TestProject.Context.EquipmentStateHistoryContext context)
-        {
-            _context = context;
-        }
-
         public EquipmentStateHistory EquipmentStateHistory { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid? id, string date)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            EquipmentStateHistory = await _context.EquipmentStateHistories.FirstOrDefaultAsync(m => m.equipment_id == id);
+            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
+            var result = await client.EquipmentStateHistoriesGETAsync((Guid)id, DateTimeOffset.Parse(date));
+            EquipmentStateHistory = result;
 
             if (EquipmentStateHistory == null)
             {
