@@ -2,10 +2,12 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentPositionHistories.Queries.RequestModels;
 using Application.Features.EquipmentStateHistories.Queries.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -13,16 +15,18 @@ namespace Application.Features.EquipmentStateHistories.Queries.Handlers
 {
     public class GetEquipmentStateHistoriesByEquipmentIdHandler 
         : IRequestHandler<GetEquipmentStateHistoriesByEquipmentIdQuery, 
-            IReadOnlyList<EquipmentStateHistory>>
+            IReadOnlyList<EquipmentStateHistoryDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public GetEquipmentStateHistoriesByEquipmentIdHandler(IUnitOfWork unitOfWork)
+        public GetEquipmentStateHistoriesByEquipmentIdHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<IReadOnlyList<EquipmentStateHistory>> 
+        public async Task<IReadOnlyList<EquipmentStateHistoryDto>> 
             Handle(GetEquipmentStateHistoriesByEquipmentIdQuery request, 
                 CancellationToken cancellationToken)
         {
@@ -36,8 +40,11 @@ namespace Application.Features.EquipmentStateHistories.Queries.Handlers
 
             var specEquipmentStateHistory = new EquipmentStateHistorySpecification(request.EquipmentId);
 
-            return await _unitOfWork.Repository<EquipmentStateHistory>()
+            var equipmentStatesHistories = await _unitOfWork.Repository<EquipmentStateHistory>()
                 .ListAllWithSpecAsync(specEquipmentStateHistory);
+
+            return _mapper.Map<IReadOnlyList<EquipmentStateHistory>, IReadOnlyList<EquipmentStateHistoryDto>>(
+                equipmentStatesHistories);
         }
     }
 }

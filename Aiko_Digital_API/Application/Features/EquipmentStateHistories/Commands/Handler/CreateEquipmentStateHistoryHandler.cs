@@ -2,9 +2,11 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentStateHistories.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -12,16 +14,19 @@ namespace Application.Features.EquipmentStateHistories.Commands.Handler
 {
     public class CreateEquipmentStateHistoryHandler : 
         IRequestHandler<CreateEquipmentStateHistoryCommand, 
-            EquipmentStateHistory>
+            EquipmentStateHistoryDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CreateEquipmentStateHistoryHandler(IUnitOfWork unitOfWork)
+        public CreateEquipmentStateHistoryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<EquipmentStateHistory> Handle(CreateEquipmentStateHistoryCommand request, CancellationToken cancellationToken)
+        public async Task<EquipmentStateHistoryDto> Handle(CreateEquipmentStateHistoryCommand request, 
+            CancellationToken cancellationToken)
         {
             var spec = new EquipmentSpecification();
             var equipment = await _unitOfWork.Repository<Equipment>()
@@ -53,7 +58,8 @@ namespace Application.Features.EquipmentStateHistories.Commands.Handler
                 throw new WebException("Fail to create Equipment State History",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipmentStateHistory;
+            return _mapper.Map<EquipmentStateHistory, EquipmentStateHistoryDto>
+                (equipmentStateHistory);
         }
     }
 }

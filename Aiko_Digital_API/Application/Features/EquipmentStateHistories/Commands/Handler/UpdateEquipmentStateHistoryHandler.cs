@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentStateHistories.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -11,16 +13,18 @@ namespace Application.Features.EquipmentStateHistories.Commands.Handler
 {
     public class UpdateEquipmentStateHistoryHandler : 
         IRequestHandler<UpdateEquipmentStateHistoryCommand, 
-            EquipmentStateHistory>
+            EquipmentStateHistoryDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UpdateEquipmentStateHistoryHandler(IUnitOfWork unitOfWork)
+        public UpdateEquipmentStateHistoryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<EquipmentStateHistory> 
+        public async Task<EquipmentStateHistoryDto> 
             Handle(UpdateEquipmentStateHistoryCommand request, 
                 CancellationToken cancellationToken)
         {
@@ -59,7 +63,8 @@ namespace Application.Features.EquipmentStateHistories.Commands.Handler
                 throw new WebException("Fail in update Equipment State History",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipmentStateHistory;
+            return _mapper.Map<EquipmentStateHistory,EquipmentStateHistoryDto>
+                (equipmentStateHistory);
         }
     }
 }

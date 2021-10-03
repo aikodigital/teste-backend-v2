@@ -2,9 +2,11 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentModelStateHourlyEarnings.Queries.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -12,16 +14,19 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Queries.Handler
 {
     public class GetEquipmentModelStateHourlyEarningByEquipmentModelIdHandler 
         : IRequestHandler<GetEquipmentModelStateHourlyEarningByEquipmentModelIdQuery, 
-            IReadOnlyList<EquipmentModelStateHourlyEarning>>
+            IReadOnlyList<EquipmentModelStateHourlyEarningDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public GetEquipmentModelStateHourlyEarningByEquipmentModelIdHandler(IUnitOfWork unitOfWork)
+        public GetEquipmentModelStateHourlyEarningByEquipmentModelIdHandler(IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<IReadOnlyList<EquipmentModelStateHourlyEarning>> 
+        public async Task<IReadOnlyList<EquipmentModelStateHourlyEarningDto>> 
             Handle(GetEquipmentModelStateHourlyEarningByEquipmentModelIdQuery request, 
                 CancellationToken cancellationToken)
         {
@@ -37,7 +42,8 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Queries.Handler
                 Repository<EquipmentModelStateHourlyEarning>()
                 .ListAllWithSpecAsync(spec);
 
-            return equipmentModelStateHourlyEarnings;
+            return _mapper.Map<IReadOnlyList<EquipmentModelStateHourlyEarning>,
+                IReadOnlyList<EquipmentModelStateHourlyEarningDto>>(equipmentModelStateHourlyEarnings);
         }
     }
 }

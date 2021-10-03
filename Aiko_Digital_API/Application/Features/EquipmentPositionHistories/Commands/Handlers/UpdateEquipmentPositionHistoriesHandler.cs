@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentPositionHistories.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -11,16 +13,19 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
 {
     public class UpdateEquipmentPositionHistoriesHandler : 
         IRequestHandler<UpdateEquipmentPositionHistoriesCommand, 
-            EquipmentPositionHistory>
+            EquipmentPositionHistoryDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public UpdateEquipmentPositionHistoriesHandler(IUnitOfWork unitOfWork)
+        public UpdateEquipmentPositionHistoriesHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<EquipmentPositionHistory> Handle(UpdateEquipmentPositionHistoriesCommand request, CancellationToken cancellationToken)
+        public async Task<EquipmentPositionHistoryDto> Handle(UpdateEquipmentPositionHistoriesCommand request, 
+            CancellationToken cancellationToken)
         {
             var specEquipment = new EquipmentSpecification(request.EquipmentId);
             var equipment = await _unitOfWork.Repository<Equipment>()
@@ -49,7 +54,8 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
                 throw new WebException("Fail in update Equipment Position History",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipmentPositionHistory;
+            return _mapper.Map<EquipmentPositionHistory,EquipmentPositionHistoryDto>
+                (equipmentPositionHistory);
         }
     }
 }

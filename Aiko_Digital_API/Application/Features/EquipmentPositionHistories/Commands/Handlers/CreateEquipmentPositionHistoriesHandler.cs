@@ -2,9 +2,11 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentPositionHistories.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -12,16 +14,18 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
 {
     public class CreateEquipmentPositionHistoriesHandler : 
         IRequestHandler<CreateEquipmentPositionHistoriesCommand, 
-        EquipmentPositionHistory>
+        EquipmentPositionHistoryDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CreateEquipmentPositionHistoriesHandler(IUnitOfWork unitOfWork)
+        public CreateEquipmentPositionHistoriesHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<EquipmentPositionHistory> Handle(CreateEquipmentPositionHistoriesCommand request, 
+        public async Task<EquipmentPositionHistoryDto> Handle(CreateEquipmentPositionHistoriesCommand request, 
             CancellationToken cancellationToken)
         {
             var specEquipment = new EquipmentSpecification(request.EquipmentId);
@@ -39,7 +43,8 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
                 .GetEntityWithSpecAsync(spec);
             
             if (equipmentPositionHistory != null)
-                throw new WebException("Equipment Position History exist in data base for this date time!",
+                throw new WebException("Equipment Position History exist in data base " +
+                                       "for this date time!",
                     (WebExceptionStatus) HttpStatusCode.NotFound);
             
             equipmentPositionHistory = new EquipmentPositionHistory
@@ -58,7 +63,8 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
                 throw new WebException("Fail to create Equipment Position History",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
             
-            return equipmentPositionHistory;
+            return _mapper.Map<EquipmentPositionHistory, EquipmentPositionHistoryDto>
+                (equipmentPositionHistory);
         }
     }
 }

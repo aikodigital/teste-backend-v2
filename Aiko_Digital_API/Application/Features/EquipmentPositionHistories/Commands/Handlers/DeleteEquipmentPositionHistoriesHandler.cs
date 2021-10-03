@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentPositionHistories.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -11,16 +13,18 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
 {
     public class DeleteEquipmentPositionHistoriesHandler : 
         IRequestHandler<DeleteEquipmentPositionHistoriesCommand, 
-            EquipmentPositionHistory>
+            EquipmentPositionHistoryDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public DeleteEquipmentPositionHistoriesHandler(IUnitOfWork unitOfWork)
+        public DeleteEquipmentPositionHistoriesHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<EquipmentPositionHistory> Handle(DeleteEquipmentPositionHistoriesCommand request, 
+        public async Task<EquipmentPositionHistoryDto> Handle(DeleteEquipmentPositionHistoriesCommand request, 
             CancellationToken cancellationToken)
         {
             var specEquipment = new EquipmentSpecification(request.EquipmentId);
@@ -48,7 +52,8 @@ namespace Application.Features.EquipmentPositionHistories.Commands.Handlers
                 throw new WebException("Fail to delete a Equipment Position History",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipmentPositionHistory;
+            return _mapper.Map<EquipmentPositionHistory,
+                EquipmentPositionHistoryDto>(equipmentPositionHistory);
         }
     }
 }

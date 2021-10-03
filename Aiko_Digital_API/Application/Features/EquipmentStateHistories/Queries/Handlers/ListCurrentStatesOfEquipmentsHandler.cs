@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentStateHistories.Queries.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -11,16 +13,18 @@ namespace Application.Features.EquipmentStateHistories.Queries.Handlers
 {
     public class ListCurrentStatesOfEquipmentsHandler : 
         IRequestHandler<ListCurrentStatesOfEquipmentsQuery, 
-            IReadOnlyList<EquipmentStateHistory>>
+            IReadOnlyList<EquipmentStateHistoryDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ListCurrentStatesOfEquipmentsHandler(IUnitOfWork unitOfWork)
+        public ListCurrentStatesOfEquipmentsHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<IReadOnlyList<EquipmentStateHistory>> 
+        public async Task<IReadOnlyList<EquipmentStateHistoryDto>> 
             Handle(ListCurrentStatesOfEquipmentsQuery request, 
                 CancellationToken cancellationToken)
         {
@@ -38,7 +42,8 @@ namespace Application.Features.EquipmentStateHistories.Queries.Handlers
                 equipmentStateHistory.Add(currentStateEquipment);
             }
 
-            return equipmentStateHistory;
+            return _mapper.Map<IReadOnlyList<EquipmentStateHistory>, 
+                IReadOnlyList<EquipmentStateHistoryDto>>(equipmentStateHistory);
         }
     }
 }

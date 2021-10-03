@@ -9,6 +9,9 @@ namespace Application.Helpers
         public MappingProfiles()
         {
             CreateMap<Equipment, EquipmentDto>();
+            CreateMap<EquipmentModelStateHourlyEarning, EquipmentModelStateHourlyEarningDto>();
+            CreateMap<EquipmentPositionHistory, EquipmentPositionHistoryDto>();
+            CreateMap<EquipmentStateHistory, EquipmentStateHistoryDto>();
         }
     }
 }

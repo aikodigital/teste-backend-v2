@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentModelStateHourlyEarnings.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -11,16 +13,18 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
 {
     public class CreateEquipmentModelStateHourlyEarningsHandler 
         : IRequestHandler<CreateEquipmentModelStateHourlyEarningsCommand, 
-            EquipmentModelStateHourlyEarning>
+            EquipmentModelStateHourlyEarningDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CreateEquipmentModelStateHourlyEarningsHandler(IUnitOfWork unitOfWork)
+        public CreateEquipmentModelStateHourlyEarningsHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<EquipmentModelStateHourlyEarning> 
+        public async Task<EquipmentModelStateHourlyEarningDto> 
             Handle(CreateEquipmentModelStateHourlyEarningsCommand request, 
                 CancellationToken cancellationToken)
         {
@@ -65,8 +69,8 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
                 throw new WebException("Fail to create Equipment Model State hourly Earnings",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipmentModelStateHourlyEarnings;
-
+            return _mapper.Map<EquipmentModelStateHourlyEarning,
+                EquipmentModelStateHourlyEarningDto>(equipmentModelStateHourlyEarnings);
         }
     }
 }

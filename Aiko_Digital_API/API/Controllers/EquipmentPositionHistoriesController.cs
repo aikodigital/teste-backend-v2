@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentPositionHistories.Commands.RequestModels;
 using Application.Features.EquipmentPositionHistories.Queries.RequestModels;
 using Domain;
@@ -11,26 +12,26 @@ namespace API.Controllers
     public class EquipmentPositionHistoriesController : BaseController
     {
         [HttpPost]
-        public async Task<ActionResult<EquipmentPositionHistory>> 
+        public async Task<ActionResult<EquipmentPositionHistoryDto>> 
             CreateEquipmentPositionHistory(CreateEquipmentPositionHistoriesCommand command)
         {
             return await Mediator.Send(command);
         }
         
         [HttpGet]
-        public async Task<IReadOnlyList<EquipmentPositionHistory>> ListAllEquipmentPositionHistories()
+        public async Task<IReadOnlyList<EquipmentPositionHistoryDto>> ListAllEquipmentPositionHistories()
         {
             return await Mediator.Send(new ListAllEquipmentPositionHistoriesQuery());
         }
         
         [HttpGet("currentPositionsOfEquipments")]
-        public async Task<IReadOnlyList<EquipmentPositionHistory>> ListCurrentPositionsOfEquipments()
+        public async Task<IReadOnlyList<EquipmentPositionHistoryDto>> ListCurrentPositionsOfEquipments()
         {
             return await Mediator.Send(new ListCurrentPositionsOfEquipmentsQuery());
         }
 
         [HttpGet("{equipmentId}")]
-        public async Task<IReadOnlyList<EquipmentPositionHistory>>
+        public async Task<IReadOnlyList<EquipmentPositionHistoryDto>>
             GetEquipmentPositionHistoriesByEquipmentId(Guid equipmentId)
         {
             return await Mediator.Send(new GetEquipmentPositionHistoriesByEquipmentIdQuery 
@@ -38,7 +39,7 @@ namespace API.Controllers
         }
         
         [HttpPut("{equipmentId}/{date}")]
-        public async Task<ActionResult<EquipmentPositionHistory>> 
+        public async Task<ActionResult<EquipmentPositionHistoryDto>> 
             UpdateEquipmentPositionHistories(Guid equipmentId, DateTime date, 
                 UpdateEquipmentPositionHistoriesCommand command)
         {
@@ -48,7 +49,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{equipmentId}/{date}")]
-        public async Task<ActionResult<EquipmentPositionHistory>> 
+        public async Task<ActionResult<EquipmentPositionHistoryDto>> 
             DeleteEquipmentPositionHistories(Guid equipmentId, DateTime date)
         {
             return await Mediator.Send(new DeleteEquipmentPositionHistoriesCommand 

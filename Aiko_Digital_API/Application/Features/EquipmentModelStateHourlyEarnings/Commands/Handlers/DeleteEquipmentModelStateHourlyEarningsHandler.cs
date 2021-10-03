@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentModelStateHourlyEarnings.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -11,16 +13,20 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
 {
     public class DeleteEquipmentModelStateHourlyEarningsHandler 
         : IRequestHandler<DeleteEquipmentModelStateHourlyEarningsCommand, 
-            EquipmentModelStateHourlyEarning>
+            EquipmentModelStateHourlyEarningDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public DeleteEquipmentModelStateHourlyEarningsHandler(IUnitOfWork unitOfWork)
+        public DeleteEquipmentModelStateHourlyEarningsHandler(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<EquipmentModelStateHourlyEarning> Handle(DeleteEquipmentModelStateHourlyEarningsCommand request, CancellationToken cancellationToken)
+        public async Task<EquipmentModelStateHourlyEarningDto> 
+            Handle(DeleteEquipmentModelStateHourlyEarningsCommand request, 
+                CancellationToken cancellationToken)
         {
             var equipmentModel = await _unitOfWork.Repository<EquipmentModel>()
                 .GetByIdAsync(request.EquipmentModelId);
@@ -40,7 +46,8 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
                 request.EquipmentStateId);
             
             var equipmentModelStateHourlyEarnings =
-                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>().GetEntityWithSpecAsync(spec);
+                await _unitOfWork.Repository<EquipmentModelStateHourlyEarning>()
+                    .GetEntityWithSpecAsync(spec);
             
             if (equipmentModelStateHourlyEarnings == null)
                 throw new WebException("Equipment Model State hourly Earnings not found!",
@@ -55,7 +62,8 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Commands.Handle
                 throw new WebException("Fail to delete a Equipment Model State hourly Earnings",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipmentModelStateHourlyEarnings;
+            return _mapper.Map<EquipmentModelStateHourlyEarning,
+                EquipmentModelStateHourlyEarningDto>(equipmentModelStateHourlyEarnings);
         }
     }
 }

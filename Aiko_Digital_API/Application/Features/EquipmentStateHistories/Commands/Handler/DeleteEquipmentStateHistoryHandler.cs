@@ -1,9 +1,11 @@
 ﻿using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Dtos;
 using Application.Features.EquipmentStateHistories.Commands.RequestModels;
 using Application.Interfaces;
 using Application.Specifications;
+using AutoMapper;
 using Domain;
 using MediatR;
 
@@ -11,16 +13,18 @@ namespace Application.Features.EquipmentStateHistories.Commands.Handler
 {
     public class DeleteEquipmentStateHistoryHandler : 
         IRequestHandler<DeleteEquipmentStateHistoryCommand, 
-            EquipmentStateHistory>
+            EquipmentStateHistoryDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public DeleteEquipmentStateHistoryHandler(IUnitOfWork unitOfWork)
+        public DeleteEquipmentStateHistoryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         
-        public async Task<EquipmentStateHistory> 
+        public async Task<EquipmentStateHistoryDto> 
             Handle(DeleteEquipmentStateHistoryCommand request, 
                 CancellationToken cancellationToken)
         {
@@ -50,7 +54,8 @@ namespace Application.Features.EquipmentStateHistories.Commands.Handler
                 throw new WebException("Fail to delete a Equipment State History",
                     (WebExceptionStatus) HttpStatusCode.InternalServerError);
 
-            return equipmentStateHistory;
+            return _mapper.Map<EquipmentStateHistory,EquipmentStateHistoryDto>
+                (equipmentStateHistory);
         }
     }
 }
