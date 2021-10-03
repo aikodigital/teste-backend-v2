@@ -1,0 +1,72 @@
+﻿@page
+@model WebApp.Pages.Equipments.LastStateModel
+
+@{
+    ViewData["Title"] = "LastState";
+}
+
+<h1>LastState</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Equipment_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Equipment_model_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Equipment_model_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Equipment_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Equipment_state_color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Equipment_state_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Equipment_state_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateLastHistory[0].Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.EquipmentStateLastHistory)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_model_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_model_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_state_color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_state_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_state_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>

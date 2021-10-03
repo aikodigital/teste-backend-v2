@@ -6,21 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AIKO_TestProject.Context;
-using WebApp.Services;
-using WebApp.Extras;
+using AIKO_TestProject.Models;
 
 namespace WebApp.Pages.EquipmentStateHistories
 {
     public class IndexModel : PageModel
     {
+        private readonly AIKO_TestProject.Context.EquipmentStateHistoryContext _context;
+
+        public IndexModel(AIKO_TestProject.Context.EquipmentStateHistoryContext context)
+        {
+            _context = context;
+        }
 
         public IList<EquipmentStateHistory> EquipmentStateHistory { get;set; }
 
         public async Task OnGetAsync()
         {
-            var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
-            var result = await client.EquipmentStateHistoriesAllAsync();
-            EquipmentStateHistory = result;
+            EquipmentStateHistory = await _context.EquipmentStateHistories.ToListAsync();
         }
     }
 }
