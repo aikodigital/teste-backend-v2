@@ -21,7 +21,7 @@ namespace AIKO_TestProject.Controllers
             _context = context;
         }
 
-        // GET: api/EquipmentStateLastHistories
+        // GET: api/EquipmentStateLastHistories/5
         [HttpGet("{id}")]
         public async Task<List<EquipmentStateLastHistory>> GetEquipmentStateLastHistory_ByID(Guid id)
         {
@@ -50,7 +50,6 @@ namespace AIKO_TestProject.Controllers
 
             return equipmentStateLastHistory;
         }
-
 
     }
 }

@@ -8,7 +8,7 @@ namespace AIKO_TestProject.Context
 {
     public class EquipmentPositionLastHistoryContext : DbContext
     {
-        public DbSet<Models.EquipmentPositionLastHistory> EquipmentPositionHistories { get; set; }
+        public DbSet<Models.EquipmentPositionLastHistory> EquipmentPositionLastHistories { get; set; }
 
         public EquipmentPositionLastHistoryContext(DbContextOptions<EquipmentPositionLastHistoryContext> options) :
             base(options)
