@@ -30,9 +30,9 @@ namespace AIKO_TestProject.Controllers
 
         // GET: api/EquipmentStateHistories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EquipmentStateHistory>> GetEquipmentStateHistory(Guid id)
+        public async Task<ActionResult<EquipmentStateHistory>> GetEquipmentStateHistory(Guid id, DateTime date)
         {
-            var equipmentStateHistory = await _context.EquipmentStateHistories.FindAsync(id);
+            var equipmentStateHistory = await _context.EquipmentStateHistories.FindAsync(id, date);
 
             if (equipmentStateHistory == null)
             {
@@ -45,7 +45,7 @@ namespace AIKO_TestProject.Controllers
         // PUT: api/EquipmentStateHistories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEquipmentStateHistory(Guid id, EquipmentStateHistory equipmentStateHistory)
+        public async Task<IActionResult> PutEquipmentStateHistory(Guid id, DateTime date, EquipmentStateHistory equipmentStateHistory)
         {
             if (id != equipmentStateHistory.equipment_id)
             {
@@ -60,7 +60,7 @@ namespace AIKO_TestProject.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentStateHistoryExists(id))
+                if (!EquipmentStateHistoryExists(id, date))
                 {
                     return NotFound();
                 }
@@ -85,7 +85,7 @@ namespace AIKO_TestProject.Controllers
             }
             catch (DbUpdateException)
             {
-                if (EquipmentStateHistoryExists(equipmentStateHistory.equipment_id))
+                if (EquipmentStateHistoryExists(equipmentStateHistory.equipment_id, equipmentStateHistory.date))
                 {
                     return Conflict();
                 }
@@ -100,9 +100,9 @@ namespace AIKO_TestProject.Controllers
 
         // DELETE: api/EquipmentStateHistories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEquipmentStateHistory(Guid id)
+        public async Task<IActionResult> DeleteEquipmentStateHistory(Guid id, DateTime date)
         {
-            var equipmentStateHistory = await _context.EquipmentStateHistories.FindAsync(id);
+            var equipmentStateHistory = await _context.EquipmentStateHistories.FindAsync(id, date);
             if (equipmentStateHistory == null)
             {
                 return NotFound();
@@ -114,9 +114,9 @@ namespace AIKO_TestProject.Controllers
             return NoContent();
         }
 
-        private bool EquipmentStateHistoryExists(Guid id)
+        private bool EquipmentStateHistoryExists(Guid id, DateTime date)
         {
-            return _context.EquipmentStateHistories.Any(e => e.equipment_id == id);
+            return _context.EquipmentStateHistories.Any(e => e.equipment_id == id && e.date == date);
         }
     }
 }
