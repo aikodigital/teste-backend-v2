@@ -28,7 +28,7 @@ namespace Application.Features.EquipmentStateHistories.Commands.Handler
             Handle(UpdateEquipmentStateHistoryCommand request, 
                 CancellationToken cancellationToken)
         {
-            var spec = new EquipmentSpecification();
+            var spec = new EquipmentSpecification(request.EquipmentId);
             var equipment = await _unitOfWork.Repository<Equipment>()
                 .GetEntityWithSpecAsync(spec);
             

@@ -30,7 +30,7 @@ namespace Application.Features.EquipmentStateHistories.Queries.Handlers
             Handle(GetEquipmentStateHistoriesByEquipmentIdQuery request, 
                 CancellationToken cancellationToken)
         {
-            var spec = new EquipmentSpecification();
+            var spec = new EquipmentSpecification(request.EquipmentId);
             var equipment = await _unitOfWork.Repository<Equipment>()
                 .GetEntityWithSpecAsync(spec);
             

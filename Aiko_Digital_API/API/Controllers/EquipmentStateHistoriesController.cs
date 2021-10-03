@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Application.Dtos;
 using Application.Features.EquipmentStateHistories.Commands.RequestModels;
 using Application.Features.EquipmentStateHistories.Queries.RequestModels;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

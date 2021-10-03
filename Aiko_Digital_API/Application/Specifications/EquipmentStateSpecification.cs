@@ -22,5 +22,10 @@ namespace Application.Specifications
                                      || x.Color.ToUpper() == color.ToUpper()))
         {
         }
+        
+        public EquipmentStateSpecification(string name)
+            : base(x=>x.Name.ToUpper() == name.ToUpper())
+        {
+        }
     }
 }

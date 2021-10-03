@@ -26,7 +26,6 @@ namespace Application.Features.EquipmentModelStateHourlyEarnings.Queries.Handler
             _mapper = mapper;
         }
         
-        
         public async Task<IReadOnlyList<EquipmentModelStateHourlyEarningDto>> 
             Handle(GetEquipmentModelStateHourlyEarningByEquipmentStateIdQuery request, 
                 CancellationToken cancellationToken)
