@@ -22,7 +22,6 @@ namespace WebApp.Pages.Equipments
                 return NotFound();
             }
 
-
             var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
             var result = await client.EquipmentPositionLastHistoriesAsync((Guid)id);
             EquipmentPositionLastHistory = result;
