@@ -45,9 +45,6 @@ namespace WebApp.Pages.EquipmentModels
                 return Page();
             }
 
-
-            //_context.Attach(EquipmentModel).State = EntityState.Modified;
-
             var client = new Client(Helper.APIBaseUrl, new System.Net.Http.HttpClient());
             var result = await client.EquipmentModelsGETAsync(LocalID);
 
