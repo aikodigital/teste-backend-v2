@@ -1,7 +1,7 @@
 ﻿@page
-@model EquipmentStateHistoriesModel
+@model EquipmentPositionHistory
 @{
-    ViewData["Title"] = "Equipment State History";
+    ViewData["Title"] = "Equipment Position History";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,8 +13,8 @@
        $("#KendoVersion").text(kendo.version);
         
         $("#grid").kendoGrid({
-               dataSource: EquipmentStateHistoryHelper.gridDataSource(),
-               columns: EquipmentStateHistoryHelper.GenerateColumns(),
+               dataSource: EquipmentPositionHistoryHelper.gridDataSource(),
+               columns: EquipmentPositionHistoryHelper.GenerateColumns(),
                editable: false,
                navigatable: true,
                selectable: true,
@@ -24,11 +24,12 @@
            });   
     });
     
-    var EquipmentStateHistoryHelper = {
+    var EquipmentPositionHistoryHelper = {
         GenerateColumns: function () {
             return columns = [
                 {field: "equipment", title:"Equipment", width: 60, editable:false},
-                {field: "equipmentState", title:"Equipment State", width: 60, editable:false},
+                {field: "lat", title:"Latitude", width: 60, editable:false},
+                {field: "lon", title:"Longitude", width: 60, editable:false},
                 {field: "date", title:"Date", width: 60, editable:false}
             ]
         },
@@ -48,14 +49,15 @@
                         id: "ID",
                         fields: {
                             equipment: {validations: {required: true}}, 
-                            equipmentState: {validations: {required: true}},
+                            lat: {validations: {required: true}},
+                            lon: {validations: {required: true}},
                             date: {validations: {required: true}}
                         }
                     }
                 },
                 transport: {
                     read: {
-                        url: 'https://localhost:5001/api/EquipmentStateHistories',
+                        url: 'https://localhost:5001/api/EquipmentPositionHistories',
                         type: "GET",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8"    

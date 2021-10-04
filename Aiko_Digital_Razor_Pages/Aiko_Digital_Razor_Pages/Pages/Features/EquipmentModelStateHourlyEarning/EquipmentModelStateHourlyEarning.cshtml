@@ -1,7 +1,7 @@
 ﻿@page
-@model EquipmentStateHistoriesModel
+@model EquipmentModelStateHourlyEarning
 @{
-    ViewData["Title"] = "Equipment State History";
+    ViewData["Title"] = "Equipment Model State Hourly Earning";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,8 +13,8 @@
        $("#KendoVersion").text(kendo.version);
         
         $("#grid").kendoGrid({
-               dataSource: EquipmentStateHistoryHelper.gridDataSource(),
-               columns: EquipmentStateHistoryHelper.GenerateColumns(),
+               dataSource: EquipmentModelStateHourlyEarningHelper.gridDataSource(),
+               columns: EquipmentModelStateHourlyEarningHelper.GenerateColumns(),
                editable: false,
                navigatable: true,
                selectable: true,
@@ -24,12 +24,12 @@
            });   
     });
     
-    var EquipmentStateHistoryHelper = {
+    var EquipmentModelStateHourlyEarningHelper = {
         GenerateColumns: function () {
             return columns = [
-                {field: "equipment", title:"Equipment", width: 60, editable:false},
+                {field: "equipmentModel", title:"Equipment Model", width: 60, editable:false},
                 {field: "equipmentState", title:"Equipment State", width: 60, editable:false},
-                {field: "date", title:"Date", width: 60, editable:false}
+                {field: "value", title:"Value", width: 60, editable:false}
             ]
         },
         
@@ -47,15 +47,15 @@
                     model : {
                         id: "ID",
                         fields: {
-                            equipment: {validations: {required: true}}, 
+                            equipmentModel: {validations: {required: true}}, 
                             equipmentState: {validations: {required: true}},
-                            date: {validations: {required: true}}
+                            value: {validations: {required: true}}
                         }
                     }
                 },
                 transport: {
                     read: {
-                        url: 'https://localhost:5001/api/EquipmentStateHistories',
+                        url: 'https://localhost:5001/api/EquipmentModelStateHourlyEarnings',
                         type: "GET",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8"    

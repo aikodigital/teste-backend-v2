@@ -20,6 +20,7 @@
                selectable: true,
                filterable: true,
                sortable: true,
+               pageable: true
            });   
     });
     
@@ -35,11 +36,10 @@
         gridDataSource: function ()  {
             var gridDataSource = new kendo.data.DataSource({
                 // type: "json",
-                serverPaging: true,
-                serverSorting: true,
-                serverFiltering: true,
                 allowUnsort: true,
-                pageSize: 1,
+                pageSize: 20,
+                page:1,
+                groupPaging:true,
                 schema: {
                     data: function (data) {
                         return data || [];
@@ -67,21 +67,8 @@
                 batch: true
             });
             
-            // gridDataSource.fetch(function () {
-            //    var data = gridDataSource.data();
-            //   
-            //    console.log(data[0].name)
-            //   
-            // });
-            //
-            // console.log("Teste");
-            // console.log(gridDataSource);
-            
             return gridDataSource;
         }
-    };
-
-
-    
+    };    
 </script>
 

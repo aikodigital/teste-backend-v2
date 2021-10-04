@@ -1,7 +1,7 @@
 ﻿@page
-@model EquipmentStateHistoriesModel
+@model EquipmentModel
 @{
-    ViewData["Title"] = "Equipment State History";
+    ViewData["Title"] = "Equipment Model";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -13,8 +13,8 @@
        $("#KendoVersion").text(kendo.version);
         
         $("#grid").kendoGrid({
-               dataSource: EquipmentStateHistoryHelper.gridDataSource(),
-               columns: EquipmentStateHistoryHelper.GenerateColumns(),
+               dataSource: EquipmentModelHelper.gridDataSource(),
+               columns: EquipmentModelHelper.GenerateColumns(),
                editable: false,
                navigatable: true,
                selectable: true,
@@ -24,12 +24,11 @@
            });   
     });
     
-    var EquipmentStateHistoryHelper = {
+    var EquipmentModelHelper = {
         GenerateColumns: function () {
             return columns = [
-                {field: "equipment", title:"Equipment", width: 60, editable:false},
-                {field: "equipmentState", title:"Equipment State", width: 60, editable:false},
-                {field: "date", title:"Date", width: 60, editable:false}
+                {field: "uid", title:"Id", width: 60, editable:false},
+                {field: "name", title:"Name", width: 60, editable:false},
             ]
         },
         
@@ -37,7 +36,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 // type: "json",
                 allowUnsort: true,
-                pageSize: 10,
+                pageSize: 20,
                 page:1,
                 groupPaging:true,
                 schema: {
@@ -47,15 +46,14 @@
                     model : {
                         id: "ID",
                         fields: {
-                            equipment: {validations: {required: true}}, 
-                            equipmentState: {validations: {required: true}},
-                            date: {validations: {required: true}}
+                            uid: {validations: {required: true}}, 
+                            name: {validations: {required: true}},
                         }
                     }
                 },
                 transport: {
                     read: {
-                        url: 'https://localhost:5001/api/EquipmentStateHistories',
+                        url: 'https://localhost:5001/api/EquipmentModels',
                         type: "GET",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8"    
@@ -71,3 +69,4 @@
         }
     };    
 </script>
+
