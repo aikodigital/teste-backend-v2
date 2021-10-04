@@ -58,6 +58,19 @@ namespace API
                     f.RegisterValidatorsFromAssemblyContaining<ListAllEquipmentsQuery>();
                     f.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 });
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:5003")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });    
+            
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddApplicationServices();
@@ -82,6 +95,8 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

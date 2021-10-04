@@ -6,6 +6,12 @@
     <title>@ViewData["Title"] - Aiko_Digital_Razor_Pages</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
+    
+    @* Add Kendo UI Library *@
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.3.914/styles/kendo.blueopal.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
 </head>
 <body>
 <header>
@@ -22,7 +28,13 @@
                         <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Features/Privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Features/EquipmentState/EquipmentState"> Equipment State</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Features/EquipmentStateHistories/EquipmentStateHistories"> Equipment State History</a>
                     </li>
                 </ul>
             </div>
@@ -37,12 +49,18 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2021 - Aiko_Digital_Razor_Pages - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        &copy; 2021 - Aiko_Digital_Razor_Pages - <a asp-area="" asp-page="/Features/Privacy">Privacy</a>
     </div>
 </footer>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+
+@* <script src="~/kendoui/kendo.all.min.js"></script> *@
+
 <script src="~/js/site.js" asp-append-version="true"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
