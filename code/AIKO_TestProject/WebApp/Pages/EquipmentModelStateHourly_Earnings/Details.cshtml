@@ -1,0 +1,21 @@
+﻿@page
+@model WebApp.Pages.EquipmentModelStateHourly_Earnings.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>EquipmentModelStateHourlyEarnings</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EquipmentModelStateHourlyEarnings.Equipment_state_id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EquipmentModelStateHourlyEarnings.Equipment_state_id)
+        </dd>
+    </dl>
+</div>

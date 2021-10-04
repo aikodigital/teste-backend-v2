@@ -1,0 +1,48 @@
+﻿@page
+@model WebApp.Pages.EquipmentModelStateHourly_Earnings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentModelStateHourlyEarnings[0].Equipment_model_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentModelStateHourlyEarnings[0].Equipment_state_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentModelStateHourlyEarnings[0].Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.EquipmentModelStateHourlyEarnings) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_model_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_state_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Equipment_model_id" asp-route-value="@item.Value">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.Equipment_model_id" asp-route-value="@item.Value">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.Equipment_model_id" asp-route-value="@item.Value">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

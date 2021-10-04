@@ -1,0 +1,37 @@
+﻿@page
+@model WebApp.Pages.EquipmentStateHistories.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentStateHistory[0].Equipment_state_id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.EquipmentStateHistory) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment_state_id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Equipment_id" asp-route-date="@item.Date.ToString("yyyy-MM-dd h:mm tt")">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.Equipment_id" asp-route-date="@item.Date.ToString("yyyy-MM-dd h:mm tt")">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.Equipment_id" asp-route-date="@item.Date.ToString("yyyy-MM-dd h:mm tt")">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+-
