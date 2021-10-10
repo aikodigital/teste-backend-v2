@@ -1,0 +1,18 @@
+version: '3.5'
+services:
+  server-aiko-digital-api:
+    container_name: server-aiko-digital-api-img
+    build: .
+    ports:
+      - 8080:80
+    restart: always
+    volumes:
+      - /usr/attachments:/app/Uploads
+    networks:
+      - frontend_network
+networks:
+  frontend_network:
+    name: client_default
+    external: true
+    
+

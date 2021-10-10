@@ -1,0 +1,73 @@
+﻿@page
+@model Equipment
+@{
+    ViewData["Title"] = "Equipment";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div id="grid"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       $("#KendoVersion").text(kendo.version);
+        
+        $("#grid").kendoGrid({
+               dataSource: EquipmentHelper.gridDataSource(),
+               columns: EquipmentHelper.GenerateColumns(),
+               editable: false,
+               navigatable: true,
+               selectable: true,
+               filterable: true,
+               sortable: true,
+               pageable: true
+           });   
+    });
+    
+    var EquipmentHelper = {
+        GenerateColumns: function () {
+            return columns = [
+                {field: "uid", title:"Id", width: 60, editable:false},
+                {field: "name", title:"Name", width: 60, editable:false},
+                {field: "equipmentModel", title:"Equipment Model", width: 60, editable:false}
+            ]
+        },
+        
+        gridDataSource: function ()  {
+            var gridDataSource = new kendo.data.DataSource({
+                // type: "json",
+                allowUnsort: true,
+                pageSize: 10,
+                page:1,
+                groupPaging:true,
+                schema: {
+                    data: function (data) {
+                        return data || [];
+                    },
+                    model : {
+                        id: "ID",
+                        fields: {
+                            uid: {validations: {required: true}}, 
+                            name: {validations: {required: true}},
+                            equipmentModel: {validations: {required: true}}
+                        }
+                    }
+                },
+                transport: {
+                    read: {
+                        url: 'https://localhost:5001/api/Equipments',
+                        type: "GET",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8"    
+                    },
+                    parameterMap: function (options) {
+                        return options;
+                    }
+                },           
+                batch: true
+            });
+            
+            return gridDataSource;
+        }
+    };    
+</script>

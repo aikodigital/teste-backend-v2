@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiko_Digital_Razor_Pages", "Aiko_Digital_Razor_Pages\Aiko_Digital_Razor_Pages.csproj", "{A7E3F1B7-CC6C-4B94-8198-F186BC7EF687}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7E3F1B7-CC6C-4B94-8198-F186BC7EF687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7E3F1B7-CC6C-4B94-8198-F186BC7EF687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7E3F1B7-CC6C-4B94-8198-F186BC7EF687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7E3F1B7-CC6C-4B94-8198-F186BC7EF687}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
