@@ -1,15 +1,19 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
     public class EquipmentPositionHistory
     {
-        public Equipment Equipment { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public string Lat { get; set; }
+        public Guid equipment_id { get; set; }
         
-        public string Long { get; set; }
+        [ForeignKey("equipment_id")]
+        public Equipment equipment { get; set; }
+        
+        public DateTime date { get; set; }
+        
+        public string lat { get; set; }
+        
+        public string lon { get; set; }
     }
 }

@@ -1,15 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Entities.Models;
 
 namespace Contracts
 {
     public interface IEquipmentModelRepository : IRepositoryBase<EquipmentModel>
     {
-        IEnumerable<EquipmentModel> GetAll();
+        Task<List<EquipmentModel>> GetAll();
 
-        EquipmentModel GetById(Guid id);
+        Task<EquipmentModel> GetById(Guid id);
 
-        EquipmentModel GetByName(string name);
+        Task<List<EquipmentModel>> GetByName(string name);
+
+        Task<EquipmentModel> Post(EquipmentModel model);
+
+        Task<EquipmentModel> Put(EquipmentModel model);
+
+        Task<bool> Remove(EquipmentModel model);
     }
 }

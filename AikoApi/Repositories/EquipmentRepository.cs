@@ -1,36 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
-    //Todo: implementar metodos
     public class EquipmentRepository : RepositoryBase<Equipment>, IEquipmentRepository
     {
         public EquipmentRepository(DatabaseContext context) : base(context)
         {
         }
 
-        public IEnumerable<Equipment> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public Task<List<Equipment>> GetAll() => ReadAll().OrderBy(x => x.id).ToListAsync();
 
-        public Equipment GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<Equipment> GetById(Guid id) => ReadByCondition(x => x.id.Equals(id)).FirstOrDefaultAsync();
 
-        public IEnumerable<Equipment> GetByEquipmentModelId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<List<Equipment>> GetByEquipmentModelId(Guid id) =>
+            ReadByCondition(x => x.equipment_model_id.Equals(id)).ToListAsync();
 
-        public Equipment GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<List<Equipment>> GetByName(string name) => ReadByCondition(x => x.name.Contains(name)).ToListAsync();
+        
+        public Task<Equipment> Post(Equipment model) => Create(model);
+
+        public Task<Equipment> Put(Equipment model) => Update(model);
+
+        public Task<bool> Remove(Equipment model) => Delete(model);
     }
 }

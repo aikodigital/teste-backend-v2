@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Contracts;
 using Entities.Models;
 
@@ -8,12 +9,18 @@ namespace Contracts
 {
     public interface IEquipmentRepository : IRepositoryBase<Equipment>
     {
-        IEnumerable<Equipment> GetAll();
+        Task<List<Equipment>> GetAll();
 
-        Equipment GetById(Guid id);
+        Task<Equipment> GetById(Guid id);
 
-        IEnumerable<Equipment> GetByEquipmentModelId(Guid id);
+        Task<List<Equipment>> GetByEquipmentModelId(Guid id);
 
-        Equipment GetByName(string name);
+        Task<List<Equipment>> GetByName(string name);
+
+        Task<Equipment> Post(Equipment model);
+        
+        Task<Equipment> Put(Equipment model);
+
+        Task<bool> Remove(Equipment model);
     }
 }

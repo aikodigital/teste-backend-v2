@@ -6,7 +6,7 @@ namespace Contracts
         
         IEquipmentModelRepository EquipmentModel { get; } 
         
-        IEquipmentModelStateHourlyEarningsRepository ModelStateHourlyEarnings { get; }
+        IEquipmentModelStateHourlyEarningsRepository EquipmentModelStateHourlyEarnings { get; }
         
         IEquipmentPositionHistoryRepository EquipmentPositionHistory { get; }
         

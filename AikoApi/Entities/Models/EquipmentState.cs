@@ -1,13 +1,16 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
     public class EquipmentState
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid id { get; set; }
 
-        public string Name { get; set; }
+        public string name { get; set; }
 
-        public string Color { get; set; }
+        public string color { get; set; }
     }
 }

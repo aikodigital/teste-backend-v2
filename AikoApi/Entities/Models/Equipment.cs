@@ -1,14 +1,21 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
+    [Table("equipment")]
     public class Equipment
     {
-        public Guid Id { get; set; }
-
-        public EquipmentModel EquipmentModel { get; set; }
-
-        public string Name { get; set; }
+        [Key]
+        public Guid id { get; set; }
+        
+        public Guid equipment_model_id { get; set; }
+        
+        [ForeignKey("equipment_model_id")]
+        public EquipmentModel equipment_model { get; set; }
+        
+        public string name { get; set; }
         
     }
 }
