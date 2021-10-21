@@ -15,8 +15,18 @@ namespace Entities
             base.OnModelCreating(modelBuilder);
         }
         //Todo: adicionar entidades
-        public DbSet<EquipmentModel> EquipmentModels { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
+        
+        public DbSet<EquipmentModel> EquipmentModels { get; set; }
+        
+        public DbSet<EquipmentModelStateHourlyEarnings> EquipmentModelStateHourlyEarnings { get; set; }
+
+        public DbSet<EquipmentPositionHistory> EquipmentPositionHistories { get; set; }
+
+        public DbSet<EquipmentState> EquipmentStates { get; set; }
+
+        public DbSet<EquipmentStateHistory> EquipmentStateHistories { get; set; }
+
 
     }
 }

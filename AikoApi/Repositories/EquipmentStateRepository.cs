@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
@@ -13,24 +16,20 @@ namespace Repositories
         {
         }
 
-        public IEnumerable<EquipmentState> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public Task<List<EquipmentState>> GetAll() => ReadAll().OrderBy(x => x.id).ToListAsync();
 
-        public EquipmentState GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<EquipmentState> GetById(Guid id) => ReadByCondition(x => x.id.Equals(id)).FirstOrDefaultAsync();
 
-        public EquipmentState GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<List<EquipmentState>> GetByName(string name) =>
+            ReadByCondition(x => x.name.Equals(name)).OrderBy(x => x.id).ToListAsync();
 
-        public EquipmentState GetByColor(string color)
-        {
-            throw new NotImplementedException();
-        }
+        public Task<List<EquipmentState>> GetByColor(string color) =>
+            ReadByCondition(x => x.color.Equals(color)).OrderBy(x => x.id).ToListAsync();
+
+        public Task<EquipmentState> Post(EquipmentState model) => Create(model);
+
+        public Task<EquipmentState> Put(EquipmentState model) => Update(model);
+
+        public Task<bool> Remove(EquipmentState model) => Delete(model);
     }
 }

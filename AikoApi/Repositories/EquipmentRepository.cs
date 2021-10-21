@@ -15,14 +15,14 @@ namespace Repositories
         {
         }
 
-        public Task<List<Equipment>> GetAll() => ReadAll().OrderBy(x => x.id).ToListAsync();
+        public Task<List<Equipment>> GetAll() => ReadAll().Include(x => x.equipment_model).OrderBy(x => x.id).ToListAsync();
 
-        public Task<Equipment> GetById(Guid id) => ReadByCondition(x => x.id.Equals(id)).FirstOrDefaultAsync();
+        public Task<Equipment> GetById(Guid id) => ReadByCondition(x => x.id.Equals(id)).Include(x => x.equipment_model).FirstOrDefaultAsync();
 
         public Task<List<Equipment>> GetByEquipmentModelId(Guid id) =>
-            ReadByCondition(x => x.equipment_model_id.Equals(id)).ToListAsync();
+            ReadByCondition(x => x.equipment_model_id.Equals(id)).Include(x => x.equipment_model).ToListAsync();
 
-        public Task<List<Equipment>> GetByName(string name) => ReadByCondition(x => x.name.Contains(name)).ToListAsync();
+        public Task<List<Equipment>> GetByName(string name) => ReadByCondition(x => x.name.Contains(name)).Include(x => x.equipment_model).ToListAsync();
         
         public Task<Equipment> Post(Equipment model) => Create(model);
 

@@ -1,4 +1,5 @@
 using AikoApi.Extensions;
+using Entities.Map;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace AikoApi
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "AikoApi", Version = "v1"}); });
             services.ConfigurePsqlContext(Configuration);
             services.ConfigureRepositoryWrapper();
+            services.AddAutoMapper(typeof(MapProfile));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

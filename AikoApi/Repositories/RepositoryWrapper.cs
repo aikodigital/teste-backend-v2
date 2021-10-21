@@ -18,21 +18,18 @@ namespace Repositories
        
         // Todo: implementar 
         public IEquipmentRepository Equipment => _equipment ??= new EquipmentRepository(_context);
+        
         public IEquipmentModelRepository EquipmentModel => _equipmentModel ??= new EquipmentModelRepository(_context);
         
-        // public IEquipmentModelStateHourlyEarningsRepository EquipmentModelStateHourlyEarnings =>
-        //     _equipmentModelStateHourlyEarnings ??= new EquipmentModelStateHourlyEarningsRepository(_context);
-        //
-        // public IEquipmentPositionHistoryRepository EquipmentPositionHistory =>
-        //     _equipmentPositionHistory ??= new EquipmentPositionHistoryRepository(_context);
-        // public IEquipmentStateRepository EquipmentState { get; }
-        // public IEquipmentStateHistoryRepository EquipmentStateHistory { get; }
-        
-        // ---------------------------------------------------------------------------------------------------------
-        
-        public IEquipmentModelStateHourlyEarningsRepository EquipmentModelStateHourlyEarnings { get; }
-        public IEquipmentPositionHistoryRepository EquipmentPositionHistory { get; }
-        public IEquipmentStateRepository EquipmentState { get; }
-        public IEquipmentStateHistoryRepository EquipmentStateHistory { get; }
+        public IEquipmentModelStateHourlyEarningsRepository EquipmentModelStateHourlyEarnings =>
+            _equipmentModelStateHourlyEarnings ??= new EquipmentModelStateHourlyEarningsRepository(_context);
+
+        public IEquipmentPositionHistoryRepository EquipmentPositionHistory =>
+            _equipmentPositionHistory ??= new EquipmentPositionHistoryRepository(_context);
+
+        public IEquipmentStateRepository EquipmentState => _equipmentState ??= new EquipmentStateRepository(_context);
+
+        public IEquipmentStateHistoryRepository EquipmentStateHistory =>
+            _equipmentStateHistory ??= new EquipmentStateHistoryRepository(_context);
     }
 }

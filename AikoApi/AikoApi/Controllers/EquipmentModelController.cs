@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Contracts;
+using Entities.DTOs;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,14 +11,20 @@ namespace AikoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class EquipmentModelController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
-        
-        public EquipmentModelController(IRepositoryWrapper repository) => _repository = repository;
+        private readonly IMapper _mapper;
+
+        public EquipmentModelController(IRepositoryWrapper repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        } 
         
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult<IEnumerable<EquipmentModelDTO>>> Get()
         {
             try
             {
@@ -30,7 +39,7 @@ namespace AikoApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> Get(Guid id)
+        public async Task<ActionResult<EquipmentModelDTO>> GetById([FromRoute] Guid id)
         {
             try
             {
@@ -45,12 +54,13 @@ namespace AikoApi.Controllers
         }
 
         [HttpGet("name/{name}")]
-        public async Task<ActionResult> Get(string name)
+        public async Task<ActionResult<EquipmentModelDTO>> GetByName(string name)
         {
             try
             {
                 var equipmentModels = await _repository.EquipmentModel.GetByName(name);
-                return Ok(equipmentModels);
+                var dto = _mapper.Map<List<EquipmentModelDTO>>(equipmentModels);
+                return Ok(dto);
             }
             catch (Exception e)
             {
@@ -60,7 +70,7 @@ namespace AikoApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] EquipmentModel model)
+        public async Task<ActionResult<EquipmentModelDTO>> Post([FromBody] EquipmentModel model)
         {
             try
             {
@@ -75,7 +85,7 @@ namespace AikoApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] EquipmentModel model)
+        public async Task<ActionResult<EquipmentModelDTO>> Put([FromBody] EquipmentModel model)
         {
             try
             {

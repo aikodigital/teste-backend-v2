@@ -1,22 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Entities.Models;
 
 namespace Contracts
 {
     public interface IEquipmentPositionHistoryRepository : IRepositoryBase<EquipmentPositionHistory>
     {
-        IEnumerable<EquipmentPositionHistory> GetAll();
+        Task<List<EquipmentPositionHistory>> GetAll();
 
-        EquipmentPositionHistory GetByEquipmentId(Guid id);
+        Task<List<EquipmentPositionHistory>> GetByEquipmentId(Guid id);
 
-        IEnumerable<EquipmentPositionHistory> GetByDate(DateTime dateTime);
+        Task<List<EquipmentPositionHistory>> GetByDate(DateTime dateTime);
 
-        IEnumerable<EquipmentPositionHistory> GetByLat(float lat);
+        Task<List<EquipmentPositionHistory>> GetByLatitude(float lat);
         
-        IEnumerable<EquipmentPositionHistory> GetByLon(float lon);
+        Task<List<EquipmentPositionHistory>> GetByLongitude(float lon);
         
-        IEnumerable<EquipmentPositionHistory> GetByPosition(float lat, float lon);
+        Task<List<EquipmentPositionHistory>> GetByPosition(Position position);
+        
+        Task<EquipmentPositionHistory> Post(EquipmentPositionHistory model);
+
+        Task<EquipmentPositionHistory> Put(EquipmentPositionHistory model);
+        
+        Task<bool> Remove(EquipmentPositionHistory model);
     }
 }

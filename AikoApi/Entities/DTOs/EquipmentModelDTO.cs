@@ -2,12 +2,10 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entities.Models
+namespace Entities.DTOs
 {
-    [Table("equipment_model")]
-    public class EquipmentModel
+    public class EquipmentModelDTO
     {
-        [Key]
         public Guid id { get; set; }
         
         public string name { get; set; }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
+    [Table("equipment_state")]
     public class EquipmentState
     {
         [Key]

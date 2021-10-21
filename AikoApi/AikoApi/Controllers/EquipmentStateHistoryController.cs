@@ -9,49 +9,19 @@ namespace AikoApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class EquipmentController : ControllerBase
+    public class EquipmentStateHistoryController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
-        
-        public EquipmentController(IRepositoryWrapper repository) => _repository = repository;
+
+        public EquipmentStateHistoryController(IRepositoryWrapper repository) => _repository = repository;
         
         [HttpGet]
-        public async Task<ActionResult<Equipment>> Get()
+        public async Task<ActionResult<EquipmentStateHistory>> Get()
         {
             try
             {
-                var equipments = await _repository.Equipment.GetAll();
-                return Ok(equipments);
-            }
-            catch (Exception e)
-            {
-                var sErrorMessage = $"{DateTime.Now} - {nameof(Get)} : {e.Message}"; 
-                return StatusCode(500, sErrorMessage);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Equipment>> GetById([FromRoute] Guid id)
-        {
-            try
-            {
-                var equipments = await _repository.Equipment.GetById(id);
-                return Ok(equipments);
-            }
-            catch (Exception e)
-            {
-                var sErrorMessage = $"{DateTime.Now} - {nameof(Get)} : {e.Message}"; 
-                return StatusCode(500, sErrorMessage);
-            }
-        }
-
-        [HttpGet("name/{name}")]
-        public async Task<ActionResult<Equipment>> GetByName(string name)
-        {
-            try
-            {
-                var equipments = await _repository.Equipment.GetByName(name);
-                return Ok(equipments);
+                var equipmentStateHistories = await _repository.EquipmentStateHistory.GetAll();
+                return Ok(equipmentStateHistories);
             }
             catch (Exception e)
             {
@@ -60,13 +30,43 @@ namespace AikoApi.Controllers
             }
         }
         
-        [HttpGet("equipment-model/{id}")]
-        public async Task<ActionResult<Equipment>> GetByEquipmentModelId([FromRoute] Guid id)
+        [HttpGet("date")]
+        public async Task<ActionResult<EquipmentStateHistory>> GetByDate([FromBody] EquipmentStateHistory model)
         {
             try
             {
-                var equipments = await _repository.Equipment.GetByEquipmentModelId(id);
-                return Ok(equipments);
+                var equipmentStateHistories = await _repository.EquipmentStateHistory.GetByDate(model.date);
+                return Ok(equipmentStateHistories);
+            }
+            catch (Exception e)
+            {
+                var sErrorMessage = $"{DateTime.Now} - {nameof(Get)} : {e.Message}"; 
+                return StatusCode(500, sErrorMessage);
+            }
+        }
+        
+        [HttpGet("equipment-id/{id}")]
+        public async Task<ActionResult<EquipmentStateHistory>> GetByEquipmentId([FromRoute] Guid id)
+        {
+            try
+            {
+                var equipmentStateHistories = await _repository.EquipmentStateHistory.GetByEquipmentId(id);
+                return Ok(equipmentStateHistories);
+            }
+            catch (Exception e)
+            {
+                var sErrorMessage = $"{DateTime.Now} - {nameof(Get)} : {e.Message}"; 
+                return StatusCode(500, sErrorMessage);
+            }
+        }
+        
+        [HttpGet("equipment-state-id/{id}")]
+        public async Task<ActionResult<EquipmentStateHistory>> GetByEquipmentStateId([FromRoute] Guid id)
+        {
+            try
+            {
+                var equipmentStateHistories = await _repository.EquipmentStateHistory.GetByEquipmentStateId(id);
+                return Ok(equipmentStateHistories);
             }
             catch (Exception e)
             {
@@ -76,12 +76,12 @@ namespace AikoApi.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<Equipment>> Post([FromBody] Equipment model)
+        public async Task<ActionResult<EquipmentStateHistory>> Post([FromBody] EquipmentStateHistory model)
         {
             try
             {
-                var equipment = await _repository.Equipment.Post(model);
-                return Ok(equipment);
+                var equipmentStateHistory = await _repository.EquipmentStateHistory.Post(model);
+                return Ok(equipmentStateHistory);
             }
             catch (Exception e)
             {
@@ -91,12 +91,12 @@ namespace AikoApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Equipment>> Put([FromBody] Equipment model)
+        public async Task<ActionResult<EquipmentStateHistory>> Put([FromBody] EquipmentStateHistory model)
         {
             try
             {
-                var equipment = await _repository.Equipment.Put(model);
-                return Ok(equipment);
+                var equipmentStateHistory = await _repository.EquipmentStateHistory.Put(model);
+                return Ok(equipmentStateHistory);
             }
             catch (Exception e)
             {
@@ -106,11 +106,11 @@ namespace AikoApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<Equipment>> Delete(Equipment model)
+        public async Task<ActionResult<EquipmentStateHistory>> Delete(EquipmentStateHistory model)
         {
             try
             {
-                var result = await _repository.Equipment.Remove(model);
+                var result = await _repository.EquipmentStateHistory.Remove(model);
                 return Ok(result);
             }
             catch (Exception e)
@@ -119,5 +119,6 @@ namespace AikoApi.Controllers
                 return StatusCode(500, sErrorMessage);
             }
         }
+        
     }
 }

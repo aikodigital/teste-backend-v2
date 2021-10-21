@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
+    [Table("equipment_state_history")]
     public class EquipmentStateHistory
     {
         public Guid equipment_id { get; set; }
@@ -15,6 +17,7 @@ namespace Entities.Models
         [ForeignKey("equipment_state_id")]
         public EquipmentState equipmentState { get; set; }
 
+        [Key]
         public DateTime date { get; set; }
 
     }

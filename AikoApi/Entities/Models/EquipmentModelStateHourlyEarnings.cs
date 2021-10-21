@@ -1,8 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Models
 {
+    [Table("equipment_model_state_hourly_earnings")]
     public class EquipmentModelStateHourlyEarnings
     {
         public Guid equipment_model_id { get; set; }
@@ -15,6 +17,7 @@ namespace Entities.Models
         [ForeignKey("equipment_state_id")]
         public EquipmentState equipmentState { get; set; }
         
+        [Key]
         public double value { get; set; }
     }
 }
