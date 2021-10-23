@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
-    //Todo: estruturar o repository
     public class EquipmentModelStateHourlyEarningsRepository : RepositoryBase<EquipmentModelStateHourlyEarnings>,
         IEquipmentModelStateHourlyEarningsRepository
     {
@@ -18,16 +17,16 @@ namespace Repositories
         {
         }
 
-        public Task<List<EquipmentModelStateHourlyEarnings>> GetAll() => ReadAll().Include(x => x.equipmentModel).Include(x => x.equipmentState).OrderBy(x => x.equipment_model_id).ToListAsync();
+        public Task<List<EquipmentModelStateHourlyEarnings>> GetAll() => ReadAll().Include(x => x.equipment_model).Include(x => x.equipment_state).OrderBy(x => x.equipment_model_id).ToListAsync();
 
         public Task<List<EquipmentModelStateHourlyEarnings>> GetByEquipmentModelId(Guid id) =>
-            ReadByCondition(x => x.equipment_model_id.Equals(id)).Include(x => x.equipmentModel).Include(x => x.equipmentState).ToListAsync();
+            ReadByCondition(x => x.equipment_model_id.Equals(id)).Include(x => x.equipment_model).Include(x => x.equipment_state).ToListAsync();
 
         public Task<List<EquipmentModelStateHourlyEarnings>> GetByEquipmentStateId(Guid id) =>
-            ReadByCondition(x => x.equipment_state_id.Equals(id)).Include(x => x.equipmentModel).Include(x => x.equipmentState).ToListAsync();
+            ReadByCondition(x => x.equipment_state_id.Equals(id)).Include(x => x.equipment_model).Include(x => x.equipment_state).ToListAsync();
 
         public Task<List<EquipmentModelStateHourlyEarnings>> GetByValue(float value) =>
-            ReadByCondition(x => x.value.Equals(value)).Include(x => x.equipmentModel).Include(x => x.equipmentState).ToListAsync();
+            ReadByCondition(x => x.value.Equals(value)).Include(x => x.equipment_model).Include(x => x.equipment_state).ToListAsync();
 
         public Task<EquipmentModelStateHourlyEarnings> Post(EquipmentModelStateHourlyEarnings model) => Create(model);
 

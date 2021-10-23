@@ -12,23 +12,24 @@ namespace AikoApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class EquipmentController : ControllerBase
+    public class EquipmentStateController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
         private readonly IMapper _mapper;
-        public EquipmentController(IRepositoryWrapper repository, IMapper mapper)
+
+        public EquipmentStateController(IRepositoryWrapper repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
-
+        
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EquipmentDTO>>> Get()
+        public async Task<ActionResult<IEnumerable<EquipmentStateDTO>>> Get()
         {
             try
             {
-                var listResultModel = await _repository.Equipment.GetAll();
-                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentDTO>>(listResultModel);
+                var listResultModel = await _repository.EquipmentState.GetAll();
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentStateDTO>>(listResultModel);
                 return Ok(listResultModelDTO);
             }
             catch (Exception e)
@@ -37,14 +38,14 @@ namespace AikoApi.Controllers
                 return StatusCode(500, sErrorMessage);
             }
         }
-
+        
         [HttpGet("{id}")]
-        public async Task<ActionResult<EquipmentDTO>> GetById([FromRoute] Guid id)
+        public async Task<ActionResult<EquipmentStateDTO>> GetById([FromRoute] Guid id)
         {
             try
             {
-                var resultModel = await _repository.Equipment.GetById(id);
-                var resultModelDTO = _mapper.Map<EquipmentDTO>(resultModel);
+                var resultModel = await _repository.EquipmentState.GetById(id);
+                var resultModelDTO = _mapper.Map<EquipmentStateDTO>(resultModel);
                 return Ok(resultModelDTO);
             }
             catch (Exception e)
@@ -53,14 +54,14 @@ namespace AikoApi.Controllers
                 return StatusCode(500, sErrorMessage);
             }
         }
-
+        
         [HttpGet("name/{name}")]
-        public async Task<ActionResult<IEnumerable<EquipmentDTO>>> GetByName([FromRoute] string name)
+        public async Task<ActionResult<IEnumerable<EquipmentStateDTO>>> GetByName([FromRoute] string name)
         {
             try
             {
-                var listResultModel = await _repository.Equipment.GetByName(name);
-                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentDTO>>(listResultModel);
+                var listResultModel = await _repository.EquipmentState.GetByName(name);
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentStateDTO>>(listResultModel);
                 return Ok(listResultModelDTO);
             }
             catch (Exception e)
@@ -69,14 +70,14 @@ namespace AikoApi.Controllers
                 return StatusCode(500, sErrorMessage);
             }
         }
-        
-        [HttpGet("equipment-model/{id}")]
-        public async Task<ActionResult<IEnumerable<EquipmentDTO>>> GetByEquipmentModelId([FromRoute] Guid id)
+
+        [HttpGet("color/{color}")]
+        public async Task<ActionResult<IEnumerable<EquipmentStateDTO>>> GetByColor([FromRoute] string color)
         {
             try
             {
-                var listResultModel = await _repository.Equipment.GetByEquipmentModelId(id);
-                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentDTO>>(listResultModel);
+                var listResultModel = await _repository.EquipmentState.GetByColor(color);
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentStateDTO>>(listResultModel);
                 return Ok(listResultModelDTO);
             }
             catch (Exception e)
@@ -85,15 +86,15 @@ namespace AikoApi.Controllers
                 return StatusCode(500, sErrorMessage);
             }
         }
-        
+
         [HttpPost]
-        public async Task<ActionResult<EquipmentDTO>> Post([FromBody] EquipmentDTO modelDTO)
+        public async Task<ActionResult<EquipmentStateDTO>> Post([FromBody] EquipmentStateDTO modelDTO)
         {
             try
             {
-                var model = _mapper.Map<Equipment>(modelDTO);
-                var resultModel = await _repository.Equipment.Post(model);
-                var resultModelDTO = _mapper.Map<EquipmentDTO>(resultModel);
+                var model = _mapper.Map<EquipmentState>(modelDTO);
+                var resultModel = await _repository.EquipmentState.Post(model);
+                var resultModelDTO = _mapper.Map<EquipmentStateDTO>(resultModel);
                 return Ok(resultModelDTO);
             }
             catch (Exception e)
@@ -104,13 +105,13 @@ namespace AikoApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<EquipmentDTO>> Put([FromBody] EquipmentDTO modelDTO)
+        public async Task<ActionResult<EquipmentStateDTO>> Put([FromBody] EquipmentStateDTO modelDTO)
         {
             try
             {
-                var model = _mapper.Map<Equipment>(modelDTO);
-                var resultModel = await _repository.Equipment.Put(model);
-                var resultModelDTO = _mapper.Map<EquipmentDTO>(resultModel);
+                var model = _mapper.Map<EquipmentState>(modelDTO);
+                var resultModel = await _repository.EquipmentState.Put(model);
+                var resultModelDTO = _mapper.Map<EquipmentStateDTO>(resultModel);
                 return Ok(resultModelDTO);
             }
             catch (Exception e)
@@ -121,12 +122,12 @@ namespace AikoApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(EquipmentDTO modelDTO)
+        public async Task<ActionResult> Delete(EquipmentStateDTO modelDTO)
         {
             try
             {
-                var model = _mapper.Map<Equipment>(modelDTO);
-                var result = await _repository.Equipment.Remove(model);
+                var model = _mapper.Map<EquipmentState>(modelDTO);
+                var result = await _repository.EquipmentState.Remove(model);
                 return Ok(result);
             }
             catch (Exception e)
@@ -135,5 +136,6 @@ namespace AikoApi.Controllers
                 return StatusCode(500, sErrorMessage);
             }
         }
+        
     }
 }

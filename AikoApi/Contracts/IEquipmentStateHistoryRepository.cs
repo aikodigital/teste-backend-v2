@@ -14,6 +14,8 @@ namespace Contracts
         Task<List<EquipmentStateHistory>> GetByEquipmentStateId(Guid id);
         
         Task<List<EquipmentStateHistory>> GetByDate(DateTime dateTime);
+
+        Task<EquipmentStateHistory> GetCurrentEquipmentState(Guid equipmentId);
         
         Task<EquipmentStateHistory> Post(EquipmentStateHistory model);
 

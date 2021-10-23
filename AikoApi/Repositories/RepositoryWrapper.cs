@@ -16,7 +16,6 @@ namespace Repositories
 
         public RepositoryWrapper(DatabaseContext context) => _context = context;
        
-        // Todo: implementar 
         public IEquipmentRepository Equipment => _equipment ??= new EquipmentRepository(_context);
         
         public IEquipmentModelRepository EquipmentModel => _equipmentModel ??= new EquipmentModelRepository(_context);

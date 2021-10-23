@@ -10,6 +10,6 @@ namespace Entities.DTOs
 
         public Guid equipment_state_id { get; set; }
         
-        public double value { get; set; }
+        public float value { get; set; }
     }
 }

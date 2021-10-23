@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Contracts;
+using Entities.DTOs;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,16 +15,22 @@ namespace AikoApi.Controllers
     public class EquipmentPositionHistoryController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
-
-        public EquipmentPositionHistoryController(IRepositoryWrapper repository) => _repository = repository;
+        private readonly IMapper _mapper;
         
+        public EquipmentPositionHistoryController(IRepositoryWrapper repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
         [HttpGet]
-        public async Task<ActionResult<EquipmentPositionHistory>> Get()
+        public async Task<ActionResult<IEnumerable<EquipmentPositionHistoryDTO>>> Get()
         {
             try
             {
-                var equipmentPositionHistories = await _repository.EquipmentPositionHistory.GetAll();
-                return Ok(equipmentPositionHistories);
+                var listResultModel = await _repository.EquipmentPositionHistory.GetAll();
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentPositionHistoryDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -31,12 +40,13 @@ namespace AikoApi.Controllers
         }
         
         [HttpGet("equipment-id/{id}")]
-        public async Task<ActionResult<EquipmentPositionHistory>> GetByEquipmentId([FromRoute] Guid id)
+        public async Task<ActionResult<IEnumerable<EquipmentPositionHistoryDTO>>> GetByEquipmentId([FromRoute] Guid id)
         {
             try
             {
-                var equipmentPositionHistory = await _repository.EquipmentPositionHistory.GetByEquipmentId(id);
-                return Ok(equipmentPositionHistory);
+                var listResultModel = await _repository.EquipmentPositionHistory.GetByEquipmentId(id);
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentPositionHistoryDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -46,12 +56,17 @@ namespace AikoApi.Controllers
         }
         
         [HttpGet("position")]
-        public async Task<ActionResult<EquipmentPositionHistory>> GetByPosition([FromBody] Position model)
+        public async Task<ActionResult<IEnumerable<EquipmentPositionHistoryDTO>>> GetByPosition([FromQuery] string lat, string lon)
         {
             try
             {
-                var equipmentPositionHistories = await _repository.EquipmentPositionHistory.GetByPosition(model);
-                return Ok(equipmentPositionHistories);
+                var listResultModel = await _repository.EquipmentPositionHistory.GetByPosition(new Position
+                {
+                    lat = float.Parse(lat),
+                    lon = float.Parse(lon)
+                });
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentPositionHistoryDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -60,13 +75,14 @@ namespace AikoApi.Controllers
             }
         }
         
-        [HttpGet("date")]
-        public async Task<ActionResult<EquipmentPositionHistory>> GetByDate([FromBody] EquipmentPositionHistory model)
+        [HttpGet("date/{date}")]
+        public async Task<ActionResult<IEnumerable<EquipmentPositionHistoryDTO>>> GetByDate([FromRoute] DateTime date)
         {
             try
             {
-                var equipmentPositionHistories = await _repository.EquipmentPositionHistory.GetByDate(model.date);
-                return Ok(equipmentPositionHistories);
+                var listResultModel = await _repository.EquipmentPositionHistory.GetByDate(date);
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentPositionHistoryDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -75,13 +91,30 @@ namespace AikoApi.Controllers
             }
         }
         
-        [HttpGet("latitude")]
-        public async Task<ActionResult<EquipmentPositionHistory>> GetByLatitude([FromBody] Position model)
+        [HttpGet("current-equipment-position/{equipmentId}")]
+        public async Task<ActionResult<EquipmentStateDTO>> GetCurrentEquipmentPosition(Guid equipmentId)
         {
             try
             {
-                var equipmentPositionHistories = await _repository.EquipmentPositionHistory.GetByLatitude(model.lat);
-                return Ok(equipmentPositionHistories);
+                var resultModel = await _repository.EquipmentPositionHistory.GetCurrentEquipmentPosition(equipmentId);
+                var resultModelDTO = _mapper.Map<EquipmentPositionHistoryDTO>(resultModel);
+                return Ok(resultModelDTO);
+            }
+            catch (Exception e)
+            {
+                var sErrorMessage = $"{DateTime.Now} - {nameof(Get)} : {e.Message}";
+                return StatusCode(500, sErrorMessage);
+            }
+        }
+        
+        [HttpGet("latitude/{latitude}")]
+        public async Task<ActionResult<IEnumerable<EquipmentPositionHistoryDTO>>> GetByLatitude([FromRoute] float latitude)
+        {
+            try
+            {
+                var listResultModel = await _repository.EquipmentPositionHistory.GetByLatitude(latitude);
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentPositionHistoryDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -90,13 +123,14 @@ namespace AikoApi.Controllers
             }
         }
         
-        [HttpGet("longitude")]
-        public async Task<ActionResult<EquipmentPositionHistory>> GetByLongitude([FromBody] Position model)
+        [HttpGet("longitude/{longitude}")]
+        public async Task<ActionResult<IEnumerable<EquipmentPositionHistoryDTO>>> GetByLongitude([FromRoute] float longitude)
         {
             try
             {
-                var equipmentPositionHistories = await _repository.EquipmentPositionHistory.GetByLongitude(model.lon);
-                return Ok(equipmentPositionHistories);
+                var listResultModel = await _repository.EquipmentPositionHistory.GetByLongitude(longitude);
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentPositionHistoryDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -106,12 +140,14 @@ namespace AikoApi.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<EquipmentPositionHistory>> Post([FromBody] EquipmentPositionHistory model)
+        public async Task<ActionResult<EquipmentPositionHistoryDTO>> Post([FromBody] EquipmentPositionHistoryDTO modelDTO)
         {
             try
             {
-                var equipmentPositionHistory = await _repository.EquipmentPositionHistory.Post(model);
-                return Ok(equipmentPositionHistory);
+                var model = _mapper.Map<EquipmentPositionHistory>(modelDTO);
+                var resultModel = await _repository.EquipmentPositionHistory.Post(model);
+                var resultModelDTO = _mapper.Map<EquipmentPositionHistoryDTO>(resultModel);
+                return Ok(resultModelDTO);
             }
             catch (Exception e)
             {
@@ -121,12 +157,14 @@ namespace AikoApi.Controllers
         }
         
         [HttpPut]
-        public async Task<ActionResult<EquipmentPositionHistory>> Put([FromBody] EquipmentPositionHistory model)
+        public async Task<ActionResult<EquipmentPositionHistoryDTO>> Put([FromBody] EquipmentPositionHistoryDTO modelDTO)
         {
             try
             {
-                var equipmentPositionHistory = await _repository.EquipmentPositionHistory.Put(model);
-                return Ok(equipmentPositionHistory);
+                var model = _mapper.Map<EquipmentPositionHistory>(modelDTO);
+                var resultModel = await _repository.EquipmentPositionHistory.Put(model);
+                var resultModelDTO = _mapper.Map<EquipmentPositionHistoryDTO>(resultModel);
+                return Ok(resultModelDTO);
             }
             catch (Exception e)
             {
@@ -136,10 +174,11 @@ namespace AikoApi.Controllers
         }
         
         [HttpDelete]
-        public async Task<ActionResult<EquipmentPositionHistory>> Delete([FromBody] EquipmentPositionHistory model)
+        public async Task<ActionResult> Delete([FromBody] EquipmentPositionHistoryDTO modelDTO)
         {
             try
             {
+                var model = _mapper.Map<EquipmentPositionHistory>(modelDTO);
                 var result = await _repository.EquipmentPositionHistory.Remove(model);
                 return Ok(result);
             }

@@ -1,4 +1,5 @@
 using System;
+using Entities.Models;
 
 namespace Entities.DTOs
 {
@@ -9,6 +10,10 @@ namespace Entities.DTOs
         public Guid equipment_state_id { get; set; }
 
         public DateTime date { get; set; }
+        
+        // public Equipment equipment { get; set; }
+        //
+        // public EquipmentState equipmentState { get; set; }
 
     }
 }

@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repositories
 {
-    //Todo: implementar os metodos
     public class EquipmentStateRepository : RepositoryBase<EquipmentState>, IEquipmentStateRepository 
     {
         public EquipmentStateRepository(DatabaseContext context) : base(context)
@@ -25,7 +24,7 @@ namespace Repositories
 
         public Task<List<EquipmentState>> GetByColor(string color) =>
             ReadByCondition(x => x.color.Equals(color)).OrderBy(x => x.id).ToListAsync();
-
+        
         public Task<EquipmentState> Post(EquipmentState model) => Create(model);
 
         public Task<EquipmentState> Put(EquipmentState model) => Update(model);

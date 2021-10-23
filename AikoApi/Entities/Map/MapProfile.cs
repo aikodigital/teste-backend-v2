@@ -16,9 +16,9 @@ namespace Entities.Map
 
             CreateMap<EquipmentStateDTO, EquipmentState>().ReverseMap();
 
-            CreateMap<EquipmentStateHistory, EquipmentStateHistoryDTO>().ReverseMap();
+            CreateMap<EquipmentStateHistoryDTO, EquipmentStateHistory>().ReverseMap();
 
-            CreateMap<EquipmentPositionHistory, EquipmentPositionHistoryDTO>().ReverseMap();
+            CreateMap<EquipmentPositionHistoryDTO, EquipmentPositionHistory>().ReverseMap();
         }
     }
 }

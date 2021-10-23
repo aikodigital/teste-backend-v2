@@ -28,8 +28,9 @@ namespace AikoApi.Controllers
         {
             try
             {
-                var equipmentModels = await _repository.EquipmentModel.GetAll();
-                return Ok(equipmentModels);
+                var listResultModel = await _repository.EquipmentModel.GetAll();
+                var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentModelDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -43,8 +44,9 @@ namespace AikoApi.Controllers
         {
             try
             {
-                var equipmentModel = await _repository.EquipmentModel.GetById(id);
-                return Ok(equipmentModel);
+                var model = await _repository.EquipmentModel.GetById(id);
+                var resultModelDTO = _mapper.Map<EquipmentModelDTO>(model);
+                return Ok(resultModelDTO);
             }
             catch (Exception e)
             {
@@ -54,13 +56,13 @@ namespace AikoApi.Controllers
         }
 
         [HttpGet("name/{name}")]
-        public async Task<ActionResult<EquipmentModelDTO>> GetByName(string name)
+        public async Task<ActionResult<EquipmentModelDTO>> GetByName([FromRoute] string name)
         {
             try
             {
-                var equipmentModels = await _repository.EquipmentModel.GetByName(name);
-                var dto = _mapper.Map<List<EquipmentModelDTO>>(equipmentModels);
-                return Ok(dto);
+                var listResultModel = await _repository.EquipmentModel.GetByName(name);
+                var listResultModelDTO = _mapper.Map<List<EquipmentModelDTO>>(listResultModel);
+                return Ok(listResultModelDTO);
             }
             catch (Exception e)
             {
@@ -70,12 +72,14 @@ namespace AikoApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<EquipmentModelDTO>> Post([FromBody] EquipmentModel model)
+        public async Task<ActionResult<EquipmentModelDTO>> Post([FromBody] EquipmentModelDTO modelDTO)
         {
             try
             {
-                var equipmentModel = await _repository.EquipmentModel.Post(model);
-                return Ok(equipmentModel);
+                var model = _mapper.Map<EquipmentModel>(modelDTO);
+                var resultModel = await _repository.EquipmentModel.Post(model);
+                var resultModelDTO = _mapper.Map<EquipmentModelDTO>(resultModel);
+                return Ok(resultModelDTO);
             }
             catch (Exception e)
             {
@@ -85,12 +89,14 @@ namespace AikoApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<EquipmentModelDTO>> Put([FromBody] EquipmentModel model)
+        public async Task<ActionResult<EquipmentModelDTO>> Put([FromBody] EquipmentModelDTO modelDTO)
         {
             try
             {
-                var equipmentModel = await _repository.EquipmentModel.Put(model);
-                return Ok(equipmentModel);
+                var model = _mapper.Map<EquipmentModel>(modelDTO);
+                var resultModel = await _repository.EquipmentModel.Put(model);
+                var resultModelDTO = _mapper.Map<EquipmentModelDTO>(resultModel);
+                return Ok(resultModelDTO);
             }
             catch (Exception e)
             {
@@ -100,10 +106,11 @@ namespace AikoApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(EquipmentModel model)
+        public async Task<ActionResult> Delete(EquipmentModelDTO modelDTO)
         {
             try
             {
+                var model = _mapper.Map<EquipmentModel>(modelDTO);
                 var result = await _repository.EquipmentModel.Remove(model);
                 return Ok(result);
             }

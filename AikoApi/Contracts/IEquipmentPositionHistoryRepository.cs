@@ -20,6 +20,8 @@ namespace Contracts
         
         Task<List<EquipmentPositionHistory>> GetByPosition(Position position);
         
+        Task<EquipmentPositionHistory> GetCurrentEquipmentPosition(Guid equipmentId);
+        
         Task<EquipmentPositionHistory> Post(EquipmentPositionHistory model);
 
         Task<EquipmentPositionHistory> Put(EquipmentPositionHistory model);
