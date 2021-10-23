@@ -30,6 +30,11 @@ namespace Repositories
         public Task<List<EquipmentPositionHistory>> GetByPosition(Position position) =>
             ReadByCondition(x => x.lat.Equals(position.lat) && x.lon.Equals(position.lon)).Include(x => x.equipment).ToListAsync();
 
+        public Task<EquipmentPositionHistory> GetCurrentEquipmentPosition(Guid equipmentId) =>
+            ReadByCondition(x => x.equipment_id.Equals(equipmentId))
+                .OrderByDescending(x => x.date)
+                .FirstOrDefaultAsync();
+
         public Task<EquipmentPositionHistory> Post(EquipmentPositionHistory model) => Create(model);
 
         public Task<EquipmentPositionHistory> Put(EquipmentPositionHistory model) => Update(model);
