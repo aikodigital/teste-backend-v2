@@ -1,0 +1,35 @@
+@model WebApplication.Models.ViewModel.LayoutViewModel<WebApplication.Models.ViewModel.EquipmentStateHistoryViewModel>
+
+<div class="">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.PageModel.ViewTitle</li>
+        </ol>
+    </nav>
+    <table class="table table-striped table-hover table-responsive text-center">
+        <thead>
+        <tr>
+            <th >@Html.DisplayNameFor(x => x.PageModel.EquipmentHistories.First().Equipment.Name)</th>
+            <th >@Html.DisplayNameFor(x => x.PageModel.EquipmentHistories.First().Equipment.Id)</th>
+            <th >@Html.DisplayNameFor(x => x.PageModel.EquipmentHistories.First().EquipmentState.Name)</th>
+            <th >@Html.DisplayNameFor(x => x.PageModel.EquipmentHistories.First().EquipmentState.Id)</th>
+            <th >@Html.DisplayNameFor(x => x.PageModel.EquipmentHistories.First().Date)</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var history in Model.PageModel.EquipmentHistories)
+        {
+            <tr>
+                <td >@Html.DisplayFor(x => history.Equipment.Name)</td>
+                <td >@Html.DisplayFor(x => history.Equipment.Id)</td>
+                <td >@Html.DisplayFor(x => history.EquipmentState.Name)</td>
+                <td >@Html.DisplayFor(x => history.EquipmentState.Id)</td>
+                <td >@Html.DisplayFor(x => history.Date)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
