@@ -9,16 +9,19 @@ namespace Entities.Models
     [Keyless]
     public class EquipmentStateHistory
     {
-        public Guid equipment_id { get; set; }
-        
+        [Column("equipment_id")]
         [ForeignKey("equipment_id")]
-        public virtual Equipment equipment { get; set; }
+        public Guid EquipmentId { get; set; }
         
-        public Guid equipment_state_id { get; set; }
-        
+        [Column("equipment_state_id")]
         [ForeignKey("equipment_state_id")]
-        public virtual EquipmentState equipment_state { get; set; }
-
-        public DateTime date { get; set; }
+        public Guid EquipmentStateId { get; set; }
+        
+        [Column("date")]
+        public DateTime Date { get; set; }
+        
+        public virtual Equipment Equipment { get; set; }
+        
+        public virtual EquipmentState EquipmentState { get; set; }
     }
 }

@@ -6,10 +6,10 @@ namespace Entities.DTOs
 {
     public class EquipmentStateDTO
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public string color { get; set; }
+        public string Color { get; set; }
     }
 }

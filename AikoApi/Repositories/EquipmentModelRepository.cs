@@ -15,11 +15,11 @@ namespace Repositories
         {
         }
         
-        public Task<List<EquipmentModel>> GetAll() => ReadAll().OrderBy(x => x.id).ToListAsync();
+        public Task<List<EquipmentModel>> GetAll() => ReadAll().OrderBy(x => x.Id).ToListAsync();
 
-        public Task<EquipmentModel> GetById(Guid id) => ReadByCondition(x => x.id.Equals(id)).FirstOrDefaultAsync();
+        public Task<EquipmentModel> GetById(Guid id) => ReadByCondition(x => x.Id.Equals(id)).FirstOrDefaultAsync();
 
-        public Task<List<EquipmentModel>> GetByName(string name) => ReadByCondition(x => x.name.Contains(name)).ToListAsync();
+        public Task<List<EquipmentModel>> GetByName(string name) => ReadByCondition(x => x.Name.Contains(name)).ToListAsync();
         
         public async Task<EquipmentModel> Post(EquipmentModel model) => await Create(model);
 

@@ -2,8 +2,8 @@ namespace Entities.Models
 {
     public class Position
     {
-        public float lat { get; set; }
+        public float Latitude { get; set; }
         
-        public float lon { get; set; }
+        public float Longitude { get; set; }
     }
 }

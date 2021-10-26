@@ -62,8 +62,8 @@ namespace AikoApi.Controllers
             {
                 var listResultModel = await _repository.EquipmentPositionHistory.GetByPosition(new Position
                 {
-                    lat = float.Parse(lat),
-                    lon = float.Parse(lon)
+                    Latitude = float.Parse(lat),
+                    Longitude = float.Parse(lon)
                 });
                 var listResultModelDTO = _mapper.Map<IEnumerable<EquipmentPositionHistoryDTO>>(listResultModel);
                 return Ok(listResultModelDTO);

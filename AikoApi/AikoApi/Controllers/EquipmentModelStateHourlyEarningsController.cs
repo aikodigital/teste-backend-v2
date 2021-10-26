@@ -93,10 +93,10 @@ namespace AikoApi.Controllers
             try
             {
                 var model = _mapper.Map<EquipmentModelStateHourlyEarnings>(modelDTO);
-                var stateobj = _repository.EquipmentState.GetById(model.equipment_state_id).Result;
-                var modelobj = _repository.EquipmentModel.GetById(model.equipment_model_id).Result;
-                model.equipment_model = modelobj;
-                model.equipment_state = stateobj;
+                var stateobj = _repository.EquipmentState.GetById(model.EquipmentStateId).Result;
+                var modelobj = _repository.EquipmentModel.GetById(model.EquipmentModelId).Result;
+                model.EquipmentModel = modelobj;
+                model.EquipmentState = stateobj;
                 var resultModel = await _repository.EquipmentModelStateHourlyEarnings.Post(model);
                 var resultModelDTO = _mapper.Map<EquipmentModelStateHourlyEarningsDTO>(resultModel);
                 return Ok(resultModelDTO);

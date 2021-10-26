@@ -8,15 +8,19 @@ namespace Entities.Models
     [Keyless]
     public class EquipmentPositionHistory
     {
-        public Guid equipment_id { get; set; }
-        
-        public DateTime date { get; set; }
-        
-        public float lat { get; set; }
-        
-        public float lon { get; set; }
-        
         [ForeignKey("equipment_id")]
+        [Column("equipment_id")]
+        public Guid EquipmentId { get; set; }
+        
+        [Column("date")]
+        public DateTime Date { get; set; }
+        
+        [Column("lat")]
+        public float Latitude { get; set; }
+        
+        [Column("lon")]
+        public float Longitude { get; set; }
+        
         public virtual Equipment equipment { get; set; }
     }
 }

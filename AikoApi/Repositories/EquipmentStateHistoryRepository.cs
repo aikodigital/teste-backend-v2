@@ -17,34 +17,34 @@ namespace Repositories
         }
 
         public Task<List<EquipmentStateHistory>> GetAll() => ReadAll()
-            .Include(x => x.equipment)
-            .Include(x => x.equipment_state)
-            .OrderBy(x => x.equipment_id)
+            .Include(x => x.Equipment)
+            .Include(x => x.EquipmentState)
+            .OrderBy(x => x.EquipmentId)
             .ToListAsync();
 
         public Task<List<EquipmentStateHistory>> GetByEquipmentId(Guid id) =>
-            ReadByCondition(x => x.equipment_id.Equals(id))
-                .Include(x => x.equipment)
-                .Include(x => x.equipment_state)
+            ReadByCondition(x => x.EquipmentId.Equals(id))
+                .Include(x => x.Equipment)
+                .Include(x => x.EquipmentState)
                 .ToListAsync();
 
         public Task<List<EquipmentStateHistory>> GetByEquipmentStateId(Guid id) =>
-            ReadByCondition(x => x.equipment_state_id.Equals(id))
-                .Include(x => x.equipment)
-                .Include(x => x.equipment_state)
+            ReadByCondition(x => x.EquipmentStateId.Equals(id))
+                .Include(x => x.Equipment)
+                .Include(x => x.EquipmentState)
                 .ToListAsync();
 
         public Task<List<EquipmentStateHistory>> GetByDate(DateTime datetime) =>
-            ReadByCondition(x => x.date.Equals(datetime))
-                .Include(x => x.equipment)
-                .Include(x => x.equipment_state)
+            ReadByCondition(x => x.Date.Equals(datetime))
+                .Include(x => x.Equipment)
+                .Include(x => x.EquipmentState)
                 .ToListAsync();
 
         public Task<EquipmentStateHistory> GetCurrentEquipmentState(Guid equipmentId) =>
-            ReadByCondition(x => x.equipment_id.Equals(equipmentId))
-                .Include(x => x.equipment)
-                .Include(x => x.equipment_state)
-                .OrderByDescending(x => x.date)
+            ReadByCondition(x => x.EquipmentId.Equals(equipmentId))
+                .Include(x => x.Equipment)
+                .Include(x => x.EquipmentState)
+                .OrderByDescending(x => x.Date)
                 .FirstOrDefaultAsync();
 
         public Task<EquipmentStateHistory> Post(EquipmentStateHistory model) => Create(model);

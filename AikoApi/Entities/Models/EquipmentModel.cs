@@ -9,8 +9,10 @@ namespace Entities.Models
     public class EquipmentModel
     {
         [Key]
-        public Guid id { get; set; }
+        [Column("id")]
+        public Guid Id { get; set; }
         
-        public string name { get; set; }
+        [Column("name")]
+        public string Name { get; set; }
     }
 }

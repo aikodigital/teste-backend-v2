@@ -1,14 +1,9 @@
 using System;
-using Entities.Models;
 
-namespace Entities.DTOs
+namespace WebApplication.Models
 {
-    public class EquipmentStateHistoryDTO
+    public class EquipmentStateHistory
     {
-        public Guid EquipmentId { get; set; }
-        
-        public Guid EquipmentStateId { get; set; }
-
         public DateTime Date { get; set; }
         
         public Equipment Equipment { get; set; }

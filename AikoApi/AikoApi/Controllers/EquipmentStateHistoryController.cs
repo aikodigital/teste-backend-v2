@@ -114,9 +114,9 @@ namespace AikoApi.Controllers
             try
             {
                 var model = _mapper.Map<EquipmentStateHistory>(modelDTO);
-                model.date = DateTime.Now;
-                model.equipment_id = new Guid("1c7e9615-cc1c-4d72-8496-190fe5791c8b");
-                model.equipment_state_id = new Guid("03b2d446-e3ba-4c82-8dc2-a5611fea6e1f");
+                model.Date = DateTime.Now;
+                model.EquipmentId = new Guid("1c7e9615-cc1c-4d72-8496-190fe5791c8b");
+                model.EquipmentStateId = new Guid("03b2d446-e3ba-4c82-8dc2-a5611fea6e1f");
                 // var resultModel = await _repository.EquipmentStateHistory.Post(model);
                 await _context.EquipmentStateHistories.AddAsync(model);
                 await _context.SaveChangesAsync();

@@ -6,12 +6,12 @@ namespace Entities.DTOs
 {
     public class EquipmentPositionHistoryDTO
     {
-        public Guid equipment_id { get; set; }
+        public Guid EquipmentId { get; set; }
         
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
         
-        public float lat { get; set; }
+        public float Latitude { get; set; }
         
-        public float lon { get; set; }
+        public float Longitude { get; set; }
     }
 }

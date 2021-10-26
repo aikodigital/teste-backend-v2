@@ -8,10 +8,14 @@ namespace Entities.Models
     [Table("equipment_state")]
     public class EquipmentState
     {
-        [Key] public Guid id { get; set; }
+        [Key] 
+        [Column("id")]
+        public Guid Id { get; set; }
 
-        public string name { get; set; }
+        [Column("name")]
+        public string Name { get; set; }
 
-        public string color { get; set; }
+        [Column("color")]
+        public string Color { get; set; }
     }
 }

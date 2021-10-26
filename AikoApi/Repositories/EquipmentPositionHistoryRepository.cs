@@ -15,24 +15,24 @@ namespace Repositories
         {
         }
 
-        public Task<List<EquipmentPositionHistory>> GetAll() => ReadAll().Include(x => x.equipment).OrderBy(x => x.equipment_id).ToListAsync();
+        public Task<List<EquipmentPositionHistory>> GetAll() => ReadAll().Include(x => x.equipment).OrderBy(x => x.EquipmentId).ToListAsync();
 
-        public Task<List<EquipmentPositionHistory>> GetByEquipmentId(Guid id) => ReadByCondition(x => x.equipment_id.Equals(id)).Include(x => x.equipment).ToListAsync();
+        public Task<List<EquipmentPositionHistory>> GetByEquipmentId(Guid id) => ReadByCondition(x => x.EquipmentId.Equals(id)).Include(x => x.equipment).ToListAsync();
 
         public Task<List<EquipmentPositionHistory>> GetByDate(DateTime dateTime) =>
-            ReadByCondition(x => x.date.Equals(dateTime)).Include(x => x.equipment).ToListAsync();
+            ReadByCondition(x => x.Date.Equals(dateTime)).Include(x => x.equipment).ToListAsync();
 
         public Task<List<EquipmentPositionHistory>> GetByLatitude(float lat) =>
-            ReadByCondition(x => x.lat.Equals(lat)).Include(x => x.equipment).ToListAsync();
+            ReadByCondition(x => x.Latitude.Equals(lat)).Include(x => x.equipment).ToListAsync();
 
-        public Task<List<EquipmentPositionHistory>> GetByLongitude(float lon) => ReadByCondition(x => x.lon.Equals(lon)).Include(x => x.equipment).ToListAsync();
+        public Task<List<EquipmentPositionHistory>> GetByLongitude(float lon) => ReadByCondition(x => x.Longitude.Equals(lon)).Include(x => x.equipment).ToListAsync();
 
         public Task<List<EquipmentPositionHistory>> GetByPosition(Position position) =>
-            ReadByCondition(x => x.lat.Equals(position.lat) && x.lon.Equals(position.lon)).Include(x => x.equipment).ToListAsync();
+            ReadByCondition(x => x.Latitude.Equals(position.Latitude) && x.Longitude.Equals(position.Longitude)).Include(x => x.equipment).ToListAsync();
 
         public Task<EquipmentPositionHistory> GetCurrentEquipmentPosition(Guid equipmentId) =>
-            ReadByCondition(x => x.equipment_id.Equals(equipmentId))
-                .OrderByDescending(x => x.date)
+            ReadByCondition(x => x.EquipmentId.Equals(equipmentId))
+                .OrderByDescending(x => x.Date)
                 .FirstOrDefaultAsync();
 
         public Task<EquipmentPositionHistory> Post(EquipmentPositionHistory model) => Create(model);

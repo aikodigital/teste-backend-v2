@@ -8,17 +8,20 @@ namespace Entities.Models
     [Keyless]
     public class EquipmentModelStateHourlyEarnings
     {
-        public Guid equipment_model_id { get; set; }
-
-        public Guid equipment_state_id { get; set; }
-        
-        public double value { get; set; }
-        
+        [Column("equipment_model_id")]
         [ForeignKey("equipment_model_id")]
-        public virtual EquipmentModel equipment_model { get; set; }
+        public Guid EquipmentModelId { get; set; }
 
+        [Column("equipment_state_id")]
         [ForeignKey("equipment_state_id")]
-        public virtual EquipmentState equipment_state { get; set; }
+        public Guid EquipmentStateId { get; set; }
+        
+        [Column("value")]
+        public double Value { get; set; }
+        
+        public virtual EquipmentModel EquipmentModel { get; set; }
+
+        public virtual EquipmentState EquipmentState { get; set; }
         
     }
 }

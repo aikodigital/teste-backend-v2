@@ -9,14 +9,17 @@ namespace Entities.Models
     public partial class Equipment
     {
         [Key]
-        public Guid id { get; set; }
+        [Column("id")]
+        public Guid Id { get; set; }
         
-        public Guid equipment_model_id { get; set; }
-
-        public string name { get; set; }
-
+        [Column("equipment_model_id")]
         [ForeignKey("equipment_model_id")]
-        public virtual EquipmentModel equipment_model { get; set; }
+        public Guid EquipmentModelId { get; set; }
+
+        [Column("name")]
+        public string Name { get; set; }
+
+        public virtual EquipmentModel EquipmentModel { get; set; }
         
     }
 }

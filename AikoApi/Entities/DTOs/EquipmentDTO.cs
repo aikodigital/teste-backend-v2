@@ -1,13 +1,16 @@
 using System;
+using Entities.Models;
 
 namespace Entities.DTOs
 {
     public class EquipmentDTO
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
         
-        public Guid equipment_model_id { get; set; }
+        public Guid EquipmentModelId { get; set; }
         
-        public string name { get; set; }        
+        public string Name { get; set; }  
+        
+        public EquipmentModel EquipmentModel { get; set; }
     }
 }

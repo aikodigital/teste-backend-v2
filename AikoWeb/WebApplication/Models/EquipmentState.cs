@@ -1,12 +1,13 @@
 using System;
 
-namespace Entities.DTOs
+namespace WebApplication.Models
 {
-    public class EquipmentModelDTO
+    public class EquipmentState
     {
         public Guid Id { get; set; }
-        
+
         public string Name { get; set; }
-        
+
+        public string Color { get; set; }
     }
 }

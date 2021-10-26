@@ -15,15 +15,15 @@ namespace Repositories
         {
         }
 
-        public Task<List<EquipmentState>> GetAll() => ReadAll().OrderBy(x => x.id).ToListAsync();
+        public Task<List<EquipmentState>> GetAll() => ReadAll().OrderBy(x => x.Id).ToListAsync();
 
-        public Task<EquipmentState> GetById(Guid id) => ReadByCondition(x => x.id.Equals(id)).FirstOrDefaultAsync();
+        public Task<EquipmentState> GetById(Guid id) => ReadByCondition(x => x.Id.Equals(id)).FirstOrDefaultAsync();
 
         public Task<List<EquipmentState>> GetByName(string name) =>
-            ReadByCondition(x => x.name.Equals(name)).OrderBy(x => x.id).ToListAsync();
+            ReadByCondition(x => x.Name.Equals(name)).OrderBy(x => x.Id).ToListAsync();
 
         public Task<List<EquipmentState>> GetByColor(string color) =>
-            ReadByCondition(x => x.color.Equals(color)).OrderBy(x => x.id).ToListAsync();
+            ReadByCondition(x => x.Color.Equals(color)).OrderBy(x => x.Id).ToListAsync();
         
         public Task<EquipmentState> Post(EquipmentState model) => Create(model);
 
