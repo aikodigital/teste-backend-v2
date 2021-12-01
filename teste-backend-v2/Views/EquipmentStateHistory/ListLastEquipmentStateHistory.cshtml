@@ -1,0 +1,42 @@
+﻿@model IEnumerable<teste_backend_v2.ViewModels.EquipmentStateHistoryViewModels.ListLastEquipmentStateViewModel>
+
+@{
+    ViewData["Title"] = "Last state per equipment";
+}
+
+<h1>Last state per equipment</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a asp-action="ListEquipmentStateHistory" asp-route-equipmentId="@item.EquipmentId">See history</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

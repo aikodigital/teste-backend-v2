@@ -1,0 +1,47 @@
+﻿@model IEnumerable<teste_backend_v2.ViewModels.EquipmentHourlyEarningsViewModel.ListEquipmentHourlyEarningsViewModel>
+
+@{
+    ViewData["Title"] = "Hourly Earnings";
+}
+
+<h1>Hourly earnings for equipment models per state</h1>
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("IncludeEquipmentHourlyEarnings", "Equipments")'">Include</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                <a asp-action="UpdateEquipmentHourlyEarnings" asp-route-idEquipmentModel="@item.EquipmentModelId" asp-route-idEquipmentState="@item.EquipmentStateId" asp-route-value="@item.Value">Edit</a> |                
+                <a asp-action="DeleteEquipmentHourlyEarnings" asp-route-idEquipmentModel="@item.EquipmentModelId" asp-route-idEquipmentState="@item.EquipmentStateId" asp-route-value="@item.Value">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
