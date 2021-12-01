@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using teste_backend_v2.Models;
-using teste_backend_v2.ViewModels.EquipmentHourlyEarningsViewModel;
 using teste_backend_v2.ViewModels.EquipmentModelViewModels;
 using teste_backend_v2.ViewModels.EquipmentPositionViewModels;
 using teste_backend_v2.ViewModels.EquipmentStateHistoryViewModels;
