@@ -1,0 +1,37 @@
+﻿@model IEnumerable<teste_backend_v2.ViewModels.EquipmentStateHistoryViewModels.ListEquipmentStateHistoryViewModel>
+
+@{
+    ViewData["Title"] = $"{@Model.FirstOrDefault().Equipment}'s state history";
+}
+
+<h1>@Model.FirstOrDefault().Equipment's state history</h1>
+
+
+<div class="form-group">
+    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("ListLastEquipmentStateHistory", "Equipments")'">Back to list</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EquipmentState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,88 @@
+﻿@using teste_backend_v2.ViewModels.EquipmentPositionViewModels
+@model IEnumerable<teste_backend_v2.ViewModels.EquipmentPositionViewModels.ListLastEquipmentPositionViewModel>
+
+@{
+    ViewData["Title"] = "Last position per equipment";
+}
+
+<h1>Last position per equipment</h1>
+
+<div id="map" style="height: 350px"></div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="equipment">
+                @Html.DisplayFor(modelItem => item.Equipment)
+            </td>
+            <td class="lat">
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td class="long">
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+
+    var latitudes = [];
+    var longitudes = [];
+    var equipments = [];
+
+    var latitudesList = JSON.parse('@Html.Raw(Json.Serialize(@ViewBag.Latitudes))');
+    for(var i = 0; i < latitudesList.length; i++) {        
+        latitudes[i] = latitudesList[i];
+    }
+
+    var longitudesList = JSON.parse('@Html.Raw(Json.Serialize(@ViewBag.Longitudes))');
+    for(var i = 0; i < longitudesList.length; i++) {        
+        longitudes[i] = longitudesList[i];
+    }
+
+    var equipmentsList = JSON.parse('@Html.Raw(Json.Serialize(@ViewBag.Equipments))');
+    for(var i = 0; i < equipmentsList.length; i++) {        
+        equipments[i] = equipmentsList[i];
+    }
+
+    // inicializa o mapa
+    map = L.map('map').setView([latitudes[0], longitudes[0]], 10);
+
+    // define os recursos para exibição
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy;',
+      maxZoom: 18,
+    }).addTo(map);
+    for(var i = 0; i < equipmentsList.length; i++) {
+        // adiciona um marcador no mapa
+        marker = L.marker([latitudes[i], longitudes[i]]).addTo(map);
+        
+        // adiciona um popup no marcador
+        marker.bindPopup("<b>"+equipments[i]+"</b>").openPopup();
+    }
+
+
+</script>

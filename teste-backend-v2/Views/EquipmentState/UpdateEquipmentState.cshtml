@@ -1,0 +1,47 @@
+﻿@model teste_backend_v2.ViewModels.EquipmentStateViewModels.UpdateEquipmentStateViewModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<script type="text/javascript">   
+
+        // Triggers while changing the colors.
+    function onChange(args) {
+        $("#colorField").val(args.currentValue.hex);
+    }
+</script>
+
+<h1>Update</h1>
+
+<h4>Equipment State</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateEquipmentState">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label" style="width: 100%;"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+             <div class='wrap' style="margin-top: 5px;">
+                <label asp-for="Color" class="control-label" style="width: 100%;"></label>
+                <input type="hidden" asp-for="Color" id="colorField" />
+                <ejs-colorpicker id="element" change="onChange" value="@Model.Color"></ejs-colorpicker>
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("ListEquipmentState", "Equipments")'">Back to list</button> 
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

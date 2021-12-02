@@ -1,0 +1,35 @@
+﻿@model IEnumerable<teste_backend_v2.ViewModels.EquipmentModelViewModels.ListEquipmentModelViewModel>
+
+@{
+    ViewData["Title"] = "Equipment Model";
+}
+
+<h1>Equipment Models</h1>
+
+<div class="form-group">
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("IncludeEquipmentModel", "Equipments")'">Include</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="UpdateEquipmentModel" asp-route-id="@item.Id">Edit</a> |                
+                <a asp-action="DeleteEquipmentModel" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
