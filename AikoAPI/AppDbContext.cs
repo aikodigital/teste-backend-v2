@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using AikoAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 
 namespace AikoAPI
@@ -26,10 +28,16 @@ namespace AikoAPI
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("operation");
+            
             modelBuilder.Entity<EquipmentPositionHistory>()
                 .HasKey(eph => new { eph.equipment_id, eph.date });
+            
+            modelBuilder.Entity<EquipmentStateHistory>()
+                .Property(e => e.equipment_id)
+                .HasColumnName("equipment_id");
             modelBuilder.Entity<EquipmentStateHistory>()
                 .HasKey(esh => new { esh.equipment_id, esh.date });
+            
             modelBuilder.Entity<EquipmentHourlyEarnings>()
                 .HasKey(ehe => new {ehe.equipment_model_id, ehe.equipment_state_id});
         }
@@ -41,7 +49,10 @@ namespace AikoAPI
                 .AddJsonFile("appsettings.json", false, true)
                 .Build();
             
-            optionsBuilder.UseNpgsql(configuration.GetSection("ConnectionString").Value);
+            optionsBuilder
+                .UseNpgsql(configuration.GetSection("ConnectionString").Value)
+                .LogTo(Console.WriteLine, new[] { RelationalEventId.CommandExecuted })
+                .EnableSensitiveDataLogging();
         }
     }
 }

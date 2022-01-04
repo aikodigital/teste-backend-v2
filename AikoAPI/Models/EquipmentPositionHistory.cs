@@ -6,7 +6,6 @@ namespace AikoAPI.Models
 {
     public class EquipmentPositionHistory
     {
-        [ForeignKey("Equipment")]
         [Required]
         public Guid equipment_id { get; set; }
         [Required]
@@ -16,6 +15,6 @@ namespace AikoAPI.Models
         [Required]
         public Double lon { get; set; }
         
-        public Equipment equip { get; set; }
+        //public Equipment equip { get; set; }
     }
 }
