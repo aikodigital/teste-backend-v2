@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace AikoAPI.Models
 {
+    [Table("equipment_model_state_hourly_earnings")]
     public class EquipmentHourlyEarnings
     {
-        [ForeignKey(("EquipmentModel"))]
-        [Required]
-        public Guid equipment_model_id { get; set; }
+        [Column("equipment_model_id", TypeName = "uuid"), Required]
+        public Guid EquipmentModelId { get; set; }
 
-        [ForeignKey(("EquipmentState"))]
-        [Required]
-        public Guid equipment_state_id { get; set; }
+        [Column("equipment_state_id", TypeName = "uuid"), Required]
+        public Guid EquipmentStateId { get; set; }
 
-        [Required]
-        public Double value { get; set; }
+        [Column("value", TypeName = "float4"), Required]
+        public Double Value { get; set; }
+        
+        public EquipmentModel EquipmentModel { get; set; }
+        
+        public EquipmentState EquipmentState { get; set; }
     }
 }

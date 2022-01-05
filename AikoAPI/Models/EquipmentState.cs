@@ -1,16 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AikoAPI.Models
 {
+    [Table("equipment_state")]
     public class EquipmentState
     {
-        [Required]
-        [Key]
-        public Guid id { get; set; }
-        [Required]
-        public String name { get; set; }
-        [Required]
-        public String color { get; set; }
+        [Column("id", TypeName = "uuid"), Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id { get; set; }
+        [Column("name", TypeName = "text"), Required]
+        public String Name { get; set; }
+        [Column("color", TypeName = "text"), Required]
+        public String Color { get; set; }
     }
 }

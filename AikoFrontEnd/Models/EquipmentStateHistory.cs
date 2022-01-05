@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AikoFrontEnd.Models;
 
-namespace AikoAPI.Models
+namespace AikoFrontEnd.Models
 {
     public class EquipmentStateHistory
     {

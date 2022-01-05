@@ -47,7 +47,7 @@ namespace AikoAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEquipmentPositionHistory(Guid id, EquipmentPositionHistory equipmentPositionHistory)
         {
-            if (id != equipmentPositionHistory.equipment_id)
+            if (id != equipmentPositionHistory.EquipmentId)
             {
                 return BadRequest();
             }
@@ -85,7 +85,7 @@ namespace AikoAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (EquipmentPositionHistoryExists(equipmentPositionHistory.equipment_id))
+                if (EquipmentPositionHistoryExists(equipmentPositionHistory.EquipmentId))
                 {
                     return Conflict();
                 }
@@ -95,7 +95,7 @@ namespace AikoAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetEquipmentPositionHistory", new { id = equipmentPositionHistory.equipment_id }, equipmentPositionHistory);
+            return CreatedAtAction("GetEquipmentPositionHistory", new { id = equipmentPositionHistory.EquipmentId }, equipmentPositionHistory);
         }
 
         // DELETE: api/EquipmentPositionHistories/5
@@ -116,7 +116,7 @@ namespace AikoAPI.Controllers
 
         private bool EquipmentPositionHistoryExists(Guid id)
         {
-            return _context.equipment_position_history.Any(e => e.equipment_id == id);
+            return _context.equipment_position_history.Any(e => e.EquipmentId == id);
         }
     }
 }

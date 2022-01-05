@@ -47,7 +47,7 @@ namespace AikoAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEquipment(Guid id, Equipment equipment)
         {
-            if (id != equipment.id)
+            if (id != equipment.Id)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace AikoAPI.Controllers
             _context.equipment.Add(equipment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEquipment", new { id = equipment.id }, equipment);
+            return CreatedAtAction("GetEquipment", new { id = equipment.Id }, equipment);
         }
 
         // DELETE: api/Equipments/5
@@ -102,7 +102,7 @@ namespace AikoAPI.Controllers
 
         private bool EquipmentExists(Guid id)
         {
-            return _context.equipment.Any(e => e.id == id);
+            return _context.equipment.Any(e => e.Id == id);
         }
     }
 }

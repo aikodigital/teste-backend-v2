@@ -6,14 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
-using AikoFrontEnd.Models;
+using models = AikoFrontEnd.Models;
 
 namespace AikoFrontEnd.Pages
 {
     public class EquipmentModel : PageModel
     {
-        public List<Equipment> Equipments { get; set; }
+        public List<models.Equipment> Equipments { get; set; }
         
         private readonly ILogger<EquipmentModel> _logger;
 
@@ -29,7 +30,7 @@ namespace AikoFrontEnd.Pages
                 HttpResponseMessage response = await client.GetAsync(
                     "https://localhost:5001/api/EquipmentModels");
                 response.EnsureSuccessStatusCode();
-                Console.WriteLine(response);
+                var models = JsonSerializer.Deserialize<List<models.EquipmentModel>>(response.Content.ReadAsStringAsync().Result);
             }
         }
     }

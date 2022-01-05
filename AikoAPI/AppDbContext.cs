@@ -28,18 +28,12 @@ namespace AikoAPI
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("operation");
+
+            modelBuilder.Entity<EquipmentHourlyEarnings>().HasKey(ehe => new {ehe.EquipmentModelId, ehe.EquipmentStateId});
             
-            modelBuilder.Entity<EquipmentPositionHistory>()
-                .HasKey(eph => new { eph.equipment_id, eph.date });
+            modelBuilder.Entity<EquipmentPositionHistory>().HasKey(eph => new {eph.EquipmentId, eph.Date});
             
-            modelBuilder.Entity<EquipmentStateHistory>()
-                .Property(e => e.equipment_id)
-                .HasColumnName("equipment_id");
-            modelBuilder.Entity<EquipmentStateHistory>()
-                .HasKey(esh => new { esh.equipment_id, esh.date });
-            
-            modelBuilder.Entity<EquipmentHourlyEarnings>()
-                .HasKey(ehe => new {ehe.equipment_model_id, ehe.equipment_state_id});
+            modelBuilder.Entity<EquipmentStateHistory>().HasKey(esh => new {esh.EquipmentId, esh.Date});
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

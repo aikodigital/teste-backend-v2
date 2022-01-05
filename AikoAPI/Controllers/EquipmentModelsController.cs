@@ -47,7 +47,7 @@ namespace AikoAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEquipmentModel(Guid id, EquipmentModel equipmentModel)
         {
-            if (id != equipmentModel.id)
+            if (id != equipmentModel.Id)
             {
                 return BadRequest();
             }
@@ -81,7 +81,7 @@ namespace AikoAPI.Controllers
             _context.equipment_model.Add(equipmentModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEquipmentModel", new { id = equipmentModel.id }, equipmentModel);
+            return CreatedAtAction("GetEquipmentModel", new { id = equipmentModel.Id }, equipmentModel);
         }
 
         // DELETE: api/EquipmentModels/5
@@ -102,7 +102,7 @@ namespace AikoAPI.Controllers
 
         private bool EquipmentModelExists(Guid id)
         {
-            return _context.equipment_model.Any(e => e.id == id);
+            return _context.equipment_model.Any(e => e.Id == id);
         }
     }
 }

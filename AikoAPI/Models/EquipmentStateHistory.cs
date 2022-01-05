@@ -4,18 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AikoAPI.Models
 {
+    [Table("equipment_state_history")]
     public class EquipmentStateHistory
     {
-        [ForeignKey("Equipment")]
-        [Required]
-        public Guid equipment_id { get; set; }
-        [Required]
-        public DateTime date { get; set; }
+        [Column("equipment_id", TypeName = "uuid"), Required]
+        public Guid EquipmentId { get; set; }
         
-        [ForeignKey("EquipmentState")]
-        [Required]
-        public Guid equipment_state_id { get; set; }
+        [Column("date", TypeName = "timestamp"), Required]
+        public DateTime Date { get; set; }
         
-        public Equipment equip { get; set; }
+        [Column("equipment_state_id", TypeName = "uuid"), Required]
+        public Guid EquipmentStateId { get; set; }
+        
+        [ForeignKey("EquipmentId")]
+        public Equipment Equip { get; set; }
     }
 }

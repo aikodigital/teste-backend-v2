@@ -47,7 +47,7 @@ namespace AikoAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEquipmentHourlyEarnings(Guid id, EquipmentHourlyEarnings equipmentHourlyEarnings)
         {
-            if (id != equipmentHourlyEarnings.equipment_model_id)
+            if (id != equipmentHourlyEarnings.EquipmentModelId)
             {
                 return BadRequest();
             }
@@ -85,7 +85,7 @@ namespace AikoAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (EquipmentHourlyEarningsExists(equipmentHourlyEarnings.equipment_model_id))
+                if (EquipmentHourlyEarningsExists(equipmentHourlyEarnings.EquipmentModelId))
                 {
                     return Conflict();
                 }
@@ -95,7 +95,7 @@ namespace AikoAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetEquipmentHourlyEarnings", new { id = equipmentHourlyEarnings.equipment_model_id }, equipmentHourlyEarnings);
+            return CreatedAtAction("GetEquipmentHourlyEarnings", new { id = equipmentHourlyEarnings.EquipmentModelId }, equipmentHourlyEarnings);
         }
 
         // DELETE: api/EquipmentHourlyEarnings/5
@@ -116,7 +116,7 @@ namespace AikoAPI.Controllers
 
         private bool EquipmentHourlyEarningsExists(Guid id)
         {
-            return _context.equipment_model_state_hourly_earnings.Any(e => e.equipment_model_id == id);
+            return _context.equipment_model_state_hourly_earnings.Any(e => e.EquipmentModelId == id);
         }
     }
 }

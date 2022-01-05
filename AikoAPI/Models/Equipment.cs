@@ -5,19 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AikoAPI.Models
 {
+    [Table("equipment")]
     public class Equipment
-    {  
-        [Required]
-        [Key]
-        public Guid id { get; set; }
-        [ForeignKey(("EquipmentModel"))]
-        [Required]
-        public Guid equipment_model_id { get; set; }
-        [Required]
-        public String name { get; set; }
+    { 
+        [Column("id", TypeName = "uuid"), Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id { get; set; }
         
-        public List<EquipmentStateHistory> states { get; set; }
+        [Column("equipment_model_id", TypeName = "uuid"), Required]
+        public Guid EquipmentModelId { get; set; }
         
-        public List<EquipmentPositionHistory> positions { get; set; }
+        [Column("name", TypeName = "text"), Required]
+        public String Name { get; set; }
+        
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AikoAPI.Models
+namespace AikoFrontEnd.Models
 {
     public class EquipmentState
     {
