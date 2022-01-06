@@ -19,7 +19,7 @@ namespace AikoAPI.Models
         [Column("lon", TypeName = "float4"), Required]
         public Double Lon { get; set; }
         
-        [ForeignKey("EquipmentId")]
+        [ForeignKey(nameof(EquipmentId))]
         public Equipment Equip { get; set; }
     }
 }

@@ -25,14 +25,14 @@ namespace AikoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Equipment>>> Getequipment()
         {
-            return await _context.equipment.ToListAsync();
+            return await _context.equipment.Include(e => e.EquipmentModel).ToListAsync();
         }
 
         // GET: api/Equipments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Equipment>> GetEquipment(Guid id)
+        public async Task<ActionResult<Equipment>> GetEquipmentById(Guid id)
         {
-            var equipment = await _context.equipment.FindAsync(id);
+            var equipment = await _context.equipment.Include(e => e.EquipmentModel).FirstOrDefaultAsync();
 
             if (equipment == null)
             {
@@ -40,6 +40,23 @@ namespace AikoAPI.Controllers
             }
 
             return equipment;
+        }
+        
+        
+        [HttpGet("listByName")]
+        public async Task<ActionResult<List<Equipment>>> GetEquipmentByName([FromQuery] string name)
+        {
+            var equipments = await _context.equipment
+                    .Include(e => e.EquipmentModel)
+                    .Where(e => e.Name == name)
+                    .ToListAsync();
+
+            if (equipments == null)
+            {
+                return NotFound();
+            }
+
+            return equipments;
         }
 
         // PUT: api/Equipments/5
@@ -79,7 +96,21 @@ namespace AikoAPI.Controllers
         public async Task<ActionResult<Equipment>> PostEquipment(Equipment equipment)
         {
             _context.equipment.Add(equipment);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (EquipmentExists(equipment.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return CreatedAtAction("GetEquipment", new { id = equipment.Id }, equipment);
         }
