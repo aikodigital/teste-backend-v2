@@ -15,8 +15,5 @@ namespace AikoAPI.Models
         
         [Column("equipment_state_id", TypeName = "uuid"), Required]
         public Guid EquipmentStateId { get; set; }
-        
-        [ForeignKey("EquipmentId")]
-        public Equipment Equip { get; set; }
     }
 }

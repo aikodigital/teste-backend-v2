@@ -1,4 +1,5 @@
 ﻿@page
+@using AikoFrontEnd.Models
 @model EquipmentModel
 @{
     ViewData["Title"] = "Equipamentos";
@@ -6,17 +7,18 @@
 
 <div class="text-center">
     <h1 class="display-4">Equipamentos</h1>
+    <form>
+        
+    </form>
     <table>
         <thead>
         <th>Nome</th>
-        <th>Modelo</th>
-        <th>Posição atual</th>
-        <th>Estado atual</th>
         </thead>
         <tbody>
-            <td>
-                
-            </td>
+            @foreach (Equipment equip in Model.Equipments)
+            {
+                <tr><td>@equip.name</td></tr>
+            }
         </tbody>
     </table>
 </div>

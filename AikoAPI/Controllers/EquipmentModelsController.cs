@@ -12,64 +12,61 @@ namespace AikoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EquipmentsController : ControllerBase
+    public class EquipmentModelsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public EquipmentsController(AppDbContext context)
+        public EquipmentModelsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Equipments
+        // GET: api/EquipmentModels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Equipment>>> Getequipment()
+        public async Task<ActionResult<IEnumerable<EquipmentModel>>> Getequipment_model()
         {
-            return await _context.equipment.Include(e => e.EquipmentModel).ToListAsync();
+            return await _context.equipment_model.ToListAsync();
         }
 
-        // GET: api/Equipments/5
+        // GET: api/EquipmentModels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Equipment>> GetEquipmentById(Guid id)
+        public async Task<ActionResult<EquipmentModel>> GetEquipmentModel(Guid id)
         {
-            var equipment = await _context.equipment.Include(e => e.EquipmentModel).FirstOrDefaultAsync();
+            var equipmentModel = await _context.equipment_model.FindAsync(id);
 
-            if (equipment == null)
+            if (equipmentModel == null)
             {
                 return NotFound();
             }
 
-            return equipment;
+            return equipmentModel;
         }
-        
-        
+                
         [HttpGet("getByName")]
-        public async Task<ActionResult<Equipment>> GetEquipmentByName([FromQuery] string name)
+        public async Task<ActionResult<EquipmentModel>> GetEquipmentModelByName([FromQuery] string name)
         {
-            var equipments = await _context.equipment
-                    .Include(e => e.EquipmentModel)
-                    .Where(e => e.Name == name)
+            var equipmentModels = await _context.equipment_model.Where(e => e.Name == name)
                     .ToListAsync();
 
-            if (equipments == null)
+            if (equipmentModels == null)
             {
                 return NotFound();
             }
 
-            return equipments[0];
+            return equipmentModels[0];
         }
 
-        // PUT: api/Equipments/5
+        // PUT: api/EquipmentModels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEquipment(Guid id, Equipment equipment)
+        public async Task<IActionResult> PutEquipmentModel(Guid id, EquipmentModel equipmentModel)
         {
-            if (id != equipment.Id)
+            if (id != equipmentModel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(equipment).State = EntityState.Modified;
+            _context.Entry(equipmentModel).State = EntityState.Modified;
 
             try
             {
@@ -77,7 +74,7 @@ namespace AikoAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EquipmentExists(id))
+                if (!EquipmentModelExists(id))
                 {
                     return NotFound();
                 }
@@ -90,19 +87,19 @@ namespace AikoAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Equipments
+        // POST: api/EquipmentModels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Equipment>> PostEquipment(Equipment equipment)
+        public async Task<ActionResult<EquipmentModel>> PostEquipmentModel(EquipmentModel equipmentModel)
         {
-            _context.equipment.Add(equipment);
+            _context.equipment_model.Add(equipmentModel);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (EquipmentExists(equipment.Id))
+                if (EquipmentModelExists(equipmentModel.Id))
                 {
                     return Conflict();
                 }
@@ -112,28 +109,28 @@ namespace AikoAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetEquipment", new { id = equipment.Id }, equipment);
+            return CreatedAtAction("GetEquipmentModel", new { id = equipmentModel.Id }, equipmentModel);
         }
 
-        // DELETE: api/Equipments/5
+        // DELETE: api/EquipmentModels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEquipment(Guid id)
+        public async Task<IActionResult> DeleteEquipmentModel(Guid id)
         {
-            var equipment = await _context.equipment.FindAsync(id);
-            if (equipment == null)
+            var equipmentModel = await _context.equipment_model.FindAsync(id);
+            if (equipmentModel == null)
             {
                 return NotFound();
             }
 
-            _context.equipment.Remove(equipment);
+            _context.equipment_model.Remove(equipmentModel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool EquipmentExists(Guid id)
+        private bool EquipmentModelExists(Guid id)
         {
-            return _context.equipment.Any(e => e.Id == id);
+            return _context.equipment_model.Any(e => e.Id == id);
         }
     }
 }

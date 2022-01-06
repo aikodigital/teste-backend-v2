@@ -28,9 +28,20 @@ namespace AikoFrontEnd.Pages
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(
-                    "https://localhost:5001/api/EquipmentModels");
+                    "https://localhost:5001/api/Equipments");
                 response.EnsureSuccessStatusCode();
-                var models = JsonSerializer.Deserialize<List<models.EquipmentModel>>(response.Content.ReadAsStringAsync().Result);
+                Equipments = JsonSerializer.Deserialize<List<models.Equipment>>(response.Content.ReadAsStringAsync().Result);
+            }
+        }
+        
+        public async Task OnPost()
+        {
+            using (var client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(
+                    "https://localhost:5001/api/Equipments");
+                response.EnsureSuccessStatusCode();
+                Equipments = JsonSerializer.Deserialize<List<models.Equipment>>(response.Content.ReadAsStringAsync().Result);
             }
         }
     }

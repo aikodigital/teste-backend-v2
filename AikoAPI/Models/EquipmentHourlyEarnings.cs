@@ -18,9 +18,5 @@ namespace AikoAPI.Models
 
         [Column("value", TypeName = "float4"), Required]
         public Double Value { get; set; }
-        
-        public EquipmentModel EquipmentModel { get; set; }
-        
-        public EquipmentState EquipmentState { get; set; }
     }
 }
