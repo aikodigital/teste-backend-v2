@@ -28,8 +28,8 @@ namespace AikoAPI.Controllers
             return await _context.equipment_model_state_hourly_earnings.ToListAsync();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EquipmentHourlyEarnings>>> GetEquipmentHourlyEarningsByModelId([FromQuery] Guid modelId)
+        [HttpGet("modelId")]
+        public async Task<ActionResult<IEnumerable<EquipmentHourlyEarnings>>> GetEquipmentHourlyEarningsByModelId(Guid modelId)
         {
             var equipmentHourlyEarnings = await _context.equipment_model_state_hourly_earnings.Where(ehe => ehe.EquipmentModelId == modelId).ToListAsync();
 
@@ -41,10 +41,10 @@ namespace AikoAPI.Controllers
             return equipmentHourlyEarnings;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EquipmentHourlyEarnings>>> GetEquipmentHourlyEarningsByStateId([FromQuery] Guid stateId)
+        [HttpGet("byModelAndState")]
+        public async Task<ActionResult<IEnumerable<EquipmentHourlyEarnings>>> GetEquipmentHourlyEarningsByModelAndState([FromQuery] Guid modelId, [FromQuery] Guid stateId)
         {
-            var equipmentHourlyEarnings = await _context.equipment_model_state_hourly_earnings.Where(ehe => ehe.EquipmentStateId == stateId).ToListAsync();
+            var equipmentHourlyEarnings = await _context.equipment_model_state_hourly_earnings.Where(ehe => ehe.EquipmentModelId == modelId && ehe.EquipmentStateId == stateId).ToListAsync();
 
             if (equipmentHourlyEarnings == null)
             {
@@ -56,8 +56,8 @@ namespace AikoAPI.Controllers
 
         // PUT: api/EquipmentHourlyEarnings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{modelId}, {stateId}")]
-        public async Task<IActionResult> PutEquipmentHourlyEarnings(Guid modelId, Guid stateId, EquipmentHourlyEarnings equipmentHourlyEarnings)
+        [HttpPut]
+        public async Task<IActionResult> PutEquipmentHourlyEarnings([FromQuery] Guid modelId, [FromQuery] Guid stateId, EquipmentHourlyEarnings equipmentHourlyEarnings)
         {
             if (modelId != equipmentHourlyEarnings.EquipmentModelId)
             {
@@ -96,30 +96,31 @@ namespace AikoAPI.Controllers
         public async Task<ActionResult<EquipmentHourlyEarnings>> PostEquipmentHourlyEarnings(EquipmentHourlyEarnings equipmentHourlyEarnings)
         {
             _context.equipment_model_state_hourly_earnings.Add(equipmentHourlyEarnings);
-            try
+
+            if (EquipmentHourlyEarningsExists(equipmentHourlyEarnings.EquipmentModelId, equipmentHourlyEarnings.EquipmentStateId))
             {
-                await _context.SaveChangesAsync();
+                return Conflict();
             }
-            catch (DbUpdateException)
+            else
             {
-                if (EquipmentHourlyEarningsExists(equipmentHourlyEarnings.EquipmentModelId, equipmentHourlyEarnings.EquipmentStateId))
+                try
                 {
-                    return Conflict();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateException)
                 {
                     throw;
                 }
-            }
+            }            
 
-            return CreatedAtAction("GetEquipmentHourlyEarnings", new { id = equipmentHourlyEarnings.EquipmentModelId }, equipmentHourlyEarnings);
+            return CreatedAtAction("GetEquipmentHourlyEarningsByModelAndState", new { modelId = equipmentHourlyEarnings.EquipmentModelId, stateId = equipmentHourlyEarnings.EquipmentStateId }, equipmentHourlyEarnings);
         }
 
         // DELETE: api/EquipmentHourlyEarnings/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEquipmentHourlyEarnings(Guid id)
+        [HttpDelete()]
+        public async Task<IActionResult> DeleteEquipmentHourlyEarnings([FromQuery] Guid modelId, [FromQuery] Guid stateId)
         {
-            var equipmentHourlyEarnings = await _context.equipment_model_state_hourly_earnings.FindAsync(id);
+            var equipmentHourlyEarnings = await _context.equipment_model_state_hourly_earnings.FindAsync(modelId, stateId);
             if (equipmentHourlyEarnings == null)
             {
                 return NotFound();
@@ -133,7 +134,7 @@ namespace AikoAPI.Controllers
 
         private bool EquipmentHourlyEarningsExists(Guid modelId, Guid stateId)
         {
-            return _context.equipment_model_state_hourly_earnings.Any(e => e.EquipmentModelId == modelId && e.EquipmentStateId == stateId);
+            return _context.equipment_model_state_hourly_earnings.Any(e => (e.EquipmentModelId == modelId && e.EquipmentStateId == stateId));
         }
     }
 }

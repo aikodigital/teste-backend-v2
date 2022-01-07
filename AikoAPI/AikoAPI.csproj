@@ -38,4 +38,9 @@
     <Content Remove="Data\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Class.cs" />
+    <Compile Remove="Models\EquipmentStateHistoryDTO.cs" />
+  </ItemGroup>
+
 </Project>

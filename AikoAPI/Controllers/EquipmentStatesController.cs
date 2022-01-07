@@ -48,7 +48,7 @@ namespace AikoAPI.Controllers
             var equipmentState = await _context.equipment_state.Where(e => e.Name == name)
                     .ToListAsync();
 
-            if (equipmentState == null)
+            if (equipmentState.Count == 0)
             {
                 return NotFound();
             }

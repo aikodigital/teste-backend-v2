@@ -51,7 +51,7 @@ namespace AikoAPI.Controllers
                     .Where(e => e.Name == name)
                     .ToListAsync();
 
-            if (equipments == null)
+            if (equipments.Count == 0)
             {
                 return NotFound();
             }
