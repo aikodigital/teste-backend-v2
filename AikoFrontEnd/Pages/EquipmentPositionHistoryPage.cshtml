@@ -1,0 +1,47 @@
+@page "{equipmentId?}"
+@using AikoFrontEnd.Models
+@model EquipmentStateHistoryPage
+@{
+    ViewData["Title"] = "Equipamentos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Current position of equipments</h1>
+    <div id='map' style='width: 800px; height: 600px;'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibGVvbmNvdXRpbmhvMSIsImEiOiJja3k2OXdqbnUwdGU3Mm9wa3V5cjk2dXkwIn0.vJE9hKuPegqvqq4rGVTFrw';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-46.00775909423828,-19.15180015563965],
+            zoom: 9
+        });
+        new mapboxgl.Marker(document.createElement('div').style('color: red; width: 5px; height: 5px;'))
+            .setLngLat([-46.00775909423828,-19.15180015563965])
+            .addTo(map);
+        /*map.on('load', () => {
+            mapbox.addSource('equipments', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [
+                        {
+                            type: 'Feature',
+                            properties: {},
+                            geometry: {
+                                type: 'Point',
+                                coordinates: [-46.00775909423828,-19.15180015563965]
+                            }
+                        }
+                    ]
+                }
+            })
+        
+            mapboxgl.addLayer({
+                id: 'points',
+                source: 'equipments',
+                type: 'circle'
+            });
+        });*/
+    </script>
+</div>

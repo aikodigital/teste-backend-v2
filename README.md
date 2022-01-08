@@ -108,23 +108,23 @@ O histórico de posições dos equipamentos.
 
 Aqui são listados algumas sugestões para você que quer ir além do desafio inicial. Lembrando que você não precisa se limitar a essas sugestões, se tiver pensado em outra funcionalidade que considera relevante ao escopo da aplicação fique à vontade para implementá-la.
 
-* **Swagger**: Utilizar o swagger para documentar a API.
+- [x] **Swagger**: Utilizar o swagger para documentar a API.
 
-* **CRUD em Razor**: Implementar o CRUD das entidades em páginas Razor.
+- [ ] **CRUD em Razor**: Implementar o CRUD das entidades em páginas Razor.
 
-* **Conteinerização**: Utilizar o docker para realizar a conteinerização da aplicação.
+- [ ] **Conteinerização**: Utilizar o docker para realizar a conteinerização da aplicação.
 
-* **Mapa de Equipamentos**: Exibir uma página em Razor com os equipamentos no Mapa utilizando a biblioteca javascript Leaflet.
+- [ ] **Mapa de Equipamentos**: Exibir uma página em Razor com os equipamentos no Mapa utilizando a biblioteca javascript Leaflet.
 
-* **Histórico de estados**: Exibir uma página em Razor que liste o histórico de estados de um equipamento.
+- [x] **Histórico de estados**: Exibir uma página em Razor que liste o histórico de estados de um equipamento.
 
-* **Percentual de Produtividade do equipamento**: Expor um endpoint na API que retorne a produtividade do equipamento, que consiste em uma relação das horas produtivas (em estado "Operando") em relação ao total de horas. Exemplo se um equipamento teve 18 horas operando no dia a formula deve ser `18 / 24 * 100 = 75% de produtividade`.
+- [ ] **Percentual de Produtividade do equipamento**: Expor um endpoint na API que retorne a produtividade do equipamento, que consiste em uma relação das horas produtivas (em estado "Operando") em relação ao total de horas. Exemplo se um equipamento teve 18 horas operando no dia a formula deve ser `18 / 24 * 100 = 75% de produtividade`.
 
-* **Ganho por equipamento**: Export um endpoint na API que retorne o calculo de ganho do equipamento com base no valor recebido por hora informado no Modelo de Equipamento. Exemplo se um modelo de equipamento gera 100 por hora em operando e -20 em manutenção, então se esse equipamento ficou 10 horas em operação e 4 em manutenção ele gerou `10 * 100 + 4 * -20 = 920`.
+- [ ] **Ganho por equipamento**: Export um endpoint na API que retorne o calculo de ganho do equipamento com base no valor recebido por hora informado no Modelo de Equipamento. Exemplo se um modelo de equipamento gera 100 por hora em operando e -20 em manutenção, então se esse equipamento ficou 10 horas em operação e 4 em manutenção ele gerou `10 * 100 + 4 * -20 = 920`.
 
-* **Testes**: Desenvolva testes que achar necessário para a aplicação, seja testes unitários, testes automatizados, etc.
+- [ ] **Testes**: Desenvolva testes que achar necessário para a aplicação, seja testes unitários, testes automatizados, etc.
 
-* **Documentação**: Gerar uma documentação da aplicação. A documentação pode incluir detalhes sobre as decisões tomadas, especificação dos componentes desenvolvidos, instruções de uso dentre outras informações que achar relevantes.
+- [ ] **Documentação**: Gerar uma documentação da aplicação. A documentação pode incluir detalhes sobre as decisões tomadas, especificação dos componentes desenvolvidos, instruções de uso dentre outras informações que achar relevantes.
 
 ## Entregas
 

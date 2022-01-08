@@ -21,14 +21,21 @@ namespace AikoAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Equipments
+        /// <summary>
+        /// Retorna uma lista com todos os equipamentos
+        /// </summary>
+        /// <response code="200">Caso haja resultados</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Equipment>>> Getequipment()
         {
             return await _context.equipment.Include(e => e.EquipmentModel).ToListAsync();
         }
 
-        // GET: api/Equipments/5
+        /// <summary>
+        /// Retorna o equipamento por meio do id
+        /// </summary>
+        /// <response code="200">Caso o modelo exista</response>
+        /// <response code="404">Caso não encontre resultado</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<Equipment>> GetEquipmentById(Guid id)
         {
@@ -42,7 +49,11 @@ namespace AikoAPI.Controllers
             return equipment;
         }
         
-        
+        /// <summary>
+        /// Retorna o equipamento por meio do nome (a busca é feita pelo nome exato)
+        /// </summary>
+        /// <response code="200">Caso o equipamento exista</response>
+        /// <response code="404">Caso não encontre resultado</response>
         [HttpGet("getByName")]
         public async Task<ActionResult<Equipment>> GetEquipmentByName([FromQuery] string name)
         {
@@ -59,8 +70,12 @@ namespace AikoAPI.Controllers
             return equipments[0];
         }
 
-        // PUT: api/Equipments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Atualiza o cadastro de um equipamento
+        /// </summary>
+        /// <response code="204">Caso o objeto seja atualizado com sucesso</response>
+        /// <response code="400">Caso o id do equipamento não seja o mesmo do payload ou outro problema nos dados informados</response>
+        /// <response code="404">Caso o objeto não seja encontrado</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEquipment(Guid id, Equipment equipment)
         {
@@ -71,18 +86,18 @@ namespace AikoAPI.Controllers
 
             _context.Entry(equipment).State = EntityState.Modified;
 
-            try
+            if (!EquipmentExists(id))
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
+            else
             {
-                if (!EquipmentExists(id))
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
-                {
+                catch (DbUpdateConcurrencyException)
+                {        
                     throw;
                 }
             }
@@ -90,24 +105,29 @@ namespace AikoAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Equipments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Insere um novo equipamento
+        /// </summary>
+        /// <response code="201">Caso o objeto seja inserido com sucesso</response>
+        /// <response code="400">Caso haja algum problema com um dos campos do payload</response>
+        /// <response code="409">Caso o objeto já exista</response>
         [HttpPost]
         public async Task<ActionResult<Equipment>> PostEquipment(Equipment equipment)
         {
             _context.equipment.Add(equipment);
-            try
+            
+            if (EquipmentExists(equipment.Id))
             {
-                await _context.SaveChangesAsync();
+                return Conflict();
             }
-            catch (DbUpdateException)
+            else
             {
-                if (EquipmentExists(equipment.Id))
+                try
                 {
-                    return Conflict();
+                    await _context.SaveChangesAsync();
                 }
-                else
-                {
+                catch (DbUpdateException)
+                {    
                     throw;
                 }
             }
@@ -115,7 +135,12 @@ namespace AikoAPI.Controllers
             return CreatedAtAction("GetEquipment", new { id = equipment.Id }, equipment);
         }
 
-        // DELETE: api/Equipments/5
+        /// <summary>
+        /// Remove um equipamento
+        /// </summary>
+        /// <response code="204">Caso o objeto seja deletado com sucesso</response>
+        /// <response code="404">Caso o objeto não seja encontrado</response>
+        /// <response code="500">Caso o objeto esteja relacionado à outros e não possa ser removido</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEquipment(Guid id)
         {
