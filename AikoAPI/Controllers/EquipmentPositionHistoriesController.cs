@@ -48,6 +48,24 @@ namespace AikoAPI.Controllers
             return EquipmentPositionHistory[0];
         }
 
+        [HttpGet("currentPosition")]
+        public async Task<ActionResult<IEnumerable<EquipmentPositionHistory>>> GetEquipmentPositionHistoryCurrentState()
+        {
+            var equipmentPositionHistory = _context.equipment_position_history
+                .Include(e => e.Equipment)
+                .AsEnumerable()
+                .GroupBy(e => e.EquipmentId)
+                .Select(g => g.OrderByDescending(g => g.Date).FirstOrDefault())
+                .ToList();
+
+            if (equipmentPositionHistory.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return equipmentPositionHistory;
+        }
+
         // PUT: api/EquipmentPositionHistories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]

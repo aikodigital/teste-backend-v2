@@ -27,7 +27,7 @@ namespace AikoAPI.Controllers
         [HttpGet("{equipmentId}")]
         public async Task<ActionResult<IEnumerable<EquipmentStateHistory>>> GetEquipmentStateHistory(Guid equipmentId)
         {
-            var equipmentStateHistory = await _context.equipment_state_history.Where(esh => esh.EquipmentId == equipmentId).ToListAsync();
+            var equipmentStateHistory = await _context.equipment_state_history.Include(e => e.Equipment).Where(esh => esh.EquipmentId == equipmentId).ToListAsync();
 
             if (equipmentStateHistory == null)
             {
@@ -48,6 +48,24 @@ namespace AikoAPI.Controllers
             }
 
             return equipmentStateHistory[0];
+        }
+
+        [HttpGet("currentState")]
+        public async Task<ActionResult<IEnumerable<EquipmentStateHistory>>> GetEquipmentStateHistoryCurrentState()
+        {
+            var equipmentStateHistory = _context.equipment_state_history
+                .Include(e => e.Equipment)
+                .AsEnumerable()
+                .GroupBy(e => e.EquipmentId)
+                .Select(g => g.OrderByDescending(g => g.Date).FirstOrDefault())
+                .ToList();
+
+            if (equipmentStateHistory.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return equipmentStateHistory;
         }
 
         // PUT: api/EquipmentStateHistories/5

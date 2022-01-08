@@ -7,7 +7,7 @@ namespace AikoAPI.Models
     [Table("equipment_position_history")]
     public class EquipmentPositionHistory
     {
-        [Column("equipment_id", TypeName = "uuid"), Required]
+        [Column("equipment_id", TypeName = "uuid"), Required, ForeignKey("Equipment")]
         public Guid EquipmentId { get; set; }
         
         [Column("date", TypeName = "timestamp"), Required]
@@ -18,5 +18,7 @@ namespace AikoAPI.Models
         
         [Column("lon", TypeName = "float4"), Required]
         public Double Lon { get; set; }
+
+        public Equipment Equipment { get; set; }
     }
 }

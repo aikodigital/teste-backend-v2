@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AikoFrontEnd.Models
 {
     public class EquipmentHourlyEarnings
     {
-        [ForeignKey(("EquipmentModel"))]
-        [Required]
-        public Guid equipment_model_id { get; set; }
-
-        [ForeignKey(("EquipmentState"))]
-        [Required]
-        public Guid equipment_state_id { get; set; }
-
-        [Required]
-        public Double value { get; set; }
+        public Guid EquipmentModelId { get; set; }
+        public Guid EquipmentStateId { get; set; }
+        public Double Value { get; set; }
     }
 }

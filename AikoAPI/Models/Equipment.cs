@@ -18,6 +18,5 @@ namespace AikoAPI.Models
         public String Name { get; set; }
 
         public EquipmentModel EquipmentModel { get; set; }
-
     }
 }

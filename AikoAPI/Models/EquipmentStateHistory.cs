@@ -7,7 +7,7 @@ namespace AikoAPI.Models
     [Table("equipment_state_history")]
     public class EquipmentStateHistory
     {
-        [Column("equipment_id", TypeName = "uuid"), Required]
+        [Column("equipment_id", TypeName = "uuid"), Required, ForeignKey("Equipment")]
         public Guid EquipmentId { get; set; }
         
         [Column("date", TypeName = "timestamp"), Required]
@@ -15,5 +15,7 @@ namespace AikoAPI.Models
         
         [Column("equipment_state_id", TypeName = "uuid"), Required]
         public Guid EquipmentStateId { get; set; }
+
+        public Equipment Equipment { get; set; }
     }
 }

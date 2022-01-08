@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AikoFrontEnd.Models
 {
     public class Equipment
-    {
-        public Guid id { get; set; }
-        public Guid equipment_model_id { get; set; }
-        public String name { get; set; }
+    { 
+        public Guid Id { get; set; }
+        
+        public Guid EquipmentModelId { get; set; }
+        
+        public String Name { get; set; }
+
+        public EquipmentModel EquipmentModel { get; set; }
     }
 }

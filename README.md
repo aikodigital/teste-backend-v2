@@ -26,19 +26,19 @@ Esses requisitos são obrigatórios e devem ser desenvolvidos para a entrega do 
 
 ### Requisitos de négocio
 
-* **API de CRUD**: Você deve desenvolver uma API que exponha os métodos de Criar, Excluir, Editar e Ler para as seguintes entidades:
-  * Equipamento.
-  * Estado de equipamento.
-  * Modelo de Equipamento.
-  * Ganhos por hora por estado.
-  * Histórico de posições de um equipamento.
-  * Histórico de estados de um equipamento.
+- [x] **API de CRUD**: Você deve desenvolver uma API que exponha os métodos de Criar, Excluir, Editar e Ler para as seguintes entidades:
+  - [x] Equipamento.
+  - [x] Estado de equipamento. 
+  - [x] Modelo de Equipamento. 
+  - [x] Ganhos por hora por estado.
+  - [x] Histórico de posições de um equipamento.
+  - [x] Histórico de estados de um equipamento.
 
-* **Estado atual do equipamento**: Endpoint na API que deve retornar o estado mais recente dos equipamentos.
+- [x] **Estado atual do equipamento**: Endpoint na API que deve retornar o estado mais recente dos equipamentos.
 
-* **Posição atual por equipamento**: Endpoint na API que deve retornar a posição mais recente dos equipamentos.
+- [x] **Posição atual por equipamento**: Endpoint na API que deve retornar a posição mais recente dos equipamentos.
 
-* **Página Histórico de estados**: Página símples em **Razor** que liste o histórico de estados por equipamento.
+- [x] **Página Histórico de estados**: Página simples em **Razor** que liste o histórico de estados por equipamento.
 
 ## Como restaurar o banco de dados
 

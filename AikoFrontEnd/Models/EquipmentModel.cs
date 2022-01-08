@@ -1,14 +1,10 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace AikoFrontEnd.Models
-{
+{   
     public class EquipmentModel
     {
-        [Required]
-        [Key]
-        public Guid id { get; set; }
-        [Required]
-        public String name { get; set; }
+        public Guid Id { get; set; }
+        public String Name { get; set; }
     }
 }
