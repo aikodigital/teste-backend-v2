@@ -26,7 +26,7 @@ namespace AikoFrontEnd.Pages
             using (var client = new HttpClient())
             {
                 var responseHist = await client.GetAsync(
-                    "https://localhost:5001/api/EquipmentPositionHistories/currentState");
+                    "https://localhost:5001/api/EquipmentPositionHistories/currentPosition");
                 responseHist.EnsureSuccessStatusCode();
                 
                 currentPositions = JsonConvert.DeserializeObject<List<models.EquipmentPositionHistory>>(responseHist.Content.ReadAsStringAsync().Result);
