@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Class.cs" />
+    <Compile Remove="Models\EquipmentStateHistoryDTO.cs" />
+  </ItemGroup>
+
+</Project>

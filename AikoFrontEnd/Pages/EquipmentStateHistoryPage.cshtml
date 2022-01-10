@@ -1,0 +1,55 @@
+﻿@page "{equipmentId?}"
+@using AikoFrontEnd.Models
+@model EquipmentStateHistoryPage
+@{
+    ViewData["Title"] = "Equipamentos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Equipamentos</h1>
+    @if(Model.currentStates.Count == 0) {
+        <p><em>Atualizando tabela...</em></p>
+    } else {
+        <table>
+            <thead>
+            <th>Nome</th>
+            <th>Status</th>
+            <th>Data do último status</th>
+            </thead>
+            <tbody>
+                @foreach (EquipmentStateHistory hist in Model.currentStates)
+                {
+                    <form method="post">
+                        <tr id=@hist.EquipmentStateId>
+                            <td><input type="submit" value=@hist.Equipment.Name asp-page-handler="Equip" asp-route-equipmentId=@hist.EquipmentId /></td>
+                            <td>@Model.states.Find(s => s.Id == hist.EquipmentStateId).Name</td>
+                            <td>@hist.Date</td>
+                        </tr>
+                    </form>
+                }
+            </tbody>
+        </table>
+    }
+    <h1 class="display-4">Estados por equipamento</h1>
+        @if(Model.equipmentHistory == null || Model.equipmentHistory.Count == 0 ) {
+            <p><em>Clique em uma linha da tabela acima para listar o histórico de estados do equipamento.</em></p>
+        } else {
+            <table>
+                <thead>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                </thead>
+                <tbody>
+                    @foreach (EquipmentStateHistory state in Model.equipmentHistory)
+                    {
+                        <tr style="background-color: @(Model.states.Find(s => s.Id == state.EquipmentStateId).Color + "aa")" >
+                            <td>@state.Equipment.Name</td>
+                            <td>@Model.states.Find(s => s.Id == state.EquipmentStateId).Name</td>
+                            <td>@state.Date</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+</div>

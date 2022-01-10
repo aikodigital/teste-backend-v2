@@ -1,0 +1,32 @@
+@page "{equipmentId?}"
+@using AikoFrontEnd.Models
+@model EquipmentPositionHistoryPage
+@{
+    ViewData["Title"] = "Equipamentos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Current position of equipments</h1>
+    <div id='map' style='width: 800px; height: 600px;'></div>
+    @if (Model.currentPositions.Count > 0) {
+        <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoibGVvbmNvdXRpbmhvMSIsImEiOiJja3k2OXdqbnUwdGU3Mm9wa3V5cjk2dXkwIn0.vJE9hKuPegqvqq4rGVTFrw';
+                        
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [-46.00775909423828,-19.15180015563965],
+                zoom: 9
+            });
+            
+            @foreach (var pos in Model.currentPositions)
+            {
+                @:new mapboxgl.Marker()
+                @:    .setLngLat([@pos.Lon.ToString().Replace(",", "."), @pos.Lat.ToString().Replace(",", ".")])
+                @:    .setPopup(new mapboxgl.Popup().setText("@pos.Equipment.Name em @pos.Date.ToString("g")"))                                                                                                             
+                @:    .addTo(map);
+            }
+        </script>
+    }
+    
+</div>
