@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using AikoAPI;
@@ -41,6 +42,11 @@ namespace AikoAPI
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddHttpsRedirection(options =>
+                {
+                    options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
+                    options.HttpsPort = 5001;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
