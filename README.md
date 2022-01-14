@@ -7,7 +7,7 @@ Faça o [download](https://dotnet.microsoft.com/download/dotnet/5.0) do SDK ou R
 
 #### Clone o repositório e acesse o diretório
 ```bash
-$ git clone https://github.com/evertonandrade/teste-backend-v2/tree/teste/jose-everton-andrade && cd teste-backend-v2
+$ git clone -b teste/jose-everton-da-fraga-andrade https://github.com/evertonandrade/teste-backend-v2.git && cd teste-backend-v2
 ```
 
 #### Para rodar com a CLI do .NET execute:
@@ -31,6 +31,10 @@ $ docker-compose up --build
 - [http://localhost/5000](http://localhost:5000)
 
 OBS: Caso a aplicação não funcione, execute apenas os container do postgres e utilize a sdk do .NET pra rodar a aplicação.
+
+```bash
+$ docker container stop teste-backend-v2-app-1
+```
 
 **IMPORTANTE: Restaurar o banco antes de iniciar a aplicação**
 
