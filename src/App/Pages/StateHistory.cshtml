@@ -1,0 +1,43 @@
+@page
+@using System.Globalization
+@model App.Pages.StateHistoryModel
+
+@{
+    ViewData["Title"] = "Historico de Estados";
+}
+
+<div class="border-dark">
+    <h4 class="text-black-50">Estado Atual do Equipamento</h4>
+    <dl>
+        <dt>Nome</dt>
+        <dd>@Model.LastState.Equipment.Name</dd>
+        <dt>Modelo</dt>
+        <dd>@Model.LastState.Equipment.Model.Name</dd>
+        <dt>Estado</dt>
+        <dd>@Model.LastState.State.Name</dd>
+    </dl>
+</div>
+<div class="col-md-6">
+    <h2>Historico dos Últimos Estados</h2>
+    <table class="table table-hover table-bordered mt-4">
+        <thead class="bg-dark text-white">
+        <tr class="text-center">
+            <th>Estado</th>
+            <th>Data</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var stateHistory in Model.StateHistories.TakeLast(10))
+        {
+            <tr class="text-center">
+                <td style="color: white; background: @stateHistory.State.Color">
+                    @stateHistory.State.Name
+                </td>
+                <td>
+                    @stateHistory.Date.ToString(new CultureInfo("pt-BR"))
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
