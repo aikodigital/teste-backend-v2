@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: container_postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: aikodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./.docker/pgdata:/var/lib/postgresql/data
+      # copy the sql script to create tables
+      - ./sql:/docker-entrypoint-initdb.d/sql
+
+  app:
+    image: ${DOCKER_REGISTRY-}app
+    build:
+        context: .
+        dockerfile: src/App/Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
